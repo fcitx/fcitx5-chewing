@@ -1,0 +1,10 @@
+[Addon]
+Name=fcitx-chewing
+_GeneralName=Chewing
+_Comment=Chewing Wrapper For Fcitx
+Category=InputMethod
+Enabled=True
+Library=fcitx-chewing.so
+Type=SharedLibrary
+IMRegisterMethod=ConfigFile
+Dependency=fcitx-punc

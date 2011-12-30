@@ -1,0 +1,33 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Weng Xuetian <wengxt@gmail.com>, 2010, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-30 14:45-0800\n"
+"PO-Revision-Date: 2011-08-12 01:54+0800\n"
+"Last-Translator: \n"
+"Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+# unknown
+#: /home/march/fcitx-hangul/build/po/tmp/fcitx-chewing.conf.in.h:1
+#: /home/march/fcitx-hangul/build/po/../..//src/eim.c:78
+msgid "Chewing"
+msgstr "Chewing"
+
+#: /home/march/fcitx-hangul/build/po/tmp/fcitx-chewing.conf.in.h:2
+msgid "Chewing Wrapper For Fcitx"
+msgstr "Fcitx 的 Chewing 封装"
+
+# unknown
+#: /home/march/fcitx-hangul/data/fcitx-chewing.desc:4
+msgid "Priority of Chewing"
+msgstr "Chewing 的优先级"
