@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-30 14:45-0800\n"
+"POT-Creation-Date: 2011-12-30 16:46-0800\n"
 "PO-Revision-Date: 2011-08-12 01:54+0800\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 # unknown
 #: /home/march/fcitx-hangul/build/po/tmp/fcitx-chewing.conf.in.h:1
-#: /home/march/fcitx-hangul/build/po/../..//src/eim.c:78
+#: /home/march/fcitx-hangul/build/po/../..//src/eim.c:80
 msgid "Chewing"
 msgstr "Chewing"
 

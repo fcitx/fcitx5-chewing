@@ -68,6 +68,8 @@ void* FcitxChewingCreate(FcitxInstance* instance)
         return NULL;
     }
     chewing->context = chewing_new();
+    chewing->fc.iChewingPriority = 1;
+    chewing->owner = instance;
 
     ConfigChewing(chewing);
 
@@ -102,12 +104,37 @@ void* FcitxChewingCreate(FcitxInstance* instance)
 __EXPORT_API
 INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int state)
 {
-	return 1;
+	FcitxChewing* chewing = (FcitxChewing*) arg;
+    FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
+    FcitxMessages *msgPreedit = FcitxInputStateGetPreedit(input);
+    if (FcitxHotkeyIsHotKeySimple(sym, state)) {
+        char *pho_buffer = (chewing->input_state).pho_buffer;
+        int pho_count = (chewing->input_state).pho_count;
+        unsigned int scan_code;
+
+        pho_buffer[pho_count ++] = sym & 0xff;
+        pho_buffer[pho_count] = '\0';
+        (chewing->input_state).pho_count = strlen(pho_buffer); 
+
+        FcitxLog(INFO,"input:%c\n",pho_buffer[pho_count-1]);
+        
+        FcitxHotkeyGetKey(sym, 0, NULL, &scan_code);
+        
+        chewing_handle_Default(chewing->context, scan_code);
+
+        FcitxLog(INFO,"pho_buffer:%s count:%d\n",chewing->input_state.pho_buffer,chewing->input_state.pho_count);
+        FcitxLog(INFO,"Input Display should be:%s%s\n",chewing->input_state.input_buffer,chewing->input_state.pho_buffer);
+        FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s", chewing->input_state.input_buffer);
+        if(pho_buffer[0])
+            FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s", chewing->input_state.pho_buffer);
+    }
+    return IRV_DISPLAY_MESSAGE;
 }
 
 boolean FcitxChewingInit(void* arg)
 {
 	chewing_Init("/usr/share/chewing", "~/.chewing");
+	return true;
 }
 
 
@@ -120,7 +147,7 @@ boolean FcitxChewingInit(void* arg)
 __EXPORT_API
 INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
 {
-	return "";
+	return IRV_DISPLAY_CANDWORDS;
 }
 
 /**
@@ -131,7 +158,10 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
 __EXPORT_API
 void FcitxChewingDestroy(void* arg)
 {
+	FcitxChewing* chewing = (FcitxChewing*) arg;
+	chewing_delete(chewing->context);
 	chewing_Terminate();
+	free(arg);
 }
 
 /**
