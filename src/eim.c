@@ -71,7 +71,7 @@ void* FcitxChewingCreate(FcitxInstance* instance)
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     FcitxCandidateWordSetChoose(FcitxInputStateGetCandidateList(input), DIGIT_STR_CHOOSE);
     FcitxCandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), 10);
-    int selKey[11] = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 0};
+    int selKey[10] = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
     chewing_set_selKey(c, selKey, 10);
 
     FcitxInstanceRegisterIM(
@@ -156,7 +156,7 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
 		return IRV_DISPLAY_CANDWORDS;
 }
 
-
+__EXPORT_API
 boolean FcitxChewingInit(void* arg)
 {
 	if (0 == chewing_Init("/usr/share/chewing", NULL)) {
@@ -237,8 +237,7 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
  *
  * @return int
  **/
-
-int FcitxChewingGetRawCursorPos(char * str, int upos)
+static int FcitxChewingGetRawCursorPos(char * str, int upos)
 {
 	unsigned int i;
 	int pos =0;
