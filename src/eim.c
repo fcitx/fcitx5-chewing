@@ -122,6 +122,9 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
  	else if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE)) {
  		chewing_handle_Space(c);
  	}
+ 	else if (FcitxHotkeyIsHotKey(sym, state, FCITX_ESCAPE)) {
+ 		chewing_handle_Esc(c);
+ 	}
  	else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_UP)) {
  		chewing_handle_Up(c);
  	}
@@ -135,7 +138,7 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
  		chewing_handle_Left(c);
  	}
  	else if (FcitxHotkeyIsHotKey(sym, state, FCITX_ENTER)) {
-         chewing_handle_Enter(c);
+        chewing_handle_Enter(c);
  	}
  	else {
  		// to do: more chewing_handle
@@ -221,11 +224,10 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
 	FcitxLog(INFO, "buf len: %d, cur: %d", buf_len, cur);
 	int rcur = FcitxChewingGetRawCursorPos(buf_str, cur);
 	FcitxInputStateSetCursorPos(input, rcur);
-	
 
 	// insert zuin in the middle
 	char * half1 = strndup(buf_str, rcur);
-	char * half2 = strdup(buf_str+rcur);
+	char * half2 = strdup(buf_str + rcur);
 	FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s%s%s", half1, zuin_str, half2);
 	chewing_free(buf_str); chewing_free(zuin_str);
 
