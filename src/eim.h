@@ -50,7 +50,7 @@ __EXPORT_API boolean FcitxChewingInit(void*);
 __EXPORT_API void FcitxChewingReset(void* arg);
 __EXPORT_API void ReloadConfigFcitxChewing(void*);
 __EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWord(void * arg, FcitxCandidateWord* cw);
-
+int FcitxChewingGetRawCursorPos(char * str, int upos);
 
 typedef struct _FcitxChewing {
     FcitxChewingConfig fc;
