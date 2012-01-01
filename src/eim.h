@@ -47,22 +47,12 @@ __EXPORT_API void FcitxChewingDestroy(void* arg);
 __EXPORT_API INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int state);
 __EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWords(void *arg);
 __EXPORT_API boolean FcitxChewingInit(void*);
+__EXPORT_API void FcitxChewingReset(void* arg);
 __EXPORT_API void ReloadConfigFcitxChewing(void*);
-
-#define MAX_INPUT_COUNT 1000
-#define MAX_PHO_COUNT 4
-
-typedef struct _FcitxChewingInputState {
-    char input_buffer[MAX_INPUT_COUNT];
-    char pho_buffer[MAX_PHO_COUNT + 1];
-    int input_count;
-    int pho_count;
-    int input_pos;
-} FcitxChewingInputState;
+__EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWord(void * arg, FcitxCandidateWord* cw);
 
 
 typedef struct _FcitxChewing {
-	FcitxChewingInputState input_state;
     FcitxChewingConfig fc;
     FcitxInstance* owner;
     ChewingContext * context;

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-30 16:46-0800\n"
+"POT-Creation-Date: 2011-12-30 18:20-0800\n"
 "PO-Revision-Date: 2011-08-12 01:54+0800\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
@@ -18,16 +18,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 # unknown
-#: /home/march/fcitx-hangul/build/po/tmp/fcitx-chewing.conf.in.h:1
-#: /home/march/fcitx-hangul/build/po/../..//src/eim.c:80
+#: /home/march/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:1
+#: /home/march/fcitx-chewing/build/po/../..//src/eim.c:80
 msgid "Chewing"
 msgstr "Chewing"
 
-#: /home/march/fcitx-hangul/build/po/tmp/fcitx-chewing.conf.in.h:2
+#: /home/march/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:2
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Fcitx 的 Chewing 封装"
 
 # unknown
-#: /home/march/fcitx-hangul/data/fcitx-chewing.desc:4
+#: /home/march/fcitx-chewing/data/fcitx-chewing.desc:4
 msgid "Priority of Chewing"
 msgstr "Chewing 的优先级"

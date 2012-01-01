@@ -6,5 +6,3 @@ Category=InputMethod
 Enabled=True
 Library=fcitx-chewing.so
 Type=SharedLibrary
-IMRegisterMethod=ConfigFile
-Dependency=fcitx-punc
