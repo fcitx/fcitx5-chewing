@@ -1,7 +1,7 @@
 [InputMethod]
-UniqueName=zhuyin-libpinyin
-_Name=Bopomofo (LibPinyin)
-IconName=bopomofo
+UniqueName=Chewing
+_Name=Bopomofo (libchewing)
+IconName=chewing
 Priority=1
-LangCode=zh_TW
-Parent=fcitx-libpinyin
+LangCode=zh_CN
+Parent=fcitx-chewing

@@ -3,5 +3,4 @@
 ./po/conf.po
 @REL_SOURCE_ROOT@/src/eim.c
 @REL_SOURCE_ROOT@/src/eim.h
-@REL_SOURCE_ROOT@/src/config.c
 @REL_SOURCE_ROOT@/data/fcitx-chewing.conf.in

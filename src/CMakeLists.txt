@@ -9,7 +9,6 @@ include_directories (${FCITX4_FCITX_UTILS_INCLUDE_DIRS})
 
 set( fcitx_chewing_sources
     eim.c
-    config.c
     )
 
 add_definitions( -DLOCALEDIR=\"${CMAKE_INSTALL_PREFIX}/share/locale\" )

@@ -22,7 +22,6 @@
 #define EIM_H
 
 #include <fcitx/ime.h>
-#include <fcitx-config/fcitx-config.h>
 #include <fcitx/instance.h>
 #include <fcitx/candidate.h>
 #include <chewing.h>
@@ -35,25 +34,14 @@
 
 #define _(x) gettext(x)
 
-
-typedef struct _FcitxChewingConfig {
-	int iChewingPriority;
-    FcitxGenericConfig gconfig;
-} FcitxChewingConfig;
-
-CONFIG_BINDING_DECLARE(FcitxChewingConfig);
 __EXPORT_API void* FcitxChewingCreate(FcitxInstance* instance);
 __EXPORT_API void FcitxChewingDestroy(void* arg);
 __EXPORT_API INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int state);
 __EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWords(void *arg);
 __EXPORT_API boolean FcitxChewingInit(void*);
 __EXPORT_API void FcitxChewingReset(void* arg);
-__EXPORT_API void ReloadConfigFcitxChewing(void*);
-__EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWord(void * arg, FcitxCandidateWord* cw);
-int FcitxChewingGetRawCursorPos(char * str, int upos);
 
 typedef struct _FcitxChewing {
-    FcitxChewingConfig fc;
     FcitxInstance* owner;
     ChewingContext * context;
 } FcitxChewing;

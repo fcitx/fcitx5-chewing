@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-01 02:08-0800\n"
+"POT-Creation-Date: 2012-01-01 06:59-0800\n"
 "PO-Revision-Date: 2011-08-12 01:54+0800\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
@@ -17,17 +17,11 @@ msgstr ""
 "X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-# unknown
 #: /home/march/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:1
-#: /home/march/fcitx-chewing/build/po/../..//src/eim.c:83
+#: /home/march/fcitx-chewing/build/po/../..//src/eim.c:81
 msgid "Chewing"
-msgstr "Chewing"
+msgstr "酷音"
 
 #: /home/march/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:2
 msgid "Chewing Wrapper For Fcitx"
-msgstr "Fcitx 的 Chewing 封装"
-
-# unknown
-#: /home/march/fcitx-chewing/data/fcitx-chewing.desc:4
-msgid "Priority of Chewing"
-msgstr "Chewing 的优先级"
+msgstr "Fcitx 的 酷音 封装"
