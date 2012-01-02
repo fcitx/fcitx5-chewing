@@ -158,7 +158,7 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     ChewingContext * c = chewing->context;
     
-    if (FcitxHotkeyIsHotKeyDigit(sym, state) && !chewing_cand_CheckDone(c))
+    if (FcitxHotkeyIsHotKeyDigit(sym, state) && chewing_cand_CheckDone(c))
         return IRV_TO_PROCESS;
 
     if (FcitxHotkeyIsHotKeySimple(sym, state)) {
@@ -256,6 +256,7 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
 
     FcitxLog(DEBUG, "%s %s", buf_str, zuin_str);
 
+    /* if not check done, so there is candidate word */
     if (!chewing_cand_CheckDone(c)) {
         //get candidate word
         chewing_cand_Enumerate(c);
