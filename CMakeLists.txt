@@ -2,6 +2,9 @@ cmake_minimum_required (VERSION 2.6)
 
 project(fcitx-chewing)
 
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+
+FIND_PACKAGE(Chewing REQUIRED)
 FIND_PACKAGE(Gettext REQUIRED)
 FIND_PACKAGE(Fcitx REQUIRED)
 
@@ -23,7 +26,10 @@ if(NOT DEFINED LIB_INSTALL_DIR)
     set(LIB_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib)
 endif()
 
-set(HAVE_CONFIG_H)
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/config.h"
+    )
 
 set(libdir ${LIB_INSTALL_DIR})
 
