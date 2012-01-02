@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (C) 2010~2010 by CSSlayer                                   *
+ *   Copyright (C) 2012~2012 by CSSlayer                                   *
  *   wengxt@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -18,48 +18,13 @@
  *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
  ***************************************************************************/
 
-#ifndef EIM_H
-#define EIM_H
+#include "eim.h"
 
-#include <fcitx/ime.h>
-#include <fcitx/instance.h>
-#include <fcitx/candidate.h>
-#include <chewing.h>
-
-#ifdef __cplusplus
-#define __EXPORT_API extern "C"
-#else
-#define __EXPORT_API
-#endif
-
-#define _(x) dgettext("fcitx-chewing", x)
-
-__EXPORT_API void* FcitxChewingCreate(FcitxInstance* instance);
-__EXPORT_API void FcitxChewingDestroy(void* arg);
-__EXPORT_API INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int state);
-__EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWords(void *arg);
-__EXPORT_API boolean FcitxChewingInit(void*);
-__EXPORT_API void FcitxChewingReset(void* arg);
-
-typedef enum _FcitxChewingLayout {
-    A
-} FcitxChewingLayout;
-
-typedef struct _FcitxChewingConfig {
-    FcitxGenericConfig config;
-    boolean bAddPhraseForward;
-    boolean bChoiceBackward;
-    boolean bAutoShiftCursor;
-    boolean bSpaceAsSelection;
-    FcitxChewingLayout layout;
-} FcitxChewingConfig;
-
-typedef struct _FcitxChewing {
-    FcitxChewingConfig config;
-    FcitxInstance* owner;
-    ChewingContext * context;
-} FcitxChewing;
-
-CONFIG_BINDING_DECLARE(FcitxChewingConfig);
-
-#endif
+/* USE fcitx provided macro to bind config and variable */
+CONFIG_BINDING_BEGIN(FcitxChewingConfig)
+CONFIG_BINDING_REGISTER("Chewing", "AddPhraseForward", bAddPhraseForward)
+CONFIG_BINDING_REGISTER("Chewing", "ChoiceBackward", bChoiceBackward)
+CONFIG_BINDING_REGISTER("Chewing", "AutoShiftCursor", bAutoShiftCursor)
+CONFIG_BINDING_REGISTER("Chewing", "SpaceAsSelection", bSpaceAsSelection)
+CONFIG_BINDING_REGISTER("Chewing", "Layout", layout)
+CONFIG_BINDING_END()

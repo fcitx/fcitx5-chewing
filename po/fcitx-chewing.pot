@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-02 13:48+0800\n"
+"POT-Creation-Date: 2012-01-02 16:25+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,14 +17,66 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:4
-msgid "Priority of Chewing"
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:3
+msgid "Add Phrase Forward"
+msgstr ""
+
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:8
+msgid "Backward phrase choice"
+msgstr ""
+
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:13
+msgid "Automatically shift cursor"
+msgstr ""
+
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:18
+msgid "Space as selection key"
+msgstr ""
+
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:23
+msgid "Keyboard Layout"
 msgstr ""
 
 # unknown
 #: /home/saber/Develop/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:1
-#: /home/saber/Develop/fcitx-chewing/build/po/../..//src/eim.c:81
+#: /home/saber/Develop/fcitx-chewing/build/po/../..//src/eim.c:129
 msgid "Chewing"
+msgstr ""
+
+#: unknown
+msgid "DACHEN_CP26 Keyboard"
+msgstr ""
+
+#: unknown
+msgid "Default Keyboard"
+msgstr ""
+
+#: unknown
+msgid "Dvorak Keyboard"
+msgstr ""
+
+#: unknown
+msgid "Dvorak Keyboard with Hsu's support"
+msgstr ""
+
+#: unknown
+msgid "ETen Keyboard"
+msgstr ""
+
+#: unknown
+msgid "Gin-Yieh Keyboard"
+msgstr ""
+
+#: unknown
+msgid "Han-Yu PinYin Keyboard"
+msgstr ""
+
+#: unknown
+msgid "Hsu's Keyboard"
+msgstr ""
+
+#: unknown
+msgid "IBM Keyboard"
 msgstr ""
 
 #: /home/saber/Develop/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:2

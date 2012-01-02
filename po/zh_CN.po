@@ -1,31 +1,85 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Weng Xuetian <wengxt@gmail.com>, 2010, 2011.
+# Weng Xuetian <wengxt@gmail.com>, 2010, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-02 13:48+0800\n"
-"PO-Revision-Date: 2011-08-12 01:54+0800\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2012-01-02 16:25+0800\n"
+"PO-Revision-Date: 2012-01-02 16:30+0800\n"
+"Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
 "Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
-"Language: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:3
+msgid "Add Phrase Forward"
+msgstr "前方加词"
+
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:13
+msgid "Automatically shift cursor"
+msgstr "选词完毕自动移到下一个词"
+
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:8
+msgid "Backward phrase choice"
+msgstr "后方选择字词"
+
 #: /home/saber/Develop/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:1
-#: /home/saber/Develop/fcitx-chewing/build/po/../..//src/eim.c:81
+#: /home/saber/Develop/fcitx-chewing/build/po/../..//src/eim.c:129
 msgid "Chewing"
 msgstr "酷音"
 
 #: /home/saber/Develop/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:2
 msgid "Chewing Wrapper For Fcitx"
-msgstr "Fcitx 的 酷音 封装"
+msgstr "Fcitx 的 酷音封装"
 
-#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:4
-msgid "Priority of Chewing"
-msgstr ""
+#: unknown
+msgid "DACHEN_CP26 Keyboard"
+msgstr "大千26键"
+
+#: unknown
+msgid "Default Keyboard"
+msgstr "默认键盘"
+
+#: unknown
+msgid "Dvorak Keyboard"
+msgstr "Dvorak键盘"
+
+#: unknown
+msgid "Dvorak Keyboard with Hsu's support"
+msgstr "Dvorak键盘 + 许氏注音"
+
+#: unknown
+msgid "ETen Keyboard"
+msgstr "倚天键盘"
+
+#: unknown
+msgid "Gin-Yieh Keyboard"
+msgstr "精业键盘"
+
+#: unknown
+msgid "Han-Yu PinYin Keyboard"
+msgstr "汉语拼音键盘"
+
+#: unknown
+msgid "Hsu's Keyboard"
+msgstr "许氏键盘"
+
+#: unknown
+msgid "IBM Keyboard"
+msgstr "IBM键盘"
+
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:23
+msgid "Keyboard Layout"
+msgstr "键盘布局"
+
+#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:18
+msgid "Space as selection key"
+msgstr "空格键选词"
+
+
