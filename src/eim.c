@@ -120,6 +120,7 @@ void* FcitxChewingCreate(FcitxInstance* instance)
     chewing_set_candPerPage(c, config->iMaxCandWord);
     FcitxCandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
     chewing_set_selKey(c, selKey, 10);
+    LoadChewingConfig(&chewing->config);
     ConfigChewing(chewing);
 
     FcitxInstanceRegisterIM(
@@ -253,7 +254,7 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     char * zuin_str = chewing_zuin_String(c, NULL);
     ConfigChewing(chewing);
 
-    FcitxLog(INFO, "%s %s", buf_str, zuin_str);
+    FcitxLog(DEBUG, "%s %s", buf_str, zuin_str);
 
     if (!chewing_cand_CheckDone(c)) {
         //get candidate word
@@ -280,7 +281,7 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     FcitxInputStateSetShowCursor(input, true);
     int buf_len = chewing_buffer_Len(c);
     int cur = chewing_cursor_Current(c);
-    FcitxLog(INFO, "buf len: %d, cur: %d", buf_len, cur);
+    FcitxLog(DEBUG, "buf len: %d, cur: %d", buf_len, cur);
     int rcur = FcitxChewingGetRawCursorPos(buf_str, cur);
     FcitxInputStateSetCursorPos(input, rcur);
 
