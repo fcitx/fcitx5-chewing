@@ -157,8 +157,9 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
     FcitxChewing* chewing = (FcitxChewing*) arg;
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     ChewingContext * c = chewing->context;
-    
-    if (FcitxHotkeyIsHotKeyDigit(sym, state) && chewing_cand_CheckDone(c))
+
+    if (chewing_cand_CheckDone(c)
+        && (FcitxHotkeyIsHotKeyDigit(sym, state) || FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT) || FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)))
         return IRV_TO_PROCESS;
 
     if (FcitxHotkeyIsHotKeySimple(sym, state)) {
@@ -179,9 +180,9 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_PGDN)) {
         chewing_handle_PageUp(c);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT)) {
-        return IRV_TO_PROCESS;
+        chewing_handle_Right(c);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)) {
-        return IRV_TO_PROCESS;
+        chewing_handle_Left(c);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_ENTER)) {
         chewing_handle_Enter(c);
     } else if (state == FcitxKeyState_Ctrl && FcitxHotkeyIsHotKeyDigit(sym, FcitxKeyState_None)) {

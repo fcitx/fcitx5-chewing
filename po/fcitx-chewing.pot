@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-02 16:25+0800\n"
+"POT-Creation-Date: 2012-01-05 12:00+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 
 # unknown
 #: /home/saber/Develop/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:1
-#: /home/saber/Develop/fcitx-chewing/build/po/../..//src/eim.c:129
+#: /home/saber/Develop/fcitx-chewing/build/po/../..//src/eim.c:130
 msgid "Chewing"
 msgstr ""
 

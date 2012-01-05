@@ -1,6 +1,6 @@
 [InputMethod]
-UniqueName=Chewing
-_Name=Bopomofo (libchewing)
+UniqueName=chewing
+_Name=Chewing
 IconName=chewing
 Priority=1
 LangCode=zh_CN

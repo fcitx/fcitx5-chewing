@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-02 16:25+0800\n"
-"PO-Revision-Date: 2012-01-02 16:30+0800\n"
+"POT-Creation-Date: 2012-01-05 12:00+0800\n"
+"PO-Revision-Date: 2012-01-05 12:05+0800\n"
 "Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
-"Language-Team: Chinese Simplified <kde-i18n-doc@kde.org>\n"
+"Language-Team: Chinese Simplified <fcitx-dev@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,13 +30,13 @@ msgid "Backward phrase choice"
 msgstr "后方选择字词"
 
 #: /home/saber/Develop/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:1
-#: /home/saber/Develop/fcitx-chewing/build/po/../..//src/eim.c:129
+#: /home/saber/Develop/fcitx-chewing/build/po/../..//src/eim.c:130
 msgid "Chewing"
-msgstr "酷音"
+msgstr "新酷音"
 
 #: /home/saber/Develop/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:2
 msgid "Chewing Wrapper For Fcitx"
-msgstr "Fcitx 的 酷音封装"
+msgstr "Fcitx 的 新酷音封装"
 
 #: unknown
 msgid "DACHEN_CP26 Keyboard"
@@ -81,5 +81,4 @@ msgstr "键盘布局"
 #: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:18
 msgid "Space as selection key"
 msgstr "空格键选词"
-
 
