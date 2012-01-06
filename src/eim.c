@@ -158,7 +158,7 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     ChewingContext * c = chewing->context;
 
-    if (chewing_cand_CheckDone(c)
+    if (FcitxCandidateWordGetListSize(FcitxInputStateGetCandidateList(input)) > 0
         && (FcitxHotkeyIsHotKeyDigit(sym, state) || FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT) || FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)))
         return IRV_TO_PROCESS;
 
