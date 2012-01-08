@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-05 12:00+0800\n"
-"PO-Revision-Date: 2012-01-05 12:04+0800\n"
+"POT-Creation-Date: 2012-01-09 00:00+0800\n"
+"PO-Revision-Date: 2012-01-09 00:02+0800\n"
 "Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
 "Language-Team: Chinese Traditional <fcitx-dev@googlegroups.com>\n"
 "Language: zh_TW\n"
@@ -41,7 +41,7 @@ msgstr "Fcitx 的 新酷音封装"
 
 #: unknown
 msgid "DACHEN_CP26 Keyboard"
-msgstr "大千26鍵"
+msgstr "大千26鍵鍵盤"
 
 #: unknown
 msgid "Default Keyboard"
@@ -53,11 +53,15 @@ msgstr "Dvorak 鍵盤"
 
 #: unknown
 msgid "Dvorak Keyboard with Hsu's support"
-msgstr "許氏 Dvorak 鍵盤"
+msgstr "Dvorak 鍵盤 + 許氏注音"
 
 #: unknown
 msgid "ETen Keyboard"
 msgstr "倚天鍵盤"
+
+#: unknown
+msgid "ETen26 Keyboard"
+msgstr "倚天26鍵鍵盤"
 
 #: unknown
 msgid "Gin-Yieh Keyboard"
@@ -82,3 +86,5 @@ msgstr "鍵盤佈局"
 #: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:18
 msgid "Space as selection key"
 msgstr "使用空白鍵選擇候選字詞"
+
+
