@@ -21,17 +21,18 @@ DefaultValue=True
 [Chewing/Layout]
 Type=Enum
 Description=Keyboard Layout
-DefaultValue=Default
-EnumCount=9
+DefaultValue=Default Keyboard
+EnumCount=10
 Enum0=Default Keyboard
 Enum1=Hsu's Keyboard
 Enum2=IBM Keyboard
 Enum3=Gin-Yieh Keyboard
 Enum4=ETen Keyboard
-Enum5=Dvorak Keyboard
-Enum6=Dvorak Keyboard with Hsu's support
-Enum7=DACHEN_CP26 Keyboard
-Enum8=Han-Yu PinYin Keyboard
+Enum5=ETen26 Keyboard
+Enum6=Dvorak Keyboard
+Enum7=Dvorak Keyboard with Hsu's support
+Enum8=DACHEN_CP26 Keyboard
+Enum9=Han-Yu PinYin Keyboard
 
 [DescriptionFile]
 LocaleDomain=fcitx-chewing

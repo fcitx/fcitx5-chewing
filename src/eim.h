@@ -41,9 +41,18 @@ __EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWords(void *arg);
 __EXPORT_API boolean FcitxChewingInit(void*);
 __EXPORT_API void FcitxChewingReset(void* arg);
 
-typedef enum _FcitxChewingLayout {
-    A
-} FcitxChewingLayout;
+typedef enum _FcitxChewingKBType {
+    KB_DEFAULT,
+    KB_HSU,
+    KB_IBM,
+    KB_GIN_YEIH,
+    KB_ET,
+    KB_ET26,
+    KB_DVORAK,
+    KB_DVORAK_HSU,
+    KB_DACHEN_CP26,
+    KB_HANYU_PINYIN
+} FcitxChewingKBType;
 
 typedef struct _FcitxChewingConfig {
     FcitxGenericConfig config;
@@ -51,7 +60,7 @@ typedef struct _FcitxChewingConfig {
     boolean bChoiceBackward;
     boolean bAutoShiftCursor;
     boolean bSpaceAsSelection;
-    FcitxChewingLayout layout;
+    FcitxChewingKBType layout;
 } FcitxChewingConfig;
 
 typedef struct _FcitxChewing {

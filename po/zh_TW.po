@@ -53,7 +53,7 @@ msgstr "Dvorak 鍵盤"
 
 #: unknown
 msgid "Dvorak Keyboard with Hsu's support"
-msgstr "Dvorak 鍵盤 + 許氏注音"
+msgstr "許氏 Dvorak 鍵盤"
 
 #: unknown
 msgid "ETen Keyboard"
@@ -65,7 +65,7 @@ msgstr "精業鍵盤"
 
 #: unknown
 msgid "Han-Yu PinYin Keyboard"
-msgstr "漢語拼音排列"
+msgstr "漢語拼音鍵盤"
 
 #: unknown
 msgid "Hsu's Keyboard"
@@ -82,4 +82,3 @@ msgstr "鍵盤佈局"
 #: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:18
 msgid "Space as selection key"
 msgstr "使用空白鍵選擇候選字詞"
-
