@@ -3,5 +3,5 @@ UniqueName=chewing
 _Name=Chewing
 IconName=chewing
 Priority=1
-LangCode=zh_CN
+LangCode=zh_TW
 Parent=fcitx-chewing
