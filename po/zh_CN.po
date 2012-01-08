@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-05 12:00+0800\n"
-"PO-Revision-Date: 2012-01-05 12:05+0800\n"
+"POT-Creation-Date: 2012-01-09 00:00+0800\n"
+"PO-Revision-Date: 2012-01-09 00:01+0800\n"
 "Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
 "Language-Team: Chinese Simplified <fcitx-dev@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -40,7 +40,7 @@ msgstr "Fcitx 的 新酷音封装"
 
 #: unknown
 msgid "DACHEN_CP26 Keyboard"
-msgstr "大千26键"
+msgstr "大千26键键盘"
 
 #: unknown
 msgid "Default Keyboard"
@@ -57,6 +57,10 @@ msgstr "Dvorak键盘 + 许氏注音"
 #: unknown
 msgid "ETen Keyboard"
 msgstr "倚天键盘"
+
+#: unknown
+msgid "ETen26 Keyboard"
+msgstr "倚天26键键盘"
 
 #: unknown
 msgid "Gin-Yieh Keyboard"
