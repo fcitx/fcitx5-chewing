@@ -95,7 +95,7 @@ void* FcitxChewingCreate(FcitxInstance* instance)
     FILE* fp = FcitxXDGGetFileUserWithPrefix("chewing", ".place_holder", "w", NULL);
     if (fp)
         fclose(fp);
-    FcitxXDGGetFileUserWithPrefix("/", "chewing", NULL, &user_path);
+    FcitxXDGGetFileUserWithPrefix("chewing", "", NULL, &user_path);
     FcitxLog(INFO, "Chewing storage path %s", user_path);
     if (0 == chewing_Init(CHEWING_DATADIR, user_path)) {
         FcitxLog(DEBUG, "chewing init ok");
@@ -167,6 +167,8 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
         chewing_handle_Default(c, scan_code);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE)) {
         chewing_handle_Backspace(c);
+    } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_ESCAPE)) {
+        chewing_handle_Esc(c);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_DELETE)) {
         chewing_handle_Del(c);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE)) {
@@ -242,6 +244,7 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     FcitxChewing* chewing = (FcitxChewing*) arg;
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     FcitxMessages *msgPreedit = FcitxInputStateGetPreedit(input);
+    FcitxMessages *clientPreedit = FcitxInputStateGetClientPreedit(input);
     ChewingContext * c = chewing->context;
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(chewing->owner);
     
@@ -286,11 +289,13 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     FcitxLog(DEBUG, "buf len: %d, cur: %d", buf_len, cur);
     int rcur = FcitxChewingGetRawCursorPos(buf_str, cur);
     FcitxInputStateSetCursorPos(input, rcur);
+    FcitxInputStateSetClientCursorPos(input, rcur);
 
     // insert zuin in the middle
     char * half1 = strndup(buf_str, rcur);
     char * half2 = strdup(buf_str + rcur);
     FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s%s%s", half1, zuin_str, half2);
+    FcitxMessagesAddMessageAtLast(clientPreedit, MSG_INPUT, "%s%s%s", half1, zuin_str, half2);
     chewing_free(buf_str); chewing_free(zuin_str);
 
     return IRV_DISPLAY_CANDWORDS;
