@@ -210,6 +210,7 @@ __EXPORT_API
 boolean FcitxChewingInit(void* arg)
 {
     FcitxChewing* chewing = (FcitxChewing*) arg;
+    FcitxInstanceSetContext(chewing->owner, CONTEXT_IM_KEYBOARD_LAYOUT, "us");
     FcitxInstanceSetContext(chewing->owner, CONTEXT_ALTERNATIVE_PREVPAGE_KEY, FCITX_LEFT);
     FcitxInstanceSetContext(chewing->owner, CONTEXT_ALTERNATIVE_NEXTPAGE_KEY, FCITX_RIGHT);
     return true;

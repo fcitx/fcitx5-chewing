@@ -5,7 +5,7 @@
 #  CHEWING_INCLUDE_DIR - the CHEWING include directory
 #  CHEWING_LIBRARIES - CHEWING library
 #
-# Copyright (c) 2010 Dario Freddi <drf@kde.org>
+# Copyright (c) 2012 CSSlayer <wengxt@gmail.com>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
