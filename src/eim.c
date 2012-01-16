@@ -253,7 +253,7 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     FcitxCandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
 
     //clean up window asap
-    FcitxInstanceCleanInputWindowUp(chewing->owner);
+    FcitxInstanceCleanInputWindow(chewing->owner);
 
     char * buf_str = chewing_buffer_String(c);
     char * zuin_str = chewing_zuin_String(c, NULL);
@@ -289,15 +289,15 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     int cur = chewing_cursor_Current(c);
     FcitxLog(DEBUG, "buf len: %d, cur: %d", buf_len, cur);
     int rcur = FcitxChewingGetRawCursorPos(buf_str, cur);
-    FcitxInputStateSetCursorPos(input, rcur);
-    FcitxInputStateSetClientCursorPos(input, rcur);
+    FcitxInputStateSetCursorPos(input, rcur); //raw cur
+    FcitxInputStateSetClientCursorPos(input, cur); //utf8 cur
 
     // insert zuin in the middle
     char * half1 = strndup(buf_str, rcur);
     char * half2 = strdup(buf_str + rcur);
     FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s%s%s", half1, zuin_str, half2);
     FcitxMessagesAddMessageAtLast(clientPreedit, MSG_INPUT, "%s%s%s", half1, zuin_str, half2);
-    chewing_free(buf_str); chewing_free(zuin_str);
+    chewing_free(buf_str); chewing_free(zuin_str); free(half1); free(half2);
 
     return IRV_DISPLAY_CANDWORDS;
 }
