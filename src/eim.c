@@ -289,8 +289,8 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     int cur = chewing_cursor_Current(c);
     FcitxLog(DEBUG, "buf len: %d, cur: %d", buf_len, cur);
     int rcur = FcitxChewingGetRawCursorPos(buf_str, cur);
-    FcitxInputStateSetCursorPos(input, rcur); //raw cur
-    FcitxInputStateSetClientCursorPos(input, cur); //utf8 cur
+    FcitxInputStateSetCursorPos(input, rcur);
+    FcitxInputStateSetClientCursorPos(input, rcur);
 
     // insert zuin in the middle
     char * half1 = strndup(buf_str, rcur);
