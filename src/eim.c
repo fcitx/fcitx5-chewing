@@ -112,14 +112,14 @@ void* FcitxChewingCreate(FcitxInstance* instance)
     bindtextdomain("fcitx-chewing", LOCALEDIR);
 
     chewing->context = chewing_new();
-    ChewingContext * c = chewing->context;
+    ChewingContext * ctx = chewing->context;
     chewing->owner = instance;
-    chewing_set_ChiEngMode(c, CHINESE_MODE);
-    chewing_set_maxChiSymbolLen(c, 16);
+    chewing_set_ChiEngMode(ctx, CHINESE_MODE);
+    chewing_set_maxChiSymbolLen(ctx, CHEWING_MAX_LEN);
     // chewing will crash without set page
-    chewing_set_candPerPage(c, config->iMaxCandWord);
+    chewing_set_candPerPage(ctx, config->iMaxCandWord);
     FcitxCandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
-    chewing_set_selKey(c, selKey, 10);
+    chewing_set_selKey(ctx, selKey, 10);
     LoadChewingConfig(&chewing->config);
     ConfigChewing(chewing);
 
@@ -156,49 +156,64 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
 {
     FcitxChewing* chewing = (FcitxChewing*) arg;
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
-    ChewingContext * c = chewing->context;
+    ChewingContext * ctx = chewing->context;
+    int zuin_len;
 
     if (FcitxCandidateWordGetListSize(FcitxInputStateGetCandidateList(input)) > 0
         && (FcitxHotkeyIsHotKeyDigit(sym, state) || FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT) || FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)))
         return IRV_TO_PROCESS;
 
     if (FcitxHotkeyIsHotKeySimple(sym, state)) {
-        int scan_code = (int) sym & 0xff;
-        chewing_handle_Default(c, scan_code);
+        if (chewing_buffer_Len(ctx) < CHEWING_MAX_LEN-5) {
+            int scan_code = (int) sym & 0xff;
+            chewing_handle_Default(ctx, scan_code);
+        }
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE)) {
-        chewing_handle_Backspace(c);
+        char * zuin_str = chewing_zuin_String(ctx, &zuin_len);
+        chewing_free(zuin_str);
+        if (chewing_buffer_Len(ctx) + zuin_len == 0)
+            return IRV_TO_PROCESS;
+        chewing_handle_Backspace(ctx);
+        if (chewing_buffer_Len(ctx) + zuin_len == 0)
+            return IRV_CLEAN;
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_ESCAPE)) {
-        chewing_handle_Esc(c);
+        chewing_handle_Esc(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_DELETE)) {
-        chewing_handle_Del(c);
+        char * zuin_str = chewing_zuin_String(ctx, &zuin_len);
+        chewing_free(zuin_str);
+        if (chewing_buffer_Len(ctx) + zuin_len == 0)
+            return IRV_TO_PROCESS;
+        chewing_handle_Del(ctx);
+        if (chewing_buffer_Len(ctx) + zuin_len == 0)
+            return IRV_CLEAN;
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE)) {
-        chewing_handle_Space(c);
+        chewing_handle_Space(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_UP)) {
-        chewing_handle_Up(c);
+        chewing_handle_Up(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_DOWN)) {
-        chewing_handle_Down(c);
+        chewing_handle_Down(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_PGUP)) {
-        chewing_handle_PageDown(c);
+        chewing_handle_PageDown(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_PGDN)) {
-        chewing_handle_PageUp(c);
+        chewing_handle_PageUp(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT)) {
-        chewing_handle_Right(c);
+        chewing_handle_Right(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)) {
-        chewing_handle_Left(c);
+        chewing_handle_Left(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_ENTER)) {
-        chewing_handle_Enter(c);
+        chewing_handle_Enter(ctx);
     } else if (state == FcitxKeyState_Ctrl && FcitxHotkeyIsHotKeyDigit(sym, FcitxKeyState_None)) {
-        chewing_handle_CtrlNum(c, sym);
+        chewing_handle_CtrlNum(ctx, sym);
     } else {
         // to do: more chewing_handle
         return IRV_TO_PROCESS;
     }
-    if (chewing_keystroke_CheckAbsorb(c)) {
+    if (chewing_keystroke_CheckAbsorb(ctx)) {
         return IRV_DISPLAY_CANDWORDS;
-    } else if (chewing_keystroke_CheckIgnore(c)) {
+    } else if (chewing_keystroke_CheckIgnore(ctx)) {
         return IRV_TO_PROCESS;
-    } else if (chewing_commit_Check(c)) {
-        char* str = chewing_commit_String(c);
+    } else if (chewing_commit_Check(ctx)) {
+        char* str = chewing_commit_String(ctx);
         strcpy(FcitxInputStateGetOutputString(input), str);
         chewing_free(str);
         return IRV_COMMIT_STRING;
@@ -246,28 +261,28 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     FcitxMessages *msgPreedit = FcitxInputStateGetPreedit(input);
     FcitxMessages *clientPreedit = FcitxInputStateGetClientPreedit(input);
-    ChewingContext * c = chewing->context;
+    ChewingContext * ctx = chewing->context;
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(chewing->owner);
     
-    chewing_set_candPerPage(c, config->iMaxCandWord);
+    chewing_set_candPerPage(ctx, config->iMaxCandWord);
     FcitxCandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
 
     //clean up window asap
     FcitxInstanceCleanInputWindow(chewing->owner);
 
-    char * buf_str = chewing_buffer_String(c);
-    char * zuin_str = chewing_zuin_String(c, NULL);
+    char * buf_str = chewing_buffer_String(ctx);
+    char * zuin_str = chewing_zuin_String(ctx, NULL);
     ConfigChewing(chewing);
 
     FcitxLog(DEBUG, "%s %s", buf_str, zuin_str);
 
     /* if not check done, so there is candidate word */
-    if (!chewing_cand_CheckDone(c)) {
+    if (!chewing_cand_CheckDone(ctx)) {
         //get candidate word
-        chewing_cand_Enumerate(c);
+        chewing_cand_Enumerate(ctx);
         int index = 0;
-        while (chewing_cand_hasNext(c)) {
-            char* str = chewing_cand_String(c);
+        while (chewing_cand_hasNext(ctx)) {
+            char* str = chewing_cand_String(ctx);
             FcitxCandidateWord cw;
             ChewingCandWord* w = (ChewingCandWord*) fcitx_utils_malloc0(sizeof(ChewingCandWord));
             w->index = index;
@@ -285,8 +300,8 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
 
     // setup cursor
     FcitxInputStateSetShowCursor(input, true);
-    int buf_len = chewing_buffer_Len(c);
-    int cur = chewing_cursor_Current(c);
+    int buf_len = chewing_buffer_Len(ctx);
+    int cur = chewing_cursor_Current(ctx);
     FcitxLog(DEBUG, "buf len: %d, cur: %d", buf_len, cur);
     int rcur = FcitxChewingGetRawCursorPos(buf_str, cur);
     FcitxInputStateSetCursorPos(input, rcur);

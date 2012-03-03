@@ -33,6 +33,7 @@
 #endif
 
 #define _(x) dgettext("fcitx-chewing", x)
+#define CHEWING_MAX_LEN 16
 
 __EXPORT_API void* FcitxChewingCreate(FcitxInstance* instance);
 __EXPORT_API void FcitxChewingDestroy(void* arg);
