@@ -397,7 +397,7 @@ boolean LoadChewingConfig(FcitxChewingConfig* fs)
     if (!configDesc)
         return false;
 
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-chewing.config", "rt", NULL);
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-chewing.config", "r", NULL);
 
     if (!fp) {
         if (errno == ENOENT)
@@ -416,7 +416,7 @@ boolean LoadChewingConfig(FcitxChewingConfig* fs)
 void SaveChewingConfig(FcitxChewingConfig* fc)
 {
     FcitxConfigFileDesc *configDesc = GetFcitxChewingConfigDesc();
-    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-chewing.config", "wt", NULL);
+    FILE *fp = FcitxXDGGetFileUserWithPrefix("conf", "fcitx-chewing.config", "w", NULL);
     FcitxConfigSaveConfigFileFp(fp, &fc->config, configDesc);
     if (fp)
         fclose(fp);
