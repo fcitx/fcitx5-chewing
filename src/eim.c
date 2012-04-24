@@ -160,7 +160,7 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
     int zuin_len;
 
     if (FcitxCandidateWordGetListSize(FcitxInputStateGetCandidateList(input)) > 0
-        && (FcitxHotkeyIsHotKeyDigit(sym, state) || FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT) || FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)))
+        && (FcitxHotkeyIsHotKeyDigit(sym, state) || FFcitxHotkeyIsHotKey(sym, state, FCITX_SPACE) || citxHotkeyIsHotKey(sym, state, FCITX_RIGHT) || FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)))
         return IRV_TO_PROCESS;
 
     if (FcitxHotkeyIsHotKeySimple(sym, state)) {
