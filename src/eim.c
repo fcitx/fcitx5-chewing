@@ -167,15 +167,13 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
             if (FcitxCandidateWordGoNextPage(candList))
                 return IRV_DISPLAY_MESSAGE;
             else
-                return IRV_DONOT_PROCESS;
+                return IRV_DO_NOTHING;
         }
     }
 
     if (FcitxHotkeyIsHotKeySimple(sym, state)) {
-        if (chewing_buffer_Len(ctx) < CHEWING_MAX_LEN-5) {
-            int scan_code = (int) sym & 0xff;
-            chewing_handle_Default(ctx, scan_code);
-        }
+        int scan_code = (int) sym & 0xff;
+        chewing_handle_Default(ctx, scan_code);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE)) {
         char * zuin_str = chewing_zuin_String(ctx, &zuin_len);
         chewing_free(zuin_str);
@@ -222,9 +220,10 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
         return IRV_TO_PROCESS;
     } else if (chewing_commit_Check(ctx)) {
         char* str = chewing_commit_String(ctx);
-        strcpy(FcitxInputStateGetOutputString(input), str);
+        FcitxInputContext* ic = FcitxInstanceGetCurrentIC(chewing->owner);
+        FcitxInstanceCommitString(chewing->owner, ic, str);
         chewing_free(str);
-        return IRV_COMMIT_STRING;
+        return IRV_DISPLAY_CANDWORDS;
     } else
         return IRV_DISPLAY_CANDWORDS;
 }
@@ -284,11 +283,11 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
 
     FcitxLog(DEBUG, "%s %s", buf_str, zuin_str);
 
+    int index = 0;
     /* if not check done, so there is candidate word */
     if (!chewing_cand_CheckDone(ctx)) {
         //get candidate word
         chewing_cand_Enumerate(ctx);
-        int index = 0;
         while (chewing_cand_hasNext(ctx)) {
             char* str = chewing_cand_String(ctx);
             FcitxCandidateWord cw;
@@ -305,12 +304,15 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
             index ++;
         }
     }
+    
+    /* there is nothing */
+    if (strlen(zuin_str) == 0 && strlen(buf_str) == 0 && index == 0)
+        return IRV_DISPLAY_CANDWORDS;
 
     // setup cursor
     FcitxInputStateSetShowCursor(input, true);
-    int buf_len = chewing_buffer_Len(ctx);
     int cur = chewing_cursor_Current(ctx);
-    FcitxLog(DEBUG, "buf len: %d, cur: %d", buf_len, cur);
+    FcitxLog(DEBUG, "cur: %d", cur);
     int rcur = FcitxChewingGetRawCursorPos(buf_str, cur);
     FcitxInputStateSetCursorPos(input, rcur);
     FcitxInputStateSetClientCursorPos(input, rcur);
