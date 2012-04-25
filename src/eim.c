@@ -158,10 +158,18 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     ChewingContext * ctx = chewing->context;
     int zuin_len;
+    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
 
-    if (FcitxCandidateWordGetListSize(FcitxInputStateGetCandidateList(input)) > 0
-        && (FcitxHotkeyIsHotKeyDigit(sym, state) || FFcitxHotkeyIsHotKey(sym, state, FCITX_SPACE) || citxHotkeyIsHotKey(sym, state, FCITX_RIGHT) || FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)))
-        return IRV_TO_PROCESS;
+    if (FcitxCandidateWordGetListSize(candList) > 0) {
+        if (FcitxHotkeyIsHotKeyDigit(sym, state) || FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT) || FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT))
+            return IRV_TO_PROCESS;
+        if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE)) {
+            if (FcitxCandidateWordGoNextPage(candList))
+                return IRV_DISPLAY_MESSAGE;
+            else
+                return IRV_DONOT_PROCESS;
+        }
+    }
 
     if (FcitxHotkeyIsHotKeySimple(sym, state)) {
         if (chewing_buffer_Len(ctx) < CHEWING_MAX_LEN-5) {
