@@ -32,6 +32,6 @@ _pkgconfig_invoke("chewing" CHEWING DATADIR "" "--variable=datadir")
 set(CHEWING_INCLUDE_DIR "${CHEWING_MAIN_INCLUDE_DIR}")
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(CHEWING  DEFAULT_MSG  CHEWING_LIBRARIES CHEWING_MAIN_INCLUDE_DIR)
+find_package_handle_standard_args(Chewing  DEFAULT_MSG  CHEWING_LIBRARIES CHEWING_MAIN_INCLUDE_DIR)
 
 mark_as_advanced(CHEWING_INCLUDE_DIR CHEWING_LIBRARIES)
