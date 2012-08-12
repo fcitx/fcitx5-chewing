@@ -4,15 +4,16 @@
 #
 # Translators:
 # Alisha <alisha.4m@gmail.com>, 2012.
+#   <hiunnhue108@ymail.com>, 2012.
 # Weng Xuetian <wengxt@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-01-09 00:00+0800\n"
-"PO-Revision-Date: 2012-03-03 16:03+0000\n"
-"Last-Translator: Alisha <alisha.4m@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.net/projects/p/fcitx/"
+"PO-Revision-Date: 2012-07-13 12:28+0000\n"
+"Last-Translator: csslayer <wengxt@gmail.com>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/fcitx/"
 "language/zh_TW/)\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
