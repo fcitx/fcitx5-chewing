@@ -11,5 +11,8 @@ set( fcitx_chewing_sources
 
 add_definitions( -DLOCALEDIR=\"${CMAKE_INSTALL_PREFIX}/share/locale\" )
 
-fcitx_add_addon(fcitx-chewing ${fcitx_chewing_sources} )
-target_link_libraries (fcitx-chewing ${CHEWING_LIBRARIES})
+fcitx_add_addon_full(chewing
+DESC
+SOURCES ${fcitx_chewing_sources}
+IM_CONFIG chewing.conf
+LINK_LIBS ${CHEWING_LIBRARIES})

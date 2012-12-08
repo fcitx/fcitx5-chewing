@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-09 00:00+0800\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2012-12-07 22:56-0500\n"
 "PO-Revision-Date: 2012-01-09 00:01+0800\n"
 "Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
 "Language-Team: Chinese Simplified <fcitx-dev@googlegroups.com>\n"
@@ -17,72 +17,72 @@ msgstr ""
 "X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:3
+#: src/fcitx-chewing.desc:3
 msgid "Add Phrase Forward"
 msgstr "前方加词"
 
-#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:13
+#: src/fcitx-chewing.desc:13
 msgid "Automatically shift cursor"
 msgstr "选词完毕自动移到下一个词"
 
-#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:8
+#: src/fcitx-chewing.desc:8
 msgid "Backward phrase choice"
 msgstr "后方选择字词"
 
-#: /home/saber/Develop/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:1
-#: /home/saber/Develop/fcitx-chewing/build/po/../..//src/eim.c:130
+#: src/eim.c:130 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
+#: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:6 src/fcitx-chewing.desc:11
+#: src/fcitx-chewing.desc:16 src/fcitx-chewing.desc:21
 msgid "Chewing"
 msgstr "新酷音"
 
-#: /home/saber/Develop/fcitx-chewing/build/po/tmp/fcitx-chewing.conf.in.h:2
+#: src/fcitx-chewing.conf.in:4
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Fcitx 的 新酷音封装"
 
-#: unknown
+#: src/fcitx-chewing.desc:34
 msgid "DACHEN_CP26 Keyboard"
 msgstr "大千26键键盘"
 
-#: unknown
+#: src/fcitx-chewing.desc:26
 msgid "Default Keyboard"
 msgstr "默认键盘"
 
-#: unknown
+#: src/fcitx-chewing.desc:32
 msgid "Dvorak Keyboard"
 msgstr "Dvorak键盘"
 
-#: unknown
+#: src/fcitx-chewing.desc:33
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr "Dvorak键盘 + 许氏注音"
 
-#: unknown
+#: src/fcitx-chewing.desc:30
 msgid "ETen Keyboard"
 msgstr "倚天键盘"
 
-#: unknown
+#: src/fcitx-chewing.desc:31
 msgid "ETen26 Keyboard"
 msgstr "倚天26键键盘"
 
-#: unknown
+#: src/fcitx-chewing.desc:29
 msgid "Gin-Yieh Keyboard"
 msgstr "精业键盘"
 
-#: unknown
+#: src/fcitx-chewing.desc:35
 msgid "Han-Yu PinYin Keyboard"
 msgstr "汉语拼音键盘"
 
-#: unknown
+#: src/fcitx-chewing.desc:27
 msgid "Hsu's Keyboard"
 msgstr "许氏键盘"
 
-#: unknown
+#: src/fcitx-chewing.desc:28
 msgid "IBM Keyboard"
 msgstr "IBM键盘"
 
-#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:23
+#: src/fcitx-chewing.desc:23
 msgid "Keyboard Layout"
 msgstr "键盘布局"
 
-#: /home/saber/Develop/fcitx-chewing/data/fcitx-chewing.desc:18
+#: src/fcitx-chewing.desc:18
 msgid "Space as selection key"
 msgstr "空格键选词"
-
