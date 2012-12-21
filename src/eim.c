@@ -107,7 +107,6 @@ void* FcitxChewingCreate(FcitxInstance* instance)
     FcitxChewing* chewing = (FcitxChewing*) fcitx_utils_malloc0(sizeof(FcitxChewing));
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(instance);
     FcitxInputState *input = FcitxInstanceGetInputState(instance);
-    FcitxCandidateWordSetChoose(FcitxInputStateGetCandidateList(input), DIGIT_STR_CHOOSE);
     
     bindtextdomain("fcitx-chewing", LOCALEDIR);
 
@@ -270,9 +269,11 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     FcitxMessages *clientPreedit = FcitxInputStateGetClientPreedit(input);
     ChewingContext * ctx = chewing->context;
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(chewing->owner);
+    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
     
     chewing_set_candPerPage(ctx, config->iMaxCandWord);
-    FcitxCandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
+    FcitxCandidateWordSetPageSize(candList, config->iMaxCandWord);
+    FcitxCandidateWordSetChoose(candList, DIGIT_STR_CHOOSE);
 
     //clean up window asap
     FcitxInstanceCleanInputWindow(chewing->owner);
@@ -299,7 +300,7 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
             cw.strExtra = NULL;
             cw.strWord = strdup(str);
             cw.wordType = MSG_OTHER;
-            FcitxCandidateWordAppend(FcitxInputStateGetCandidateList(input), &cw);
+            FcitxCandidateWordAppend(candList, &cw);
             chewing_free(str);
             index ++;
         }
