@@ -5,7 +5,6 @@ project(fcitx-chewing)
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 FIND_PACKAGE(Chewing REQUIRED)
-FIND_PACKAGE(Gettext REQUIRED)
 FIND_PACKAGE(Fcitx 4.2.7 REQUIRED)
 
 _fcitx_add_uninstall_target()
