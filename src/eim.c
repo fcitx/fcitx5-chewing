@@ -327,11 +327,9 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
         char * half1 = strndup(buf_str, rcur);
         char * half2 = strdup(buf_str + rcur);
 
-        if (!FcitxInstanceICSupportPreedit(chewing->owner, FcitxInstanceGetCurrentIC(chewing->owner))) {
-            FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s", half1);
-            FcitxMessagesAddMessageAtLast(msgPreedit, MSG_CODE, "%s", zuin_str);
-            FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s", half2);
-        }
+        FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s", half1);
+        FcitxMessagesAddMessageAtLast(msgPreedit, MSG_CODE, "%s", zuin_str);
+        FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s", half2);
 
         FcitxMessagesAddMessageAtLast(clientPreedit, MSG_OTHER, "%s", half1);
         FcitxMessagesAddMessageAtLast(clientPreedit, MSG_HIGHLIGHT | MSG_DONOT_COMMIT_WHEN_UNFOCUS, "%s", zuin_str);

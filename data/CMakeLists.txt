@@ -1,1 +1,5 @@
-install(FILES chewing.png DESTINATION share/fcitx/imicon/)
+install(FILES chewing.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/imicon/)
+install(FILES chewing.png DESTINATION share/icons/hicolor/48x48/apps/ RENAME fcitx-chewing.png)
+install(FILES default/chewing.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/skin/default)
+install(FILES dark/chewing.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/skin/dark)
+install(FILES classic/chewing.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/skin/classic)
