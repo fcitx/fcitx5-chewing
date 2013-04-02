@@ -159,11 +159,12 @@ void* FcitxChewingCreate(FcitxInstance* instance)
 INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int state)
 {
     FcitxChewing* chewing = (FcitxChewing*) arg;
-    FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     ChewingContext * ctx = chewing->context;
     int zuin_len;
 
-    if (FcitxHotkeyIsHotKeySimple(sym, state)) {
+    if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE)) {
+        chewing_handle_Space(ctx);
+    } else if (FcitxHotkeyIsHotKeySimple(sym, state)) {
         int scan_code = (int) sym & 0xff;
         chewing_handle_Default(ctx, scan_code);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_BACKSPACE)) {
@@ -184,8 +185,6 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
         chewing_handle_Del(ctx);
         if (chewing_buffer_Len(ctx) + zuin_len == 0)
             return IRV_CLEAN;
-    } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE)) {
-        chewing_handle_Space(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_UP)) {
         chewing_handle_Up(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_DOWN)) {
