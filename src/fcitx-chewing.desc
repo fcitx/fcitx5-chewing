@@ -1,3 +1,15 @@
+[Chewing/SelectionKey]
+Type=Enum
+Description=Selection Key
+DefaultValue=1234567890
+EnumCount=6
+Enum0=1234567890
+Enum1=asdfghjkl;
+Enum2=asdfzxcv89
+Enum3=asdfjkl789
+Enum4=aoeuhtn789
+Enum5=1234qweras
+
 [Chewing/AddPhraseForward]
 Type=Boolean
 Description=Add Phrase Forward

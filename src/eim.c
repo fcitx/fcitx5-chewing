@@ -69,7 +69,6 @@ const FcitxHotkey FCITX_CHEWING_UP[2] = {{NULL, FcitxKey_Up, FcitxKeyState_None}
 const FcitxHotkey FCITX_CHEWING_DOWN[2] = {{NULL, FcitxKey_Down, FcitxKeyState_None}, {NULL, FcitxKey_None, FcitxKeyState_None}};
 const FcitxHotkey FCITX_CHEWING_PGUP[2] = {{NULL, FcitxKey_Page_Up, FcitxKeyState_None}, {NULL, FcitxKey_None, FcitxKeyState_None}};
 const FcitxHotkey FCITX_CHEWING_PGDN[2] = {{NULL, FcitxKey_Page_Down, FcitxKeyState_None}, {NULL, FcitxKey_None, FcitxKeyState_None}};
-int selKey[10] = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
 
 const char *builtin_keymaps[] = {
     "KB_DEFAULT",
@@ -122,7 +121,6 @@ void* FcitxChewingCreate(FcitxInstance* instance)
     // chewing will crash without set page
     chewing_set_candPerPage(ctx, config->iMaxCandWord);
     FcitxCandidateWordSetPageSize(FcitxInputStateGetCandidateList(input), config->iMaxCandWord);
-    chewing_set_selKey(ctx, selKey, 10);
     LoadChewingConfig(&chewing->config);
     ConfigChewing(chewing);
 
@@ -164,18 +162,6 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     ChewingContext * ctx = chewing->context;
     int zuin_len;
-    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
-
-    if (FcitxCandidateWordGetListSize(candList) > 0) {
-        if (FcitxHotkeyIsHotKeyDigit(sym, state) || FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT) || FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT))
-            return IRV_TO_PROCESS;
-        if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE)) {
-            if (FcitxCandidateWordGoNextPage(candList))
-                return IRV_DISPLAY_MESSAGE;
-            else
-                return IRV_DO_NOTHING;
-        }
-    }
 
     if (FcitxHotkeyIsHotKeySimple(sym, state)) {
         int scan_code = (int) sym & 0xff;
@@ -209,7 +195,7 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_PGDN)) {
         chewing_handle_PageUp(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_RIGHT)) {
-        FcitxLog(INFO, "%d", chewing_handle_Right(ctx));
+        chewing_handle_Right(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)) {
         chewing_handle_Left(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_ENTER)) {
@@ -258,6 +244,25 @@ void FcitxChewingReset(void* arg)
 #endif
 }
 
+static boolean FcitxChewingPaging(void* arg, boolean prev)
+{
+    FcitxChewing* chewing = (FcitxChewing*) arg;
+    if (prev) {
+        chewing_handle_Left(chewing->context);
+    } else {
+        chewing_handle_Right(chewing->context);
+    }
+    return true;
+}
+
+static const char *builtin_selectkeys[] = {
+DIGIT_STR_CHOOSE,
+"asdfghjkl;",
+"asdfzxcv89",
+"asdfjkl789",
+"aoeuhtn789",
+"1234qweras",
+};
 
 /**
  * @brief function DoInput has done everything for us.
@@ -274,10 +279,17 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     ChewingContext * ctx = chewing->context;
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(chewing->owner);
     FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
+
+    int selkey[10];
+    int i = 0;
+    for (i = 0; i < 10; i++) {
+        selkey[i] = builtin_selectkeys[chewing->config.selkey][i];
+    }
     
+    chewing_set_selKey(ctx, selkey, 10);
     chewing_set_candPerPage(ctx, config->iMaxCandWord);
     FcitxCandidateWordSetPageSize(candList, config->iMaxCandWord);
-    FcitxCandidateWordSetChoose(candList, DIGIT_STR_CHOOSE);
+    FcitxCandidateWordSetChoose(candList, builtin_selectkeys[chewing->config.selkey]);
 
     //clean up window asap
     FcitxInstanceCleanInputWindow(chewing->owner);
@@ -341,6 +353,14 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
     chewing_free(buf_str);
     chewing_free(zuin_str);
 
+    FcitxCandidateWordSetOverridePaging(
+        candList,
+        chewing_cand_CurrentPage(ctx) > 0,
+        chewing_cand_CurrentPage(ctx) + 1 < chewing_cand_TotalPage(ctx),
+        FcitxChewingPaging,
+        chewing,
+        NULL);
+
     return IRV_DISPLAY_CANDWORDS;
 }
 
@@ -368,7 +388,7 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWord(void* arg, FcitxCandidateWord* candWo
         }
         lastPage = chewing_cand_CurrentPage(chewing->context);
     }
-    chewing_handle_Default( chewing->context, selKey[off] );
+    chewing_handle_Default( chewing->context, builtin_selectkeys[chewing->config.selkey][off] );
     
     if (chewing_keystroke_CheckAbsorb(chewing->context)) {
         return IRV_DISPLAY_CANDWORDS;

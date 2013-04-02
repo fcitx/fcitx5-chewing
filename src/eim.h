@@ -42,6 +42,7 @@ __EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWords(void *arg);
 __EXPORT_API boolean FcitxChewingInit(void*);
 __EXPORT_API void FcitxChewingReset(void* arg);
 
+
 typedef struct _FcitxChewingConfig {
     FcitxGenericConfig config;
     boolean bAddPhraseForward;
@@ -49,6 +50,7 @@ typedef struct _FcitxChewingConfig {
     boolean bAutoShiftCursor;
     boolean bSpaceAsSelection;
     int layout;
+    int selkey;
 } FcitxChewingConfig;
 
 typedef struct _FcitxChewing {

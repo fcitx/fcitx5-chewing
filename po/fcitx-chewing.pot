@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2013-01-25 13:06-0500\n"
+"POT-Creation-Date: 2013-04-01 23:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/eim.c:129 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
-#: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:6 src/fcitx-chewing.desc:11
-#: src/fcitx-chewing.desc:16 src/fcitx-chewing.desc:21
+#: src/eim.c:142 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
+#: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:13
+#: src/fcitx-chewing.desc:18 src/fcitx-chewing.desc:23
+#: src/fcitx-chewing.desc:28 src/fcitx-chewing.desc:33
 msgid "Chewing"
 msgstr ""
 
@@ -28,61 +29,89 @@ msgid "Chewing Wrapper For Fcitx"
 msgstr ""
 
 #: src/fcitx-chewing.desc:3
-msgid "Add Phrase Forward"
+msgid "Selection Key"
+msgstr ""
+
+#: src/fcitx-chewing.desc:6
+msgid "1234567890"
+msgstr ""
+
+#: src/fcitx-chewing.desc:7
+msgid "asdfghjkl;"
 msgstr ""
 
 #: src/fcitx-chewing.desc:8
+msgid "asdfzxcv89"
+msgstr ""
+
+#: src/fcitx-chewing.desc:9
+msgid "asdfjkl789"
+msgstr ""
+
+#: src/fcitx-chewing.desc:10
+msgid "aoeuhtn789"
+msgstr ""
+
+#: src/fcitx-chewing.desc:11
+msgid "1234qweras"
+msgstr ""
+
+#: src/fcitx-chewing.desc:15
+msgid "Add Phrase Forward"
+msgstr ""
+
+#: src/fcitx-chewing.desc:20
 msgid "Backward phrase choice"
 msgstr ""
 
-#: src/fcitx-chewing.desc:13
+#: src/fcitx-chewing.desc:25
 msgid "Automatically shift cursor"
 msgstr ""
 
-#: src/fcitx-chewing.desc:18
+#: src/fcitx-chewing.desc:30
 msgid "Space as selection key"
 msgstr ""
 
-#: src/fcitx-chewing.desc:23
+#: src/fcitx-chewing.desc:35
 msgid "Keyboard Layout"
 msgstr ""
 
-#: src/fcitx-chewing.desc:26
+#: src/fcitx-chewing.desc:38
 msgid "Default Keyboard"
 msgstr ""
 
-#: src/fcitx-chewing.desc:27
+#: src/fcitx-chewing.desc:39
 msgid "Hsu's Keyboard"
 msgstr ""
 
-#: src/fcitx-chewing.desc:28
+#: src/fcitx-chewing.desc:40
 msgid "IBM Keyboard"
 msgstr ""
 
-#: src/fcitx-chewing.desc:29
+#: src/fcitx-chewing.desc:41
 msgid "Gin-Yieh Keyboard"
 msgstr ""
 
-#: src/fcitx-chewing.desc:30
+#: src/fcitx-chewing.desc:42
 msgid "ETen Keyboard"
 msgstr ""
 
-#: src/fcitx-chewing.desc:31
+#: src/fcitx-chewing.desc:43
 msgid "ETen26 Keyboard"
 msgstr ""
 
-#: src/fcitx-chewing.desc:32
+#: src/fcitx-chewing.desc:44
 msgid "Dvorak Keyboard"
 msgstr ""
 
-#: src/fcitx-chewing.desc:33
+#: src/fcitx-chewing.desc:45
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr ""
 
-#: src/fcitx-chewing.desc:34
+#: src/fcitx-chewing.desc:46
 msgid "DACHEN_CP26 Keyboard"
 msgstr ""
 
-#: src/fcitx-chewing.desc:35
+#: src/fcitx-chewing.desc:47
 msgid "Han-Yu PinYin Keyboard"
 msgstr ""

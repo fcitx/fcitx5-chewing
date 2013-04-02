@@ -22,6 +22,7 @@
 
 /* USE fcitx provided macro to bind config and variable */
 CONFIG_BINDING_BEGIN(FcitxChewingConfig)
+CONFIG_BINDING_REGISTER("Chewing", "SelectionKey", selkey)
 CONFIG_BINDING_REGISTER("Chewing", "AddPhraseForward", bAddPhraseForward)
 CONFIG_BINDING_REGISTER("Chewing", "ChoiceBackward", bChoiceBackward)
 CONFIG_BINDING_REGISTER("Chewing", "AutoShiftCursor", bAutoShiftCursor)
