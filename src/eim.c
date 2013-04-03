@@ -118,7 +118,6 @@ void* FcitxChewingCreate(FcitxInstance* instance)
     chewing->context = chewing_new();
     ChewingContext * ctx = chewing->context;
     chewing->owner = instance;
-    chewing_set_ChiEngMode(ctx, CHINESE_MODE);
     chewing_set_maxChiSymbolLen(ctx, CHEWING_MAX_LEN);
     // chewing will crash without set page
     chewing_set_candPerPage(ctx, config->iMaxCandWord);
@@ -246,6 +245,11 @@ void FcitxChewingReset(void* arg)
 {
     FcitxChewing* chewing = (FcitxChewing*) arg;
     chewing_Reset(chewing->context);
+
+    chewing_set_KBType( chewing->context, chewing_KBStr2Num(
+                (char *) builtin_keymaps[chewing->config.layout]));
+
+    chewing_set_ChiEngMode(chewing->context, CHINESE_MODE);
 #if 0
     FcitxUIStatus* puncStatus = FcitxUIGetStatusByName(chewing->owner, "punc");
     if (puncStatus) {
@@ -545,8 +549,6 @@ void SaveChewingConfig(FcitxChewingConfig* fc)
 void ConfigChewing(FcitxChewing* chewing)
 {
     ChewingContext* ctx = chewing->context;
-    chewing_set_KBType( ctx, chewing_KBStr2Num( 
-                (char *) builtin_keymaps[chewing->config.layout]));
     chewing_set_addPhraseDirection( ctx, chewing->config.bAddPhraseForward ? 0 : 1 );
     chewing_set_phraseChoiceRearward( ctx, chewing->config.bChoiceBackward ? 1 : 0 );
     chewing_set_autoShiftCur( ctx, chewing->config.bAutoShiftCursor ? 1 : 0 );
