@@ -246,6 +246,13 @@ void FcitxChewingReset(void* arg)
 static boolean FcitxChewingPaging(void* arg, boolean prev)
 {
     FcitxChewing* chewing = (FcitxChewing*) arg;
+    FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
+    FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
+
+    if (FcitxCandidateWordGetListSize(candList) > 0) {
+        return false;
+    }
+
     if (prev) {
         chewing_handle_Left(chewing->context);
     } else {
