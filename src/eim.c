@@ -251,7 +251,11 @@ static boolean FcitxChewingPaging(void* arg, boolean prev)
     } else {
         chewing_handle_Right(chewing->context);
     }
-    return true;
+
+    if (chewing_keystroke_CheckAbsorb(chewing->context)) {
+        return true;
+    }
+    return false;
 }
 
 static const char *builtin_selectkeys[] = {
@@ -319,6 +323,16 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
             chewing_free(str);
             index ++;
         }
+
+        if (FcitxCandidateWordGetListSize(candList) > 0) {
+            FcitxCandidateWordSetOverridePaging(
+                candList,
+                chewing_cand_CurrentPage(ctx) > 0,
+                chewing_cand_CurrentPage(ctx) + 1 < chewing_cand_TotalPage(ctx),
+                FcitxChewingPaging,
+                chewing,
+                NULL);
+        }
     }
 
     do {
@@ -351,14 +365,6 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg)
 
     chewing_free(buf_str);
     chewing_free(zuin_str);
-
-    FcitxCandidateWordSetOverridePaging(
-        candList,
-        chewing_cand_CurrentPage(ctx) > 0,
-        chewing_cand_CurrentPage(ctx) + 1 < chewing_cand_TotalPage(ctx),
-        FcitxChewingPaging,
-        chewing,
-        NULL);
 
     return IRV_DISPLAY_CANDWORDS;
 }
