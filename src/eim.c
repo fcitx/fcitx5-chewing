@@ -65,6 +65,8 @@ FCITX_DEFINE_PLUGIN(fcitx_chewing, ime2, FcitxIMClass2) = {
     NULL,
 };
 
+const FcitxHotkey FCITX_CHEWING_SHIFT_LEFT[2] = {{NULL, FcitxKey_Left, FcitxKeyState_Shift}, {NULL, FcitxKey_None, FcitxKeyState_None}};
+const FcitxHotkey FCITX_CHEWING_SHIFT_RIGHT[2] = {{NULL, FcitxKey_Right, FcitxKeyState_Shift}, {NULL, FcitxKey_None, FcitxKeyState_None}};
 const FcitxHotkey FCITX_CHEWING_UP[2] = {{NULL, FcitxKey_Up, FcitxKeyState_None}, {NULL, FcitxKey_None, FcitxKeyState_None}};
 const FcitxHotkey FCITX_CHEWING_DOWN[2] = {{NULL, FcitxKey_Down, FcitxKeyState_None}, {NULL, FcitxKey_None, FcitxKeyState_None}};
 const FcitxHotkey FCITX_CHEWING_PGUP[2] = {{NULL, FcitxKey_Page_Up, FcitxKeyState_None}, {NULL, FcitxKey_None, FcitxKeyState_None}};
@@ -164,6 +166,8 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
 
     if (FcitxHotkeyIsHotKey(sym, state, FCITX_SPACE)) {
         chewing_handle_Space(ctx);
+    } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_TAB)) {
+        chewing_handle_Tab(ctx);
     } else if (FcitxHotkeyIsHotKeySimple(sym, state)) {
         int scan_code = (int) sym & 0xff;
         chewing_handle_Default(ctx, scan_code);
@@ -197,6 +201,16 @@ INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int 
         chewing_handle_Right(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_LEFT)) {
         chewing_handle_Left(ctx);
+    } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_HOME)) {
+        chewing_handle_Home(ctx);
+    } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_END)) {
+        chewing_handle_End(ctx);
+    } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_SHIFT_SPACE)) {
+        chewing_handle_ShiftSpace(ctx);
+    } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_SHIFT_LEFT)) {
+        chewing_handle_ShiftLeft(ctx);
+    } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_CHEWING_SHIFT_RIGHT)) {
+        chewing_handle_ShiftRight(ctx);
     } else if (FcitxHotkeyIsHotKey(sym, state, FCITX_ENTER)) {
         chewing_handle_Enter(ctx);
     } else if (state == FcitxKeyState_Ctrl && FcitxHotkeyIsHotKeyDigit(sym, FcitxKeyState_None)) {
