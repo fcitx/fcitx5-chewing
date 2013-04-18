@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2013-04-01 23:00-0400\n"
+"POT-Creation-Date: 2013-04-18 15:36-0400\n"
 "PO-Revision-Date: 2013-04-11 14:50-0400\n"
 "Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
 "Language-Team: Chinese Simplified <kde-china@kde.org>\n"
@@ -38,7 +38,7 @@ msgstr "选词完毕自动移到下一个词"
 msgid "Backward phrase choice"
 msgstr "后方选择字词"
 
-#: src/eim.c:142 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
+#: src/eim.c:143 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
 #: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:13
 #: src/fcitx-chewing.desc:18 src/fcitx-chewing.desc:23
 #: src/fcitx-chewing.desc:28 src/fcitx-chewing.desc:33
@@ -116,4 +116,3 @@ msgstr "asdfjkl789"
 #: src/fcitx-chewing.desc:8
 msgid "asdfzxcv89"
 msgstr "asdfzxcv89"
-
