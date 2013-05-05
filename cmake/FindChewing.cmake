@@ -10,10 +10,10 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
-if(CHEWING_INCLUDE_DIR AND CHEWING_LIBRARIES)
+if(CHEWING_INCLUDE_DIR AND CHEWING_LIBRARIES AND CHEWING_DATADIR)
     # Already in cache, be silent
     set(CHEWING_FIND_QUIETLY TRUE)
-endif(CHEWING_INCLUDE_DIR AND CHEWING_LIBRARIES)
+endif(CHEWING_INCLUDE_DIR AND CHEWING_LIBRARIES AND CHEWING_DATADIR)
 
 find_package(PkgConfig)
 pkg_check_modules(PC_LIBCHEWING QUIET chewing)
@@ -32,6 +32,6 @@ _pkgconfig_invoke("chewing" CHEWING DATADIR "" "--variable=datadir")
 set(CHEWING_INCLUDE_DIR "${CHEWING_MAIN_INCLUDE_DIR}")
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Chewing  DEFAULT_MSG  CHEWING_LIBRARIES CHEWING_MAIN_INCLUDE_DIR)
+find_package_handle_standard_args(Chewing  DEFAULT_MSG  CHEWING_LIBRARIES CHEWING_MAIN_INCLUDE_DIR CHEWING_DATADIR)
 
 mark_as_advanced(CHEWING_INCLUDE_DIR CHEWING_LIBRARIES)
