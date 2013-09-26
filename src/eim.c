@@ -114,6 +114,7 @@ void* FcitxChewingCreate(FcitxInstance* instance)
     FcitxInputState *input = FcitxInstanceGetInputState(instance);
     
     bindtextdomain("fcitx-chewing", LOCALEDIR);
+    bind_textdomain_codeset("fcitx-chewing", "UTF-8");
 
     chewing->context = chewing_new();
     ChewingContext * ctx = chewing->context;
