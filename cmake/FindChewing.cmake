@@ -27,11 +27,12 @@ find_library(CHEWING_LIBRARIES
              NAMES chewing
              HINTS ${PC_LIBCHEWING_LIBDIR})
 
-_pkgconfig_invoke("chewing" CHEWING DATADIR "" "--variable=datadir")
-
 set(CHEWING_INCLUDE_DIR "${CHEWING_MAIN_INCLUDE_DIR}")
+set(CHEWING_FOUND ${PC_LIBCHEWING_FOUND})
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Chewing  DEFAULT_MSG  CHEWING_LIBRARIES CHEWING_MAIN_INCLUDE_DIR CHEWING_DATADIR)
+find_package_handle_standard_args(Chewing FOUND_VAR CHEWING_FOUND
+                                          REQUIRED_VARS CHEWING_LIBRARIES CHEWING_MAIN_INCLUDE_DIR
+                                          VERSION_VAR PC_LIBCHEWING_VERSION)
 
 mark_as_advanced(CHEWING_INCLUDE_DIR CHEWING_LIBRARIES)

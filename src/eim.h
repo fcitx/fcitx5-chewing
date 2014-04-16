@@ -38,7 +38,7 @@
 __EXPORT_API void* FcitxChewingCreate(FcitxInstance* instance);
 __EXPORT_API void FcitxChewingDestroy(void* arg);
 __EXPORT_API INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int state);
-__EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWords(void *arg);
+__EXPORT_API INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg);
 __EXPORT_API boolean FcitxChewingInit(void*);
 __EXPORT_API void FcitxChewingReset(void* arg);
 
@@ -56,7 +56,7 @@ typedef struct _FcitxChewingConfig {
 typedef struct _FcitxChewing {
     FcitxChewingConfig config;
     FcitxInstance* owner;
-    ChewingContext * context;
+    ChewingContext* context;
 } FcitxChewing;
 
 CONFIG_BINDING_DECLARE(FcitxChewingConfig);
