@@ -272,7 +272,7 @@ static boolean FcitxChewingPaging(void* arg, boolean prev)
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
     FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
 
-    if (FcitxCandidateWordGetListSize(candList) > 0) {
+    if (FcitxCandidateWordGetListSize(candList) == 0) {
         return false;
     }
 
@@ -283,6 +283,8 @@ static boolean FcitxChewingPaging(void* arg, boolean prev)
     }
 
     if (chewing_keystroke_CheckAbsorb(chewing->context)) {
+        FcitxChewingGetCandWords(chewing);
+        FcitxUIUpdateInputWindow(chewing->owner);
         return true;
     }
     return false;
@@ -404,7 +406,7 @@ INPUT_RETURN_VALUE FcitxChewingGetCandWord(void* arg, FcitxCandidateWord* candWo
     ChewingCandWord* w = (ChewingCandWord*) candWord->priv;
     FcitxGlobalConfig* config = FcitxInstanceGetGlobalConfig(chewing->owner);
     FcitxInputState *input = FcitxInstanceGetInputState(chewing->owner);
-    int page = w->index / config->iMaxCandWord;
+    int page = w->index / config->iMaxCandWord + chewing_cand_CurrentPage(chewing->context);
     int off = w->index % config->iMaxCandWord;
     if (page < 0 || page >= chewing_cand_TotalPage(chewing->context))
         return IRV_TO_PROCESS;
