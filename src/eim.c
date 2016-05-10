@@ -82,7 +82,8 @@ const char *builtin_keymaps[] = {
     "KB_DVORAK",
     "KB_DVORAK_HSU",
     "KB_DACHEN_CP26",
-    "KB_HANYU_PINYIN"
+    "KB_HANYU_PINYIN",
+    "KB_CARPALX"
 };
 
 /**
@@ -297,6 +298,7 @@ DIGIT_STR_CHOOSE,
 "asdfjkl789",
 "aoeuhtn789",
 "1234qweras",
+"dstnaeo789",
 };
 
 /**

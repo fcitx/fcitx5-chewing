@@ -27,22 +27,22 @@ msgstr "1234567890"
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/fcitx-chewing.desc:15
+#: src/fcitx-chewing.desc:16
 msgid "Add Phrase Forward"
 msgstr ""
 
-#: src/fcitx-chewing.desc:25
+#: src/fcitx-chewing.desc:26
 msgid "Automatically shift cursor"
 msgstr ""
 
-#: src/fcitx-chewing.desc:20
+#: src/fcitx-chewing.desc:21
 msgid "Backward phrase choice"
 msgstr ""
 
-#: src/eim.c:148 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
-#: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:13 src/fcitx-chewing.desc:18
-#: src/fcitx-chewing.desc:23 src/fcitx-chewing.desc:28
-#: src/fcitx-chewing.desc:33
+#: src/eim.c:149 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
+#: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:14 src/fcitx-chewing.desc:19
+#: src/fcitx-chewing.desc:24 src/fcitx-chewing.desc:29
+#: src/fcitx-chewing.desc:34
 msgid "Chewing"
 msgstr ""
 
@@ -50,47 +50,47 @@ msgstr ""
 msgid "Chewing Wrapper For Fcitx"
 msgstr ""
 
-#: src/fcitx-chewing.desc:46
+#: src/fcitx-chewing.desc:47
 msgid "DACHEN_CP26 Keyboard"
 msgstr "DACHEN_CP26 キーボード"
 
-#: src/fcitx-chewing.desc:38
+#: src/fcitx-chewing.desc:39
 msgid "Default Keyboard"
 msgstr "既定のキーボード"
 
-#: src/fcitx-chewing.desc:44
+#: src/fcitx-chewing.desc:45
 msgid "Dvorak Keyboard"
 msgstr "Dvorak キーボード"
 
-#: src/fcitx-chewing.desc:45
+#: src/fcitx-chewing.desc:46
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr "Hsu サポートの Dvorak キーボード"
 
-#: src/fcitx-chewing.desc:42
+#: src/fcitx-chewing.desc:43
 msgid "ETen Keyboard"
 msgstr "Eten キーボード"
 
-#: src/fcitx-chewing.desc:43
+#: src/fcitx-chewing.desc:44
 msgid "ETen26 Keyboard"
 msgstr "Eten26 キーボード"
 
-#: src/fcitx-chewing.desc:41
+#: src/fcitx-chewing.desc:42
 msgid "Gin-Yieh Keyboard"
 msgstr "Gin-Yieh キーボード"
 
-#: src/fcitx-chewing.desc:47
+#: src/fcitx-chewing.desc:48
 msgid "Han-Yu PinYin Keyboard"
 msgstr "Han-Yu PinYin キーボード"
 
-#: src/fcitx-chewing.desc:39
+#: src/fcitx-chewing.desc:40
 msgid "Hsu's Keyboard"
 msgstr "Hsu キーボード"
 
-#: src/fcitx-chewing.desc:40
+#: src/fcitx-chewing.desc:41
 msgid "IBM Keyboard"
 msgstr "IBM キーボード"
 
-#: src/fcitx-chewing.desc:35
+#: src/fcitx-chewing.desc:36
 msgid "Keyboard Layout"
 msgstr "キーボードレイアウト"
 
@@ -98,7 +98,7 @@ msgstr "キーボードレイアウト"
 msgid "Selection Key"
 msgstr "選択キー"
 
-#: src/fcitx-chewing.desc:30
+#: src/fcitx-chewing.desc:31
 msgid "Space as selection key"
 msgstr "スペースを選択キーとして使う"
 
@@ -117,3 +117,11 @@ msgstr "asdfjkl789"
 #: src/fcitx-chewing.desc:8
 msgid "asdfzxcv89"
 msgstr "asdfzxcv89"
+
+#: src/fcitx-chewing.desc:12
+msgid "dstnaeo789"
+msgstr "dstnaeo789"
+
+#: src/fcitx-chewing.desc:49
+msgid "Carpalx Keyboard"
+msgstr "Carpalx キーボード"
