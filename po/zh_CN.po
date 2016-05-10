@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
 # csslayer <wengxt@gmail.com>, 2010-2012
 # csslayer <wengxt@gmail.com>, 2013
@@ -9,41 +9,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2015-12-11 23:17-0800\n"
+"POT-Creation-Date: 2013-04-25 00:01-0400\n"
 "PO-Revision-Date: 2013-04-29 10:04+0000\n"
 "Last-Translator: csslayer <wengxt@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/"
-"language/zh_CN/)\n"
-"Language: zh_CN\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/fcitx-chewing.desc:6
-msgid "1234567890"
-msgstr "1234567890"
-
-#: src/fcitx-chewing.desc:11
-msgid "1234qweras"
-msgstr "1234qweras"
-
-#: src/fcitx-chewing.desc:16
-msgid "Add Phrase Forward"
-msgstr "前方加词"
-
-#: src/fcitx-chewing.desc:26
-msgid "Automatically shift cursor"
-msgstr "选词完毕自动移到下一个词"
-
-#: src/fcitx-chewing.desc:21
-msgid "Backward phrase choice"
-msgstr "后方选择字词"
-
-#: src/eim.c:149 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
-#: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:14 src/fcitx-chewing.desc:19
-#: src/fcitx-chewing.desc:24 src/fcitx-chewing.desc:29
-#: src/fcitx-chewing.desc:34
+#: src/eim.c:143 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
+#: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:13
+#: src/fcitx-chewing.desc:18 src/fcitx-chewing.desc:23
+#: src/fcitx-chewing.desc:28 src/fcitx-chewing.desc:33
 msgid "Chewing"
 msgstr "新酷音"
 
@@ -51,78 +30,90 @@ msgstr "新酷音"
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Fcitx 的 新酷音封装"
 
-#: src/fcitx-chewing.desc:47
-msgid "DACHEN_CP26 Keyboard"
-msgstr "大千26键键盘"
-
-#: src/fcitx-chewing.desc:39
-msgid "Default Keyboard"
-msgstr "默认键盘"
-
-#: src/fcitx-chewing.desc:45
-msgid "Dvorak Keyboard"
-msgstr "Dvorak键盘"
-
-#: src/fcitx-chewing.desc:46
-msgid "Dvorak Keyboard with Hsu's support"
-msgstr "Dvorak键盘 + 许氏注音"
-
-#: src/fcitx-chewing.desc:43
-msgid "ETen Keyboard"
-msgstr "倚天键盘"
-
-#: src/fcitx-chewing.desc:44
-msgid "ETen26 Keyboard"
-msgstr "倚天26键键盘"
-
-#: src/fcitx-chewing.desc:42
-msgid "Gin-Yieh Keyboard"
-msgstr "精业键盘"
-
-#: src/fcitx-chewing.desc:48
-msgid "Han-Yu PinYin Keyboard"
-msgstr "汉语拼音键盘"
-
-#: src/fcitx-chewing.desc:40
-msgid "Hsu's Keyboard"
-msgstr "许氏键盘"
-
-#: src/fcitx-chewing.desc:41
-msgid "IBM Keyboard"
-msgstr "IBM键盘"
-
-#: src/fcitx-chewing.desc:36
-msgid "Keyboard Layout"
-msgstr "键盘布局"
-
 #: src/fcitx-chewing.desc:3
 msgid "Selection Key"
 msgstr "选词键"
 
-#: src/fcitx-chewing.desc:31
-msgid "Space as selection key"
-msgstr "空格键选词"
-
-#: src/fcitx-chewing.desc:10
-msgid "aoeuhtn789"
-msgstr "aoeuhtn789"
+#: src/fcitx-chewing.desc:6
+msgid "1234567890"
+msgstr "1234567890"
 
 #: src/fcitx-chewing.desc:7
 msgid "asdfghjkl;"
 msgstr "asdfghjkl;"
 
-#: src/fcitx-chewing.desc:9
-msgid "asdfjkl789"
-msgstr "asdfjkl789"
-
 #: src/fcitx-chewing.desc:8
 msgid "asdfzxcv89"
 msgstr "asdfzxcv89"
 
-#: src/fcitx-chewing.desc:12
-msgid "dstnaeo789"
-msgstr "dstnaeo789"
+#: src/fcitx-chewing.desc:9
+msgid "asdfjkl789"
+msgstr "asdfjkl789"
 
-#: src/fcitx-chewing.desc:49
-msgid "Carpalx Keyboard"
-msgstr "Carpalx键盘"
+#: src/fcitx-chewing.desc:10
+msgid "aoeuhtn789"
+msgstr "aoeuhtn789"
+
+#: src/fcitx-chewing.desc:11
+msgid "1234qweras"
+msgstr "1234qweras"
+
+#: src/fcitx-chewing.desc:15
+msgid "Add Phrase Forward"
+msgstr "前方加词"
+
+#: src/fcitx-chewing.desc:20
+msgid "Backward phrase choice"
+msgstr "后方选择字词"
+
+#: src/fcitx-chewing.desc:25
+msgid "Automatically shift cursor"
+msgstr "选词完毕自动移到下一个词"
+
+#: src/fcitx-chewing.desc:30
+msgid "Space as selection key"
+msgstr "空格键选词"
+
+#: src/fcitx-chewing.desc:35
+msgid "Keyboard Layout"
+msgstr "键盘布局"
+
+#: src/fcitx-chewing.desc:38
+msgid "Default Keyboard"
+msgstr "默认键盘"
+
+#: src/fcitx-chewing.desc:39
+msgid "Hsu's Keyboard"
+msgstr "许氏键盘"
+
+#: src/fcitx-chewing.desc:40
+msgid "IBM Keyboard"
+msgstr "IBM键盘"
+
+#: src/fcitx-chewing.desc:41
+msgid "Gin-Yieh Keyboard"
+msgstr "精业键盘"
+
+#: src/fcitx-chewing.desc:42
+msgid "ETen Keyboard"
+msgstr "倚天键盘"
+
+#: src/fcitx-chewing.desc:43
+msgid "ETen26 Keyboard"
+msgstr "倚天26键键盘"
+
+#: src/fcitx-chewing.desc:44
+msgid "Dvorak Keyboard"
+msgstr "Dvorak键盘"
+
+#: src/fcitx-chewing.desc:45
+msgid "Dvorak Keyboard with Hsu's support"
+msgstr "Dvorak键盘 + 许氏注音"
+
+#: src/fcitx-chewing.desc:46
+msgid "DACHEN_CP26 Keyboard"
+msgstr "大千26键键盘"
+
+#: src/fcitx-chewing.desc:47
+msgid "Han-Yu PinYin Keyboard"
+msgstr "汉语拼音键盘"
