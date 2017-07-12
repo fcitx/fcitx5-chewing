@@ -5,15 +5,16 @@
 # Translators:
 # Alisha <alisha.4m@gmail.com>, 2012
 # Cheng-Chia Tseng <pswo10680@gmail.com>, 2012
+# PHLin <Cypressyew@gmail.com>, 2017
 # Hiunn-hué <hiunnhue108@ymail.com>, 2012
 # csslayer <wengxt@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2016-12-01 08:45-0800\n"
-"PO-Revision-Date: 2016-05-10 23:05+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>\n"
+"POT-Creation-Date: 2017-07-12 10:02-0700\n"
+"PO-Revision-Date: 2017-07-12 16:33+0000\n"
+"Last-Translator: PHLin <Cypressyew@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/fcitx/fcitx/"
 "language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -44,7 +45,7 @@ msgstr "後方選擇字詞"
 
 #: src/fcitx-chewing.desc:49
 msgid "Carpalx Keyboard"
-msgstr ""
+msgstr "Carpalx 鍵盤"
 
 #: src/eim.c:149 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
 #: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:14 src/fcitx-chewing.desc:19
@@ -127,4 +128,4 @@ msgstr "asdfzxcv89"
 
 #: src/fcitx-chewing.desc:12
 msgid "dstnaeo789"
-msgstr ""
+msgstr "dstnaeo789"
