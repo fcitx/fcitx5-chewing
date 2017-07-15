@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Bon Keun Seo <scobyseo@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: fcitx\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2013-04-25 00:01-0400\n"
+"PO-Revision-Date: 2017-07-15 12:41+0000\n"
+"Last-Translator: Bon Keun Seo <scobyseo@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/eim.c:149 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
+#: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:14
+#: src/fcitx-chewing.desc:19 src/fcitx-chewing.desc:24
+#: src/fcitx-chewing.desc:29 src/fcitx-chewing.desc:34
+msgid "Chewing"
+msgstr "Chewing"
+
+#: src/fcitx-chewing.conf.in:4
+msgid "Chewing Wrapper For Fcitx"
+msgstr "Fcitx Chewing 입력기"
+
+#: src/fcitx-chewing.desc:3
+msgid "Selection Key"
+msgstr "선택 키"
+
+#: src/fcitx-chewing.desc:6
+msgid "1234567890"
+msgstr "1234567890"
+
+#: src/fcitx-chewing.desc:7
+msgid "asdfghjkl;"
+msgstr "asdfghjkl;"
+
+#: src/fcitx-chewing.desc:8
+msgid "asdfzxcv89"
+msgstr "asdfzxcv89"
+
+#: src/fcitx-chewing.desc:9
+msgid "asdfjkl789"
+msgstr "asdfjkl789"
+
+#: src/fcitx-chewing.desc:10
+msgid "aoeuhtn789"
+msgstr "aoeuhtn789"
+
+#: src/fcitx-chewing.desc:11
+msgid "1234qweras"
+msgstr "1234qweras"
+
+#: src/fcitx-chewing.desc:12
+msgid "dstnaeo789"
+msgstr "dstnaeo789"
+
+#: src/fcitx-chewing.desc:16
+msgid "Add Phrase Forward"
+msgstr "문구를 앞에 추가"
+
+#: src/fcitx-chewing.desc:21
+msgid "Backward phrase choice"
+msgstr "역방향 문구 선택"
+
+#: src/fcitx-chewing.desc:26
+msgid "Automatically shift cursor"
+msgstr "자동으로 커서를 이동"
+
+#: src/fcitx-chewing.desc:31
+msgid "Space as selection key"
+msgstr "스페이스바를 선택 키로"
+
+#: src/fcitx-chewing.desc:36
+msgid "Keyboard Layout"
+msgstr "자판 배열"
+
+#: src/fcitx-chewing.desc:39
+msgid "Default Keyboard"
+msgstr "기본 키보드"
+
+#: src/fcitx-chewing.desc:40
+msgid "Hsu's Keyboard"
+msgstr "Hsu의 키보드"
+
+#: src/fcitx-chewing.desc:41
+msgid "IBM Keyboard"
+msgstr "IBM 키보드"
+
+#: src/fcitx-chewing.desc:42
+msgid "Gin-Yieh Keyboard"
+msgstr "Gin-Yieh 키보드"
+
+#: src/fcitx-chewing.desc:43
+msgid "ETen Keyboard"
+msgstr "ETen 키보드"
+
+#: src/fcitx-chewing.desc:44
+msgid "ETen26 Keyboard"
+msgstr "ETen26 키보드"
+
+#: src/fcitx-chewing.desc:45
+msgid "Dvorak Keyboard"
+msgstr "드보락 키보드"
+
+#: src/fcitx-chewing.desc:46
+msgid "Dvorak Keyboard with Hsu's support"
+msgstr "Hsu를 지원하는 드보락 키보드"
+
+#: src/fcitx-chewing.desc:47
+msgid "DACHEN_CP26 Keyboard"
+msgstr "DACHEN_CP26 키보드"
+
+#: src/fcitx-chewing.desc:48
+msgid "Han-Yu PinYin Keyboard"
+msgstr "Han-Yu 병음 키보드"
+
+#: src/fcitx-chewing.desc:49
+msgid "Carpalx Keyboard"
+msgstr "Carpalx 키보드"
