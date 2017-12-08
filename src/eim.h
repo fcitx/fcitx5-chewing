@@ -1,25 +1,23 @@
-/***************************************************************************
- *   Copyright (C) 2010~2017 by CSSlayer                                   *
- *   wengxt@gmail.com                                                      *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.              *
- ***************************************************************************/
-
-#ifndef EIM_H
-#define EIM_H
+//
+// Copyright (C) 2010~2017 by CSSlayer
+// wengxt@gmail.com
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; see the file COPYING. If not,
+// see <http://www.gnu.org/licenses/>.
+//
+#ifndef _FCITX5_CHEWING_EIM_H_
+#define _FCITX5_CHEWING_EIM_H_
 
 #include <chewing.h>
 #include <fcitx-config/configuration.h>
@@ -138,34 +136,4 @@ public:
 };
 }
 
-#if 0
-#define CHEWING_MAX_LEN 16
-
-void* FcitxChewingCreate(FcitxInstance* instance);
-void FcitxChewingDestroy(void* arg);
-INPUT_RETURN_VALUE FcitxChewingDoInput(void* arg, FcitxKeySym sym, unsigned int state);
-INPUT_RETURN_VALUE FcitxChewingGetCandWords(void* arg);
-boolean FcitxChewingInit(void*);
-void FcitxChewingReset(void* arg);
-
-
-typedef struct _FcitxChewingConfig {
-    FcitxGenericConfig config;
-    boolean bAddPhraseForward;
-    boolean bChoiceBackward;
-    boolean bAutoShiftCursor;
-    boolean bSpaceAsSelection;
-    int layout;
-    int selkey;
-} FcitxChewingConfig;
-
-typedef struct _FcitxChewing {
-    FcitxChewingConfig config;
-    FcitxInstance* owner;
-    ChewingContext* context;
-} FcitxChewing;
-
-CONFIG_BINDING_DECLARE(FcitxChewingConfig);
-#endif
-
-#endif
+#endif // _FCITX5_CHEWING_EIM_H_
