@@ -1,18 +1,12 @@
-include_directories (${CHEWING_INCLUDE_DIR})
-include_directories (${FCITX4_FCITX_INCLUDE_DIRS})
-include_directories (${FCITX4_FCITX_CONFIG_INCLUDE_DIRS})
-include_directories (${FCITX4_FCITX_UTILS_INCLUDE_DIRS})
-include_directories (${PROJECT_BINARY_DIR})
-
-set( fcitx_chewing_sources
-    eim.c
-    config.c
-    )
-
-add_definitions( -DLOCALEDIR=\"${CMAKE_INSTALL_PREFIX}/share/locale\" )
-
-fcitx_add_addon_full(chewing
-DESC
-SOURCES ${fcitx_chewing_sources}
-IM_CONFIG chewing.conf
-LINK_LIBS ${CHEWING_LIBRARIES})
+set(CHEWING_SOURCES
+    eim.cpp
+)
+add_library(chewing MODULE ${CHEWING_SOURCES})
+target_link_libraries(chewing Fcitx5::Core Fcitx5::Config PkgConfig::Chewing)
+set_target_properties(chewing PROPERTIES PREFIX "")
+target_compile_definitions(chewing PRIVATE FCITX_GETTEXT_DOMAIN=\"fcitx5-chinese-addons\")
+install(TARGETS chewing DESTINATION "${CMAKE_INSTALL_LIBDIR}/fcitx5")
+fcitx5_translate_desktop_file(chewing.conf.in chewing.conf)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/chewing.conf" DESTINATION "${CMAKE_INSTALL_DATADIR}/fcitx5/inputmethod")
+fcitx5_translate_desktop_file(chewing-addon.conf.in chewing-addon.conf)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/chewing-addon.conf" RENAME chewing.conf DESTINATION "${FCITX_INSTALL_PKGDATADIR}/addon")

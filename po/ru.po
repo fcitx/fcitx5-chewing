@@ -1,126 +1,130 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: fcitx\n"
+"Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2013-04-25 00:01-0400\n"
+"POT-Creation-Date: 2017-12-08 09:18-0800\n"
 "PO-Revision-Date: 2016-11-30 23:29+0000\n"
 "Last-Translator: TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/fcitx/fcitx/language/ru/)\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: src/eim.c:149 src/chewing.conf.in:3 src/fcitx-chewing.conf.in:3
-#: src/fcitx-chewing.desc:1 src/fcitx-chewing.desc:14
-#: src/fcitx-chewing.desc:19 src/fcitx-chewing.desc:24
-#: src/fcitx-chewing.desc:29 src/fcitx-chewing.desc:34
-msgid "Chewing"
-msgstr "Чжуинь"
-
-#: src/fcitx-chewing.conf.in:4
-msgid "Chewing Wrapper For Fcitx"
-msgstr "Обертка чжуинь для Fcitx"
-
-#: src/fcitx-chewing.desc:3
-msgid "Selection Key"
-msgstr "Клавиша выбора"
-
-#: src/fcitx-chewing.desc:6
+#: src/eim.h:50
 msgid "1234567890"
 msgstr "1234567890"
 
-#: src/fcitx-chewing.desc:7
-msgid "asdfghjkl;"
-msgstr "asdfghjkl;"
-
-#: src/fcitx-chewing.desc:8
-msgid "asdfzxcv89"
-msgstr "asdfzxcv89"
-
-#: src/fcitx-chewing.desc:9
-msgid "asdfjkl789"
-msgstr "asdfjkl789"
-
-#: src/fcitx-chewing.desc:10
-msgid "aoeuhtn789"
-msgstr "aoeuhtn789"
-
-#: src/fcitx-chewing.desc:11
+#: src/eim.h:53
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/fcitx-chewing.desc:12
-msgid "dstnaeo789"
-msgstr "dstnaeo789"
-
-#: src/fcitx-chewing.desc:16
+#: src/eim.h:89
 msgid "Add Phrase Forward"
 msgstr "Добавить фразу впереди"
 
-#: src/fcitx-chewing.desc:21
-msgid "Backward phrase choice"
-msgstr "Выбор фразы сзади"
-
-#: src/fcitx-chewing.desc:26
+#: src/eim.h:93
 msgid "Automatically shift cursor"
 msgstr "Автоматически сдвигать курсор"
 
-#: src/fcitx-chewing.desc:31
-msgid "Space as selection key"
-msgstr "Пробел в качестве клавиши выбора"
+#: src/eim.h:91
+msgid "Backward phrase choice"
+msgstr "Выбор фразы сзади"
 
-#: src/fcitx-chewing.desc:36
-msgid "Keyboard Layout"
-msgstr "Раскладка клавиатуры"
+#: src/eim.h:81
+msgid "Carpalx Keyboard"
+msgstr "Клавиатура Carpalx"
 
-#: src/fcitx-chewing.desc:39
-msgid "Default Keyboard"
-msgstr "Клавиатура по умолчанию"
+#: src/chewing.conf.in:3 src/chewing-addon.conf.in:3
+msgid "Chewing"
+msgstr "Чжуинь"
 
-#: src/fcitx-chewing.desc:40
-msgid "Hsu's Keyboard"
-msgstr "Клавиатура Hsu's"
+#: src/chewing-addon.conf.in:4
+msgid "Chewing Wrapper For Fcitx"
+msgstr "Обертка чжуинь для Fcitx"
 
-#: src/fcitx-chewing.desc:41
-msgid "IBM Keyboard"
-msgstr "Клавиатура IBM"
-
-#: src/fcitx-chewing.desc:42
-msgid "Gin-Yieh Keyboard"
-msgstr "Клавиатура Gin-Yieh"
-
-#: src/fcitx-chewing.desc:43
-msgid "ETen Keyboard"
-msgstr "Клавиатура ETen"
-
-#: src/fcitx-chewing.desc:44
-msgid "ETen26 Keyboard"
-msgstr "Клавиатура ETen26"
-
-#: src/fcitx-chewing.desc:45
-msgid "Dvorak Keyboard"
-msgstr "Клавиатура Дворака"
-
-#: src/fcitx-chewing.desc:46
-msgid "Dvorak Keyboard with Hsu's support"
-msgstr "Клавиатура Дворака с поддержкой "
-
-#: src/fcitx-chewing.desc:47
+#: src/eim.h:79
 msgid "DACHEN_CP26 Keyboard"
 msgstr "Клавиатура DACHEN_CP26"
 
-#: src/fcitx-chewing.desc:48
+#: src/eim.h:74
+msgid "Default Keyboard"
+msgstr "Клавиатура по умолчанию"
+
+#: src/eim.h:77
+msgid "Dvorak Keyboard"
+msgstr "Клавиатура Дворака"
+
+#: src/eim.h:78
+msgid "Dvorak Keyboard with Hsu's support"
+msgstr "Клавиатура Дворака с поддержкой "
+
+#: src/eim.h:76
+msgid "ETen Keyboard"
+msgstr "Клавиатура ETen"
+
+#: src/eim.h:77
+msgid "ETen26 Keyboard"
+msgstr "Клавиатура ETen26"
+
+#: src/eim.h:76
+msgid "Gin-Yieh Keyboard"
+msgstr "Клавиатура Gin-Yieh"
+
+#: src/eim.h:80
 msgid "Han-Yu PinYin Keyboard"
 msgstr "Клавиатура Han-Yu пиньинь"
 
-#: src/fcitx-chewing.desc:49
-msgid "Carpalx Keyboard"
-msgstr "Клавиатура Carpalx"
+#: src/eim.h:75
+msgid "Hsu's Keyboard"
+msgstr "Клавиатура Hsu's"
+
+#: src/eim.h:75
+msgid "IBM Keyboard"
+msgstr "Клавиатура IBM"
+
+#: src/eim.h:97
+msgid "Keyboard Layout"
+msgstr "Раскладка клавиатуры"
+
+#: src/eim.h:86
+msgid "Selection Key"
+msgstr "Клавиша выбора"
+
+#: src/eim.h:95
+msgid "Space as selection key"
+msgstr "Пробел в качестве клавиши выбора"
+
+#: src/eim.h:52
+msgid "aoeuhtn789"
+msgstr "aoeuhtn789"
+
+#: src/eim.h:51
+msgid "asdfghjkl;"
+msgstr "asdfghjkl;"
+
+#: src/eim.h:52
+msgid "asdfjkl789"
+msgstr "asdfjkl789"
+
+#: src/eim.h:51
+msgid "asdfzxcv89"
+msgstr "asdfzxcv89"
+
+#: src/eim.h:53
+msgid "dstnaeo789"
+msgstr "dstnaeo789"
+
+#: src/chewing.conf.in:4
+#, fuzzy
+msgid "fcitx-chewing"
+msgstr "Чжуинь"

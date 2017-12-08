@@ -1,0 +1,8 @@
+[Addon]
+Name=Chewing
+Comment=Chewing Wrapper For Fcitx
+Category=InputMethod
+Type=SharedLibrary
+OnDemand=True
+Configurable=True
+Library=chewing

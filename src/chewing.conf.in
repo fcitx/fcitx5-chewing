@@ -1,7 +1,7 @@
 [InputMethod]
-UniqueName=chewing
-_Name=Chewing
-IconName=chewing
-Priority=1
+Name=Chewing
+Icon=fcitx-chewing
+Label=酷
 LangCode=zh_TW
-Parent=fcitx-chewing
+Addon=chewing
+Configurable=True
