@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2017-12-08 09:18-0800\n"
+"POT-Creation-Date: 2017-12-12 09:52-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,27 +15,27 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/eim.h:50
+#: src/eim.h:48
 msgid "1234567890"
 msgstr ""
 
-#: src/eim.h:53
+#: src/eim.h:51
 msgid "1234qweras"
 msgstr ""
 
-#: src/eim.h:89
+#: src/eim.h:87
 msgid "Add Phrase Forward"
 msgstr ""
 
-#: src/eim.h:93
+#: src/eim.h:91
 msgid "Automatically shift cursor"
 msgstr ""
 
-#: src/eim.h:91
+#: src/eim.h:89
 msgid "Backward phrase choice"
 msgstr ""
 
-#: src/eim.h:81
+#: src/eim.h:79
 msgid "Carpalx Keyboard"
 msgstr ""
 
@@ -47,75 +47,75 @@ msgstr ""
 msgid "Chewing Wrapper For Fcitx"
 msgstr ""
 
-#: src/eim.h:79
+#: src/eim.h:77
 msgid "DACHEN_CP26 Keyboard"
 msgstr ""
 
-#: src/eim.h:74
+#: src/eim.h:72
 msgid "Default Keyboard"
 msgstr ""
 
-#: src/eim.h:77
+#: src/eim.h:75
 msgid "Dvorak Keyboard"
 msgstr ""
 
-#: src/eim.h:78
+#: src/eim.h:76
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr ""
 
-#: src/eim.h:76
+#: src/eim.h:74
 msgid "ETen Keyboard"
 msgstr ""
 
-#: src/eim.h:77
+#: src/eim.h:75
 msgid "ETen26 Keyboard"
 msgstr ""
 
-#: src/eim.h:76
+#: src/eim.h:74
 msgid "Gin-Yieh Keyboard"
 msgstr ""
 
-#: src/eim.h:80
+#: src/eim.h:78
 msgid "Han-Yu PinYin Keyboard"
 msgstr ""
 
-#: src/eim.h:75
+#: src/eim.h:73
 msgid "Hsu's Keyboard"
 msgstr ""
 
-#: src/eim.h:75
+#: src/eim.h:73
 msgid "IBM Keyboard"
 msgstr ""
 
-#: src/eim.h:97
+#: src/eim.h:95
 msgid "Keyboard Layout"
 msgstr ""
 
-#: src/eim.h:86
+#: src/eim.h:84
 msgid "Selection Key"
 msgstr ""
 
-#: src/eim.h:95
+#: src/eim.h:93
 msgid "Space as selection key"
 msgstr ""
 
-#: src/eim.h:52
+#: src/eim.h:50
 msgid "aoeuhtn789"
 msgstr ""
 
-#: src/eim.h:51
+#: src/eim.h:49
 msgid "asdfghjkl;"
 msgstr ""
 
-#: src/eim.h:52
+#: src/eim.h:50
 msgid "asdfjkl789"
 msgstr ""
 
-#: src/eim.h:51
+#: src/eim.h:49
 msgid "asdfzxcv89"
 msgstr ""
 
-#: src/eim.h:53
+#: src/eim.h:51
 msgid "dstnaeo789"
 msgstr ""
 

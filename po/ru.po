@@ -1,17 +1,17 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016
+# csslayer <wengxt@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2017-12-08 09:18-0800\n"
-"PO-Revision-Date: 2016-11-30 23:29+0000\n"
-"Last-Translator: TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>\n"
-"Language-Team: Russian (http://www.transifex.com/fcitx/fcitx/language/ru/)\n"
+"POT-Creation-Date: 2017-12-12 09:52-0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: csslayer <wengxt@gmail.com>, 2017\n"
+"Language-Team: Russian (https://www.transifex.com/fcitx/teams/12005/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,27 +20,27 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: src/eim.h:50
+#: src/eim.h:48
 msgid "1234567890"
 msgstr "1234567890"
 
-#: src/eim.h:53
+#: src/eim.h:51
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/eim.h:89
+#: src/eim.h:87
 msgid "Add Phrase Forward"
 msgstr "Добавить фразу впереди"
 
-#: src/eim.h:93
+#: src/eim.h:91
 msgid "Automatically shift cursor"
 msgstr "Автоматически сдвигать курсор"
 
-#: src/eim.h:91
+#: src/eim.h:89
 msgid "Backward phrase choice"
 msgstr "Выбор фразы сзади"
 
-#: src/eim.h:81
+#: src/eim.h:79
 msgid "Carpalx Keyboard"
 msgstr "Клавиатура Carpalx"
 
@@ -52,79 +52,78 @@ msgstr "Чжуинь"
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Обертка чжуинь для Fcitx"
 
-#: src/eim.h:79
+#: src/eim.h:77
 msgid "DACHEN_CP26 Keyboard"
 msgstr "Клавиатура DACHEN_CP26"
 
-#: src/eim.h:74
+#: src/eim.h:72
 msgid "Default Keyboard"
 msgstr "Клавиатура по умолчанию"
 
-#: src/eim.h:77
+#: src/eim.h:75
 msgid "Dvorak Keyboard"
 msgstr "Клавиатура Дворака"
 
-#: src/eim.h:78
+#: src/eim.h:76
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr "Клавиатура Дворака с поддержкой "
 
-#: src/eim.h:76
+#: src/eim.h:74
 msgid "ETen Keyboard"
 msgstr "Клавиатура ETen"
 
-#: src/eim.h:77
+#: src/eim.h:75
 msgid "ETen26 Keyboard"
 msgstr "Клавиатура ETen26"
 
-#: src/eim.h:76
+#: src/eim.h:74
 msgid "Gin-Yieh Keyboard"
 msgstr "Клавиатура Gin-Yieh"
 
-#: src/eim.h:80
+#: src/eim.h:78
 msgid "Han-Yu PinYin Keyboard"
 msgstr "Клавиатура Han-Yu пиньинь"
 
-#: src/eim.h:75
+#: src/eim.h:73
 msgid "Hsu's Keyboard"
 msgstr "Клавиатура Hsu's"
 
-#: src/eim.h:75
+#: src/eim.h:73
 msgid "IBM Keyboard"
 msgstr "Клавиатура IBM"
 
-#: src/eim.h:97
+#: src/eim.h:95
 msgid "Keyboard Layout"
 msgstr "Раскладка клавиатуры"
 
-#: src/eim.h:86
+#: src/eim.h:84
 msgid "Selection Key"
 msgstr "Клавиша выбора"
 
-#: src/eim.h:95
+#: src/eim.h:93
 msgid "Space as selection key"
 msgstr "Пробел в качестве клавиши выбора"
 
-#: src/eim.h:52
+#: src/eim.h:50
 msgid "aoeuhtn789"
 msgstr "aoeuhtn789"
 
-#: src/eim.h:51
+#: src/eim.h:49
 msgid "asdfghjkl;"
 msgstr "asdfghjkl;"
 
-#: src/eim.h:52
+#: src/eim.h:50
 msgid "asdfjkl789"
 msgstr "asdfjkl789"
 
-#: src/eim.h:51
+#: src/eim.h:49
 msgid "asdfzxcv89"
 msgstr "asdfzxcv89"
 
-#: src/eim.h:53
+#: src/eim.h:51
 msgid "dstnaeo789"
 msgstr "dstnaeo789"
 
 #: src/chewing.conf.in:4
-#, fuzzy
 msgid "fcitx-chewing"
-msgstr "Чжуинь"
+msgstr ""
