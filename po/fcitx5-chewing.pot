@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2017-12-12 09:52-0800\n"
+"POT-Creation-Date: 2017-12-16 10:32-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,8 +117,4 @@ msgstr ""
 
 #: src/eim.h:51
 msgid "dstnaeo789"
-msgstr ""
-
-#: src/chewing.conf.in:4
-msgid "fcitx-chewing"
 msgstr ""
