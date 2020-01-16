@@ -113,7 +113,7 @@ public:
                 const char label[] = {
                     builtin_selectkeys[static_cast<int>(
                         *engine_->config().SelectionKey)][index],
-                    '\0'};
+                    '.', '\0'};
                 labels_.emplace_back(label);
             } else {
                 labels_.emplace_back();
@@ -388,16 +388,19 @@ void ChewingEngine::updateUI(InputContext *ic) {
     int rcur = text.size();
     if (cur >= 0 && static_cast<size_t>(cur) < len) {
         rcur = utf8::ncharByteLength(text.begin(), cur);
-        preedit.setCursor(rcur);
     }
+    preedit.setCursor(rcur);
+    FCITX_INFO() << cur << " " << rcur;
 
     // insert zuin in the middle
-    preedit.append(text.substr(0, rcur), TextFormatFlag::None);
-    preedit.append(zuin,
-                   {TextFormatFlag::HighLight, TextFormatFlag::DontCommit});
-    preedit.append(text.substr(rcur), TextFormatFlag::None);
+    preedit.append(text.substr(0, rcur), TextFormatFlag::Underline);
+    preedit.append(zuin, {TextFormatFlag::HighLight, TextFormatFlag::Underline,
+                          TextFormatFlag::DontCommit});
+    preedit.append(text.substr(rcur), TextFormatFlag::Underline);
 
-    ic->inputPanel().setPreedit(preedit);
+    if (!ic->capabilityFlags().test(CapabilityFlag::Preedit)) {
+        ic->inputPanel().setPreedit(preedit);
+    }
     ic->inputPanel().setClientPreedit(preedit);
     ic->updatePreedit();
 }
