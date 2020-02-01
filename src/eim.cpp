@@ -390,7 +390,6 @@ void ChewingEngine::updateUI(InputContext *ic) {
         rcur = utf8::ncharByteLength(text.begin(), cur);
     }
     preedit.setCursor(rcur);
-    FCITX_INFO() << cur << " " << rcur;
 
     // insert zuin in the middle
     preedit.append(text.substr(0, rcur), TextFormatFlag::Underline);
