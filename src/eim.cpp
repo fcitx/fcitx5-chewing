@@ -107,7 +107,7 @@ public:
         chewing_cand_Enumerate(ctx);
         while (chewing_cand_hasNext(ctx) && index < pageSize) {
             auto str = makeChewingString(chewing_cand_String(ctx));
-            candidateWords_.emplace_back(std::make_shared<ChewingCandidateWord>(
+            candidateWords_.emplace_back(std::make_unique<ChewingCandidateWord>(
                 engine_, str.get(), index));
             if (index < 10) {
                 const char label[] = {
@@ -132,11 +132,11 @@ public:
         }
         return labels_[idx];
     }
-    std::shared_ptr<const CandidateWord> candidate(int idx) const override {
+    const CandidateWord &candidate(int idx) const override {
         if (idx < 0 || idx >= size()) {
             throw std::invalid_argument("Invalid index");
         }
-        return candidateWords_[idx];
+        return *candidateWords_[idx];
     }
 
     int size() const override { return candidateWords_.size(); }
@@ -175,7 +175,7 @@ private:
     bool hasNext_ = false;
     ChewingEngine *engine_;
     InputContext *ic_;
-    std::vector<std::shared_ptr<CandidateWord>> candidateWords_;
+    std::vector<std::unique_ptr<ChewingCandidateWord>> candidateWords_;
     std::vector<Text> labels_;
 };
 
