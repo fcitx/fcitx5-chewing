@@ -4,13 +4,15 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
+# MarongHappy <daemul72@gmail.com>, 2020
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2017-12-16 10:32-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: csslayer <wengxt@gmail.com>, 2017\n"
+"POT-Creation-Date: 2020-03-25 00:01-0700\n"
+"PO-Revision-Date: 2017-12-08 17:30+0000\n"
+"Last-Translator: MarongHappy <daemul72@gmail.com>, 2020\n"
 "Language-Team: Korean (https://www.transifex.com/fcitx/teams/12005/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +94,7 @@ msgstr "IBM 키보드"
 
 #: src/eim.h:95
 msgid "Keyboard Layout"
-msgstr "자판 배열"
+msgstr "키보드 자판"
 
 #: src/eim.h:84
 msgid "Selection Key"
