@@ -113,7 +113,7 @@ private:
     void populateConfig();
     Instance *instance_;
     ChewingConfig config_;
-    std::unique_ptr<ChewingContext, decltype(&chewing_delete)> context_;
+    UniqueCPtr<ChewingContext, chewing_delete> context_;
 };
 
 class ChewingEngineFactory : public AddonFactory {

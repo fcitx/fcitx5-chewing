@@ -30,11 +30,6 @@ static const char *builtin_selectkeys[] = {
     "aoeuhtn789", "1234qweras", "dstnaeo789",
 };
 
-static std::unique_ptr<char, decltype(&chewing_free)>
-makeChewingString(char *str) {
-    return {str, &chewing_free};
-}
-
 class ChewingCandidateWord : public CandidateWord {
 public:
     ChewingCandidateWord(ChewingEngine *engine, std::string str, int index)
@@ -69,7 +64,7 @@ public:
         } else if (chewing_keystroke_CheckIgnore(ctx)) {
             return;
         } else if (chewing_commit_Check(ctx)) {
-            auto str = makeChewingString(chewing_commit_String(ctx));
+            UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
             inputContext->commitString(str.get());
         } else {
             engine_->updateUI(inputContext);
@@ -93,7 +88,7 @@ public:
         int pageSize = chewing_get_candPerPage(ctx);
         chewing_cand_Enumerate(ctx);
         while (chewing_cand_hasNext(ctx) && index < pageSize) {
-            auto str = makeChewingString(chewing_cand_String(ctx));
+            UniqueCPtr<char, chewing_free> str(chewing_cand_String(ctx));
             candidateWords_.emplace_back(std::make_unique<ChewingCandidateWord>(
                 engine_, str.get(), index));
             if (index < 10) {
@@ -169,7 +164,7 @@ private:
 } // namespace
 
 ChewingEngine::ChewingEngine(Instance *instance)
-    : instance_(instance), context_(chewing_new(), &chewing_delete) {
+    : instance_(instance), context_(chewing_new()) {
     chewing_set_maxChiSymbolLen(context_.get(), CHEWING_MAX_LEN);
     chewing_set_candPerPage(context_.get(),
                             instance_->globalConfig().defaultPageSize());
@@ -216,10 +211,11 @@ void ChewingEngine::deactivate(const InputMethodEntry &entry,
         chewing_handle_Enter(ctx);
         if (event.type() == EventType::InputContextSwitchInputMethod) {
             if (chewing_commit_Check(ctx)) {
-                auto str = makeChewingString(chewing_commit_String(ctx));
+                UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
                 event.inputContext()->commitString(str.get());
             } else {
-                auto buf_str = makeChewingString(chewing_buffer_String(ctx));
+                UniqueCPtr<char, chewing_free> buf_str(
+                    chewing_buffer_String(ctx));
                 if (strlen(buf_str.get()) != 0) {
                     event.inputContext()->commitString(buf_str.get());
                 }
@@ -306,7 +302,7 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         return;
     } else if (chewing_commit_Check(ctx)) {
         keyEvent.filterAndAccept();
-        auto str = makeChewingString(chewing_commit_String(ctx));
+        UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
         keyEvent.inputContext()->commitString(str.get());
         return updateUI(keyEvent.inputContext());
     } else {
@@ -344,7 +340,7 @@ void ChewingEngine::updateUI(InputContext *ic) {
     ic->inputPanel().reset();
     ic->updateUserInterface(UserInterfaceComponent::InputPanel);
 
-    auto buf_str = makeChewingString(chewing_buffer_String(ctx));
+    UniqueCPtr<char, chewing_free> buf_str(chewing_buffer_String(ctx));
     const char *zuin_str = chewing_bopomofo_String_static(ctx);
 
     std::string text = buf_str.get();
