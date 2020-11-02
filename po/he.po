@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# Omeritzics Games, 2020
+# Omer I.S., 2020
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-10-28 12:14-0700\n"
+"POT-Creation-Date: 2020-11-02 14:17-0800\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: Omeritzics Games, 2020\n"
+"Last-Translator: Omer I.S., 2020\n"
 "Language-Team: Hebrew (https://www.transifex.com/fcitx/teams/12005/he/)\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -44,12 +44,20 @@ msgstr ""
 msgid "Carpalx Keyboard"
 msgstr ""
 
-#: src/chewing.conf.in:3 src/chewing-addon.conf.in:3
+#: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
 msgid "Chewing"
 msgstr ""
 
 #: src/chewing-addon.conf.in:4
 msgid "Chewing Wrapper For Fcitx"
+msgstr ""
+
+#: org.fcitx.fcitx5-chewing.metainfo.xml.in:7
+msgid "Chewing for Fcitx 5"
+msgstr ""
+
+#: org.fcitx.fcitx5-chewing.metainfo.xml.in:8
+msgid "Chewing input method"
 msgstr ""
 
 #: src/eim.h:65

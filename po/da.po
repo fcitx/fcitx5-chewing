@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# scootergrisen, 2017
+# scootergrisen, 2018
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2018-11-28 00:01-0800\n"
+"POT-Creation-Date: 2020-11-02 14:17-0800\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: scootergrisen, 2017\n"
+"Last-Translator: scootergrisen, 2018\n"
 "Language-Team: Danish (https://www.transifex.com/fcitx/teams/12005/da/)\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -19,31 +19,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/eim.h:48
+#: src/eim.h:36
 msgid "1234567890"
 msgstr "1234567890"
 
-#: src/eim.h:51
+#: src/eim.h:39
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/eim.h:87
+#: src/eim.h:75
 msgid "Add Phrase Forward"
 msgstr "Tilføj frase fremad"
 
-#: src/eim.h:91
+#: src/eim.h:79
 msgid "Automatically shift cursor"
 msgstr "Skift automatisk markør"
 
-#: src/eim.h:89
+#: src/eim.h:77
 msgid "Backward phrase choice"
 msgstr "Valg af baglæns frase"
 
-#: src/eim.h:79
+#: src/eim.h:67
 msgid "Carpalx Keyboard"
 msgstr "Carpalx-tastatur"
 
-#: src/chewing.conf.in:3 src/chewing-addon.conf.in:3
+#: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
 msgid "Chewing"
 msgstr "Chewing"
 
@@ -51,74 +51,82 @@ msgstr "Chewing"
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Chewing-wrapper til Fcitx"
 
-#: src/eim.h:77
+#: org.fcitx.fcitx5-chewing.metainfo.xml.in:7
+msgid "Chewing for Fcitx 5"
+msgstr ""
+
+#: org.fcitx.fcitx5-chewing.metainfo.xml.in:8
+msgid "Chewing input method"
+msgstr ""
+
+#: src/eim.h:65
 msgid "DACHEN_CP26 Keyboard"
 msgstr "DACHEN_CP26-tastatur"
 
-#: src/eim.h:72
+#: src/eim.h:60
 msgid "Default Keyboard"
 msgstr "Standardtastatur"
 
-#: src/eim.h:75
+#: src/eim.h:63
 msgid "Dvorak Keyboard"
 msgstr "Dvorak-tastatur"
 
-#: src/eim.h:76
+#: src/eim.h:64
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr "Dvorak-tastatur med understøttelse af Hsu's"
 
-#: src/eim.h:74
+#: src/eim.h:62
 msgid "ETen Keyboard"
 msgstr "ETen-tastatur"
 
-#: src/eim.h:75
+#: src/eim.h:63
 msgid "ETen26 Keyboard"
 msgstr "ETen26-tastatur"
 
-#: src/eim.h:74
+#: src/eim.h:62
 msgid "Gin-Yieh Keyboard"
 msgstr "Gin-Yieh-tastatur"
 
-#: src/eim.h:78
+#: src/eim.h:66
 msgid "Han-Yu PinYin Keyboard"
 msgstr "Han-Yu PinYin-tastatur"
 
-#: src/eim.h:73
+#: src/eim.h:61
 msgid "Hsu's Keyboard"
 msgstr "Hsu's tastatur"
 
-#: src/eim.h:73
+#: src/eim.h:61
 msgid "IBM Keyboard"
 msgstr "IBM-tastatur"
 
-#: src/eim.h:95
+#: src/eim.h:83
 msgid "Keyboard Layout"
 msgstr "Tastaturlayout"
 
-#: src/eim.h:84
+#: src/eim.h:72
 msgid "Selection Key"
 msgstr "Valgtast"
 
-#: src/eim.h:93
+#: src/eim.h:81
 msgid "Space as selection key"
 msgstr "Mellemrum som valgtast"
 
-#: src/eim.h:50
+#: src/eim.h:38
 msgid "aoeuhtn789"
 msgstr "aoeuhtn789"
 
-#: src/eim.h:49
+#: src/eim.h:37
 msgid "asdfghjkl;"
 msgstr "asdfghjkl;"
 
-#: src/eim.h:50
+#: src/eim.h:38
 msgid "asdfjkl789"
 msgstr "asdfjkl789"
 
-#: src/eim.h:49
+#: src/eim.h:37
 msgid "asdfzxcv89"
 msgstr "asdfzxcv89"
 
-#: src/eim.h:51
+#: src/eim.h:39
 msgid "dstnaeo789"
 msgstr "dstnaeo789"

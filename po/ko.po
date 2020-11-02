@@ -4,15 +4,15 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
-# MarongHappy <daemul72@gmail.com>, 2020
+# JungHee Lee <daemul72@gmail.com>, 2020
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-03-25 00:01-0700\n"
+"POT-Creation-Date: 2020-11-02 14:17-0800\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: MarongHappy <daemul72@gmail.com>, 2020\n"
+"Last-Translator: JungHee Lee <daemul72@gmail.com>, 2020\n"
 "Language-Team: Korean (https://www.transifex.com/fcitx/teams/12005/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -20,31 +20,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/eim.h:48
+#: src/eim.h:36
 msgid "1234567890"
 msgstr "1234567890"
 
-#: src/eim.h:51
+#: src/eim.h:39
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/eim.h:87
+#: src/eim.h:75
 msgid "Add Phrase Forward"
 msgstr "문구를 앞에 추가"
 
-#: src/eim.h:91
+#: src/eim.h:79
 msgid "Automatically shift cursor"
 msgstr "자동으로 커서를 이동"
 
-#: src/eim.h:89
+#: src/eim.h:77
 msgid "Backward phrase choice"
 msgstr "역방향 문구 선택"
 
-#: src/eim.h:79
+#: src/eim.h:67
 msgid "Carpalx Keyboard"
 msgstr "Carpalx 키보드"
 
-#: src/chewing.conf.in:3 src/chewing-addon.conf.in:3
+#: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
 msgid "Chewing"
 msgstr "Chewing"
 
@@ -52,74 +52,82 @@ msgstr "Chewing"
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Fcitx Chewing 입력기"
 
-#: src/eim.h:77
+#: org.fcitx.fcitx5-chewing.metainfo.xml.in:7
+msgid "Chewing for Fcitx 5"
+msgstr ""
+
+#: org.fcitx.fcitx5-chewing.metainfo.xml.in:8
+msgid "Chewing input method"
+msgstr ""
+
+#: src/eim.h:65
 msgid "DACHEN_CP26 Keyboard"
 msgstr "DACHEN_CP26 키보드"
 
-#: src/eim.h:72
+#: src/eim.h:60
 msgid "Default Keyboard"
 msgstr "기본 키보드"
 
-#: src/eim.h:75
+#: src/eim.h:63
 msgid "Dvorak Keyboard"
 msgstr "드보락 키보드"
 
-#: src/eim.h:76
+#: src/eim.h:64
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr "Hsu를 지원하는 드보락 키보드"
 
-#: src/eim.h:74
+#: src/eim.h:62
 msgid "ETen Keyboard"
 msgstr "ETen 키보드"
 
-#: src/eim.h:75
+#: src/eim.h:63
 msgid "ETen26 Keyboard"
 msgstr "ETen26 키보드"
 
-#: src/eim.h:74
+#: src/eim.h:62
 msgid "Gin-Yieh Keyboard"
 msgstr "Gin-Yieh 키보드"
 
-#: src/eim.h:78
+#: src/eim.h:66
 msgid "Han-Yu PinYin Keyboard"
 msgstr "Han-Yu 병음 키보드"
 
-#: src/eim.h:73
+#: src/eim.h:61
 msgid "Hsu's Keyboard"
 msgstr "Hsu의 키보드"
 
-#: src/eim.h:73
+#: src/eim.h:61
 msgid "IBM Keyboard"
 msgstr "IBM 키보드"
 
-#: src/eim.h:95
+#: src/eim.h:83
 msgid "Keyboard Layout"
 msgstr "키보드 자판"
 
-#: src/eim.h:84
+#: src/eim.h:72
 msgid "Selection Key"
 msgstr "선택 키"
 
-#: src/eim.h:93
+#: src/eim.h:81
 msgid "Space as selection key"
 msgstr "스페이스바를 선택 키로"
 
-#: src/eim.h:50
+#: src/eim.h:38
 msgid "aoeuhtn789"
 msgstr "aoeuhtn789"
 
-#: src/eim.h:49
+#: src/eim.h:37
 msgid "asdfghjkl;"
 msgstr "asdfghjkl;"
 
-#: src/eim.h:50
+#: src/eim.h:38
 msgid "asdfjkl789"
 msgstr "asdfjkl789"
 
-#: src/eim.h:49
+#: src/eim.h:37
 msgid "asdfzxcv89"
 msgstr "asdfzxcv89"
 
-#: src/eim.h:51
+#: src/eim.h:39
 msgid "dstnaeo789"
 msgstr "dstnaeo789"

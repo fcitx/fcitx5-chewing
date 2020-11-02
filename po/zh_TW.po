@@ -4,12 +4,13 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2017-12-16 10:32-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2020-11-02 14:17-0800\n"
+"PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: csslayer <wengxt@gmail.com>, 2017\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/fcitx/teams/12005/"
 "zh_TW/)\n"
@@ -19,31 +20,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/eim.h:48
+#: src/eim.h:36
 msgid "1234567890"
 msgstr "1234567890"
 
-#: src/eim.h:51
+#: src/eim.h:39
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/eim.h:87
+#: src/eim.h:75
 msgid "Add Phrase Forward"
 msgstr "前方加詞"
 
-#: src/eim.h:91
+#: src/eim.h:79
 msgid "Automatically shift cursor"
 msgstr "選字完畢自動移到下一個字"
 
-#: src/eim.h:89
+#: src/eim.h:77
 msgid "Backward phrase choice"
 msgstr "後方選擇字詞"
 
-#: src/eim.h:79
+#: src/eim.h:67
 msgid "Carpalx Keyboard"
 msgstr "Carpalx 鍵盤"
 
-#: src/chewing.conf.in:3 src/chewing-addon.conf.in:3
+#: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
 msgid "Chewing"
 msgstr "新酷音"
 
@@ -51,74 +52,82 @@ msgstr "新酷音"
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Fcitx 的新酷音封装"
 
-#: src/eim.h:77
+#: org.fcitx.fcitx5-chewing.metainfo.xml.in:7
+msgid "Chewing for Fcitx 5"
+msgstr ""
+
+#: org.fcitx.fcitx5-chewing.metainfo.xml.in:8
+msgid "Chewing input method"
+msgstr ""
+
+#: src/eim.h:65
 msgid "DACHEN_CP26 Keyboard"
 msgstr "大千26鍵"
 
-#: src/eim.h:72
+#: src/eim.h:60
 msgid "Default Keyboard"
 msgstr "預設鍵盤"
 
-#: src/eim.h:75
+#: src/eim.h:63
 msgid "Dvorak Keyboard"
 msgstr "Dvorak 鍵盤"
 
-#: src/eim.h:76
+#: src/eim.h:64
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr "Dvorak 鍵盤 + 許氏注音"
 
-#: src/eim.h:74
+#: src/eim.h:62
 msgid "ETen Keyboard"
 msgstr "倚天鍵盤"
 
-#: src/eim.h:75
+#: src/eim.h:63
 msgid "ETen26 Keyboard"
 msgstr "倚天26鍵鍵盤"
 
-#: src/eim.h:74
+#: src/eim.h:62
 msgid "Gin-Yieh Keyboard"
 msgstr "精業鍵盤"
 
-#: src/eim.h:78
+#: src/eim.h:66
 msgid "Han-Yu PinYin Keyboard"
 msgstr "漢語拼音排列"
 
-#: src/eim.h:73
+#: src/eim.h:61
 msgid "Hsu's Keyboard"
 msgstr "許氏鍵盤"
 
-#: src/eim.h:73
+#: src/eim.h:61
 msgid "IBM Keyboard"
 msgstr "IBM 鍵盤"
 
-#: src/eim.h:95
+#: src/eim.h:83
 msgid "Keyboard Layout"
 msgstr "鍵盤配置"
 
-#: src/eim.h:84
+#: src/eim.h:72
 msgid "Selection Key"
 msgstr "選詞鍵"
 
-#: src/eim.h:93
+#: src/eim.h:81
 msgid "Space as selection key"
 msgstr "使用空白鍵選擇候選字詞"
 
-#: src/eim.h:50
+#: src/eim.h:38
 msgid "aoeuhtn789"
 msgstr "aoeuhtn789"
 
-#: src/eim.h:49
+#: src/eim.h:37
 msgid "asdfghjkl;"
 msgstr "asdfghjkl;"
 
-#: src/eim.h:50
+#: src/eim.h:38
 msgid "asdfjkl789"
 msgstr "asdfjkl789"
 
-#: src/eim.h:49
+#: src/eim.h:37
 msgid "asdfzxcv89"
 msgstr "asdfzxcv89"
 
-#: src/eim.h:51
+#: src/eim.h:39
 msgid "dstnaeo789"
 msgstr "dstnaeo789"
