@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="inputmethod">
+  <id>org.fcitx.fcitx5-chewing</id>
+  <extends>org.fcitx.Fcitx5.desktop</extends>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>Chewing for Fcitx 5</name>
+  <summary>Chewing input method</summary>
+  <url type="homepage">https://fcitx-im.org</url>
+  <releases>
+    <release version="5.0.0" date="2020-10-30"/>
+  </releases>
+</component>
+
