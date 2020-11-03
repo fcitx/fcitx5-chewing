@@ -6,3 +6,7 @@ Type=SharedLibrary
 OnDemand=True
 Configurable=True
 Library=chewing
+
+[Addon/OptionalDependencies]
+0=chttrans
+

@@ -110,6 +110,8 @@ public:
     ChewingContext *context() { return context_.get(); }
 
 private:
+    FCITX_ADDON_DEPENDENCY_LOADER(chttrans, instance_->addonManager());
+
     void populateConfig();
     Instance *instance_;
     ChewingConfig config_;

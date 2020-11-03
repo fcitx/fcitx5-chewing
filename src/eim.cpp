@@ -9,7 +9,9 @@
 #include <fcitx-utils/utf8.h>
 #include <fcitx/inputcontext.h>
 #include <fcitx/inputpanel.h>
+#include <fcitx/statusarea.h>
 #include <fcitx/text.h>
+#include <fcitx/userinterfacemanager.h>
 
 FCITX_DEFINE_LOG_CATEGORY(chewing_log, "chewing");
 #define CHEWING_DEBUG() FCITX_LOGC(chewing_log, Debug)
@@ -201,7 +203,17 @@ void ChewingEngine::reset(const InputMethodEntry &, InputContextEvent &event) {
 
 void ChewingEngine::save() {}
 
-void ChewingEngine::activate(const InputMethodEntry &, InputContextEvent &) {}
+void ChewingEngine::activate(const InputMethodEntry &,
+                             InputContextEvent &event) {
+    // Request chttrans.
+    // Fullwidth is not required for chewing.
+    chttrans();
+    auto *inputContext = event.inputContext();
+    if (auto *action =
+            instance_->userInterfaceManager().lookupAction("chttrans")) {
+        inputContext->statusArea().addAction(StatusGroup::InputMethod, action);
+    }
+}
 
 void ChewingEngine::deactivate(const InputMethodEntry &entry,
                                InputContextEvent &event) {
@@ -222,6 +234,8 @@ void ChewingEngine::deactivate(const InputMethodEntry &entry,
             }
         }
     }
+    auto *inputContext = event.inputContext();
+    inputContext->statusArea().clearGroup(StatusGroup::InputMethod);
     reset(entry, event);
 }
 
