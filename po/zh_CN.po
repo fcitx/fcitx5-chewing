@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# csslayer <wengxt@gmail.com>, 2017
+# csslayer <wengxt@gmail.com>, 2020
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-11-02 14:17-0800\n"
+"POT-Creation-Date: 2020-11-02 16:11-0800\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>, 2017\n"
+"Last-Translator: csslayer <wengxt@gmail.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/fcitx/teams/12005/"
 "zh_CN/)\n"
 "Language: zh_CN\n"
@@ -44,7 +44,7 @@ msgstr "后方选择字词"
 msgid "Carpalx Keyboard"
 msgstr "Carpalx 键盘"
 
-#: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
+#: src/chewing.conf.in:3 src/chewing-addon.conf.in:3
 msgid "Chewing"
 msgstr "新酷音"
 
@@ -54,11 +54,11 @@ msgstr "Fcitx 的 新酷音封装"
 
 #: org.fcitx.fcitx5-chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
-msgstr ""
+msgstr "Fcitx 5 的新酷音支持"
 
 #: org.fcitx.fcitx5-chewing.metainfo.xml.in:8
 msgid "Chewing input method"
-msgstr ""
+msgstr "新酷音输入法"
 
 #: src/eim.h:65
 msgid "DACHEN_CP26 Keyboard"
