@@ -4,14 +4,15 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
+# Billy Su <billy4195.su@gmail.com>, 2020
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-11-02 14:17-0800\n"
+"POT-Creation-Date: 2020-11-13 00:03-0800\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>, 2017\n"
+"Last-Translator: Billy Su <billy4195.su@gmail.com>, 2020\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/fcitx/teams/12005/"
 "zh_TW/)\n"
 "Language: zh_TW\n"
@@ -44,7 +45,7 @@ msgstr "後方選擇字詞"
 msgid "Carpalx Keyboard"
 msgstr "Carpalx 鍵盤"
 
-#: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
+#: src/chewing.conf.in:3 src/chewing-addon.conf.in:3
 msgid "Chewing"
 msgstr "新酷音"
 
@@ -58,7 +59,7 @@ msgstr ""
 
 #: org.fcitx.fcitx5-chewing.metainfo.xml.in:8
 msgid "Chewing input method"
-msgstr ""
+msgstr "新酷音輸入法"
 
 #: src/eim.h:65
 msgid "DACHEN_CP26 Keyboard"
