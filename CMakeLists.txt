@@ -5,7 +5,7 @@ find_package(ECM REQUIRED 1.0.0)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
 find_package(PkgConfig REQUIRED)
-find_package(Fcitx5Core REQUIRED)
+find_package(Fcitx5Core 5.0.2 REQUIRED)
 find_package(Gettext REQUIRED)
 include(FeatureSummary)
 include(GNUInstallDirs)
@@ -26,7 +26,7 @@ add_subdirectory(src)
 add_subdirectory(data)
 add_subdirectory(po)
 
-fcitx5_translate_desktop_file(org.fcitx.fcitx5-chewing.metainfo.xml.in
-                              org.fcitx.fcitx5-chewing.metainfo.xml XML)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/org.fcitx.fcitx5-chewing.metainfo.xml" DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo)
+fcitx5_translate_desktop_file(org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in
+                              org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml XML)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml" DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo)
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

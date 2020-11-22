@@ -121,6 +121,7 @@ private:
 class ChewingEngineFactory : public AddonFactory {
 public:
     AddonInstance *create(AddonManager *manager) override {
+        registerDomain("fcitx5-chewing", FCITX_INSTALL_LOCALEDIR);
         return new ChewingEngine(manager->instance());
     }
 };
