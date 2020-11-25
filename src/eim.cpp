@@ -235,7 +235,6 @@ void ChewingEngine::deactivate(const InputMethodEntry &entry,
         }
     }
     auto *inputContext = event.inputContext();
-    inputContext->statusArea().clearGroup(StatusGroup::InputMethod);
     reset(entry, event);
 }
 
