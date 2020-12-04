@@ -4,14 +4,15 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
+# Takuro Onoue <kusanaginoturugi@gmail.com>, 2020
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-11-02 14:17-0800\n"
+"POT-Creation-Date: 2020-12-05 00:03+0100\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>, 2017\n"
+"Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>, 2020\n"
 "Language-Team: Japanese (https://www.transifex.com/fcitx/teams/12005/ja/)\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -29,35 +30,35 @@ msgstr "1234qweras"
 
 #: src/eim.h:75
 msgid "Add Phrase Forward"
-msgstr ""
+msgstr "前にフレーズを追加"
 
 #: src/eim.h:79
 msgid "Automatically shift cursor"
-msgstr ""
+msgstr "カーソルを自動的にシフト"
 
 #: src/eim.h:77
 msgid "Backward phrase choice"
-msgstr ""
+msgstr "後方フレーズを選択"
 
 #: src/eim.h:67
 msgid "Carpalx Keyboard"
-msgstr ""
+msgstr "Carpalx キーボード"
 
 #: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
 msgid "Chewing"
-msgstr ""
+msgstr "Chewing"
 
 #: src/chewing-addon.conf.in:4
 msgid "Chewing Wrapper For Fcitx"
-msgstr ""
+msgstr "Fcitx 用 Chewing ラッパー"
 
-#: org.fcitx.fcitx5-chewing.metainfo.xml.in:7
+#: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
-msgstr ""
+msgstr "Chewing for Fcitx 5"
 
-#: org.fcitx.fcitx5-chewing.metainfo.xml.in:8
+#: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:8
 msgid "Chewing input method"
-msgstr ""
+msgstr "Chewing入力メソッド"
 
 #: src/eim.h:65
 msgid "DACHEN_CP26 Keyboard"
@@ -129,4 +130,4 @@ msgstr "asdfzxcv89"
 
 #: src/eim.h:39
 msgid "dstnaeo789"
-msgstr ""
+msgstr "dstnaeo789"
