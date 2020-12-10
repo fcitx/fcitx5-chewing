@@ -68,6 +68,7 @@ public:
         } else if (chewing_commit_Check(ctx)) {
             UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
             inputContext->commitString(str.get());
+            engine_->updateUI(inputContext);
         } else {
             engine_->updateUI(inputContext);
         }
@@ -234,7 +235,6 @@ void ChewingEngine::deactivate(const InputMethodEntry &entry,
             }
         }
     }
-    auto *inputContext = event.inputContext();
     reset(entry, event);
 }
 
