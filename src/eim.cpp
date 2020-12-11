@@ -191,6 +191,10 @@ void ChewingEngine::populateConfig() {
 }
 
 void ChewingEngine::reset(const InputMethodEntry &, InputContextEvent &event) {
+    doReset(event);
+}
+
+void ChewingEngine::doReset(InputContextEvent &event) {
     ChewingContext *ctx = context_.get();
     chewing_Reset(ctx);
 
@@ -218,24 +222,12 @@ void ChewingEngine::activate(const InputMethodEntry &,
 
 void ChewingEngine::deactivate(const InputMethodEntry &entry,
                                InputContextEvent &event) {
-    auto ctx = context_.get();
     if (event.type() == EventType::InputContextFocusOut ||
         event.type() == EventType::InputContextSwitchInputMethod) {
-        chewing_handle_Enter(ctx);
-        if (event.type() == EventType::InputContextSwitchInputMethod) {
-            if (chewing_commit_Check(ctx)) {
-                UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
-                event.inputContext()->commitString(str.get());
-            } else {
-                UniqueCPtr<char, chewing_free> buf_str(
-                    chewing_buffer_String(ctx));
-                if (strlen(buf_str.get()) != 0) {
-                    event.inputContext()->commitString(buf_str.get());
-                }
-            }
-        }
+        flushBuffer(event);
+    } else {
+        reset(entry, event);
     }
-    reset(entry, event);
 }
 
 void ChewingEngine::keyEvent(const InputMethodEntry &entry,
@@ -326,12 +318,25 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
 
 void ChewingEngine::filterKey(const InputMethodEntry &, KeyEvent &keyEvent) {
     auto ic = keyEvent.inputContext();
+    if (keyEvent.isRelease()) {
+        return;
+    }
     if (ic->inputPanel().candidateList() &&
         (keyEvent.key().isSimple() || keyEvent.key().isCursorMove() ||
          keyEvent.key().check(FcitxKey_space, KeyState::Shift) ||
          keyEvent.key().check(FcitxKey_Tab) ||
-         keyEvent.key().check(FcitxKey_Return, KeyState::Shift)))
+         keyEvent.key().check(FcitxKey_Return, KeyState::Shift))) {
         return keyEvent.filterAndAccept();
+    }
+
+    if (!ic->inputPanel().candidateList()) {
+        FCITX_INFO() << "Flush";
+        // Check if this key will produce something, if so, flush
+        if (!keyEvent.key().hasModifier() &&
+            Key::keySymToUnicode(keyEvent.key().sym())) {
+            flushBuffer(keyEvent);
+        }
+    }
 }
 
 void ChewingEngine::updateUI(InputContext *ic) {
@@ -389,8 +394,8 @@ void ChewingEngine::updateUI(InputContext *ic) {
 
     // insert zuin in the middle
     preedit.append(text.substr(0, rcur), TextFormatFlag::Underline);
-    preedit.append(zuin, {TextFormatFlag::HighLight, TextFormatFlag::Underline,
-                          TextFormatFlag::DontCommit});
+    preedit.append(zuin,
+                   {TextFormatFlag::HighLight, TextFormatFlag::Underline});
     preedit.append(text.substr(rcur), TextFormatFlag::Underline);
 
     if (!ic->capabilityFlags().test(CapabilityFlag::Preedit)) {
@@ -398,6 +403,27 @@ void ChewingEngine::updateUI(InputContext *ic) {
     }
     ic->inputPanel().setClientPreedit(preedit);
     ic->updatePreedit();
+}
+
+void ChewingEngine::flushBuffer(InputContextEvent &event) {
+    auto ctx = context_.get();
+    // This check is because we ask the client to do the focus out commit.
+    if (event.type() != EventType::InputContextFocusOut) {
+        chewing_handle_Enter(ctx);
+        if (chewing_commit_Check(ctx)) {
+            UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
+            event.inputContext()->commitString(str.get());
+        }
+        UniqueCPtr<char, chewing_free> buf_str(chewing_buffer_String(ctx));
+        const char *zuin_str = chewing_bopomofo_String_static(ctx);
+        std::string text = buf_str.get();
+        std::string zuin = zuin_str;
+        text += zuin;
+        if (!text.empty()) {
+            event.inputContext()->commitString(text);
+        }
+    }
+    doReset(event);
 }
 
 } // namespace fcitx

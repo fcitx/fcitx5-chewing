@@ -107,6 +107,9 @@ public:
 
     void updateUI(InputContext *ic);
 
+    void flushBuffer(InputContextEvent &event);
+    void doReset(InputContextEvent &event);
+
     ChewingContext *context() { return context_.get(); }
 
 private:
