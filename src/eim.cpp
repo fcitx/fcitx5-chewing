@@ -32,6 +32,10 @@ static const char *builtin_selectkeys[] = {
     "aoeuhtn789", "1234qweras", "dstnaeo789",
 };
 
+static_assert(FCITX_ARRAY_SIZE(builtin_selectkeys) ==
+                  ChewingSelectionKeyI18NAnnotation::enumLength,
+              "Enum mismatch");
+
 class ChewingCandidateWord : public CandidateWord {
 public:
     ChewingCandidateWord(ChewingEngine *engine, std::string str, int index)
@@ -238,6 +242,20 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
     }
 
     CHEWING_DEBUG() << "KeyEvent: " << keyEvent.key().toString();
+    auto ic = keyEvent.inputContext();
+    const KeyList keypadKeys{Key{FcitxKey_KP_1}, Key{FcitxKey_KP_2},
+                             Key{FcitxKey_KP_3}, Key{FcitxKey_KP_4},
+                             Key{FcitxKey_KP_5}, Key{FcitxKey_KP_6},
+                             Key{FcitxKey_KP_7}, Key{FcitxKey_KP_8},
+                             Key{FcitxKey_KP_9}, Key{FcitxKey_KP_0}};
+    if (*config_.UseKeypadAsSelectionKey && ic->inputPanel().candidateList()) {
+        if (int index = keyEvent.key().keyListIndex(keypadKeys);
+            index >= 0 && index < ic->inputPanel().candidateList()->size()) {
+            FCITX_INFO() << index;
+            ic->inputPanel().candidateList()->candidate(index).select(ic);
+            return keyEvent.filterAndAccept();
+        }
+    }
 
     if (keyEvent.key().check(FcitxKey_space)) {
         chewing_handle_Space(ctx);
@@ -302,25 +320,25 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
 
     if (chewing_keystroke_CheckAbsorb(ctx)) {
         keyEvent.filterAndAccept();
-        return updateUI(keyEvent.inputContext());
+        return updateUI(ic);
     } else if (chewing_keystroke_CheckIgnore(ctx)) {
         return;
     } else if (chewing_commit_Check(ctx)) {
         keyEvent.filterAndAccept();
         UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
-        keyEvent.inputContext()->commitString(str.get());
-        return updateUI(keyEvent.inputContext());
+        ic->commitString(str.get());
+        return updateUI(ic);
     } else {
         keyEvent.filterAndAccept();
-        return updateUI(keyEvent.inputContext());
+        return updateUI(ic);
     }
 }
 
 void ChewingEngine::filterKey(const InputMethodEntry &, KeyEvent &keyEvent) {
-    auto ic = keyEvent.inputContext();
     if (keyEvent.isRelease()) {
         return;
     }
+    auto ic = keyEvent.inputContext();
     if (ic->inputPanel().candidateList() &&
         (keyEvent.key().isSimple() || keyEvent.key().isCursorMove() ||
          keyEvent.key().check(FcitxKey_space, KeyState::Shift) ||

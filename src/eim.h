@@ -71,6 +71,8 @@ FCITX_CONFIGURATION(
     OptionWithAnnotation<ChewingSelectionKey, ChewingSelectionKeyI18NAnnotation>
         SelectionKey{this, "SelectionKey", _("Selection Key"),
                      ChewingSelectionKey::CSK_Digit};
+    Option<bool> UseKeypadAsSelectionKey{
+        this, "UseKeypadAsSelection", _("Use Keypad as Selection key"), false};
     Option<bool> AddPhraseForward{this, "AddPhraseForward",
                                   _("Add Phrase Forward"), true};
     Option<bool> ChoiceBackward{this, "ChoiceBackward",
