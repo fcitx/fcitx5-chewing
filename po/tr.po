@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-11-02 14:17-0800\n"
+"POT-Creation-Date: 2020-12-12 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: csslayer <wengxt@gmail.com>, 2017\n"
 "Language-Team: Turkish (https://www.transifex.com/fcitx/teams/12005/tr/)\n"
@@ -27,15 +27,15 @@ msgstr "1234567890"
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/eim.h:75
+#: src/eim.h:77
 msgid "Add Phrase Forward"
 msgstr "İfazı İleriye Ekle"
 
-#: src/eim.h:79
+#: src/eim.h:81
 msgid "Automatically shift cursor"
 msgstr "İmleci otomatik olarak kaydır"
 
-#: src/eim.h:77
+#: src/eim.h:79
 msgid "Backward phrase choice"
 msgstr "Geriye doğru ifade seçimi"
 
@@ -51,11 +51,11 @@ msgstr "Çiğneme"
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Fcitx için Çiğneme  Wrapperı"
 
-#: org.fcitx.fcitx5-chewing.metainfo.xml.in:7
+#: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
 msgstr ""
 
-#: org.fcitx.fcitx5-chewing.metainfo.xml.in:8
+#: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:8
 msgid "Chewing input method"
 msgstr ""
 
@@ -99,7 +99,7 @@ msgstr "Hsu Klavyesi"
 msgid "IBM Keyboard"
 msgstr "IBM Klavyesi"
 
-#: src/eim.h:83
+#: src/eim.h:85
 msgid "Keyboard Layout"
 msgstr "Klavye Düzeni "
 
@@ -107,9 +107,13 @@ msgstr "Klavye Düzeni "
 msgid "Selection Key"
 msgstr "Seçim Tuşu"
 
-#: src/eim.h:81
+#: src/eim.h:83
 msgid "Space as selection key"
 msgstr "Seçim tuşu olarak boşluk tuşu"
+
+#: src/eim.h:75
+msgid "Use Keypad as Selection key"
+msgstr ""
 
 #: src/eim.h:38
 msgid "aoeuhtn789"

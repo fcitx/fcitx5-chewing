@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-12-05 00:03+0100\n"
+"POT-Creation-Date: 2020-12-12 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>, 2020\n"
 "Language-Team: Japanese (https://www.transifex.com/fcitx/teams/12005/ja/)\n"
@@ -28,15 +28,15 @@ msgstr "1234567890"
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/eim.h:75
+#: src/eim.h:77
 msgid "Add Phrase Forward"
 msgstr "前にフレーズを追加"
 
-#: src/eim.h:79
+#: src/eim.h:81
 msgid "Automatically shift cursor"
 msgstr "カーソルを自動的にシフト"
 
-#: src/eim.h:77
+#: src/eim.h:79
 msgid "Backward phrase choice"
 msgstr "後方フレーズを選択"
 
@@ -100,7 +100,7 @@ msgstr "Hsu キーボード"
 msgid "IBM Keyboard"
 msgstr "IBM キーボード"
 
-#: src/eim.h:83
+#: src/eim.h:85
 msgid "Keyboard Layout"
 msgstr "キーボードレイアウト"
 
@@ -108,9 +108,13 @@ msgstr "キーボードレイアウト"
 msgid "Selection Key"
 msgstr "選択キー"
 
-#: src/eim.h:81
+#: src/eim.h:83
 msgid "Space as selection key"
 msgstr "スペースを選択キーとして使う"
+
+#: src/eim.h:75
+msgid "Use Keypad as Selection key"
+msgstr ""
 
 #: src/eim.h:38
 msgid "aoeuhtn789"
