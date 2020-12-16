@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-12-12 20:24+0000\n"
+"POT-Creation-Date: 2020-12-16 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: csslayer <wengxt@gmail.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/fcitx/teams/12005/"
@@ -114,7 +114,7 @@ msgstr "空格键选词"
 
 #: src/eim.h:75
 msgid "Use Keypad as Selection key"
-msgstr ""
+msgstr "使用小键盘作为选择键"
 
 #: src/eim.h:38
 msgid "aoeuhtn789"
