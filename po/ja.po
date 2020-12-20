@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-12-19 20:24+0000\n"
+"POT-Creation-Date: 2020-12-20 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020\n"
 "Language-Team: Japanese (https://www.transifex.com/fcitx/teams/12005/ja/)\n"
@@ -115,7 +115,7 @@ msgstr "スペースを選択キーとして使う"
 
 #: src/eim.h:75
 msgid "Use Keypad as Selection key"
-msgstr ""
+msgstr "選択キーとしてキーパッドを使用する"
 
 #: src/eim.h:38
 msgid "aoeuhtn789"
