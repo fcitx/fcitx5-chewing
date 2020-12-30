@@ -251,7 +251,6 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
     if (*config_.UseKeypadAsSelectionKey && ic->inputPanel().candidateList()) {
         if (int index = keyEvent.key().keyListIndex(keypadKeys);
             index >= 0 && index < ic->inputPanel().candidateList()->size()) {
-            FCITX_INFO() << index;
             ic->inputPanel().candidateList()->candidate(index).select(ic);
             return keyEvent.filterAndAccept();
         }
@@ -348,7 +347,6 @@ void ChewingEngine::filterKey(const InputMethodEntry &, KeyEvent &keyEvent) {
     }
 
     if (!ic->inputPanel().candidateList()) {
-        FCITX_INFO() << "Flush";
         // Check if this key will produce something, if so, flush
         if (!keyEvent.key().hasModifier() &&
             Key::keySymToUnicode(keyEvent.key().sym())) {
