@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# scootergrisen, 2020
+# scootergrisen, 2021
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-12-12 20:24+0000\n"
+"POT-Creation-Date: 2021-01-12 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: scootergrisen, 2020\n"
+"Last-Translator: scootergrisen, 2021\n"
 "Language-Team: Danish (https://www.transifex.com/fcitx/teams/12005/da/)\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,7 @@ msgstr "Mellemrum som valgtast"
 
 #: src/eim.h:75
 msgid "Use Keypad as Selection key"
-msgstr ""
+msgstr "Brug numerisk tastatur som valgtast"
 
 #: src/eim.h:38
 msgid "aoeuhtn789"
