@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# Omer I.S. <omeritzicschwartz@gmail.com>, 2020
+# Omer I.S. <omeritzicschwartz@gmail.com>, 2021
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-12-12 20:24+0000\n"
+"POT-Creation-Date: 2021-01-15 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: Omer I.S. <omeritzicschwartz@gmail.com>, 2020\n"
+"Last-Translator: Omer I.S. <omeritzicschwartz@gmail.com>, 2021\n"
 "Language-Team: Hebrew (https://www.transifex.com/fcitx/teams/12005/he/)\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 
 #: src/eim.h:39
 msgid "1234qweras"
-msgstr ""
+msgstr "1234qweras"
 
 #: src/eim.h:77
 msgid "Add Phrase Forward"
@@ -122,7 +122,7 @@ msgstr ""
 
 #: src/eim.h:37
 msgid "asdfghjkl;"
-msgstr ""
+msgstr "asdfghjkl;"
 
 #: src/eim.h:38
 msgid "asdfjkl789"
@@ -130,8 +130,8 @@ msgstr ""
 
 #: src/eim.h:37
 msgid "asdfzxcv89"
-msgstr ""
+msgstr "asdfzxcv89"
 
 #: src/eim.h:39
 msgid "dstnaeo789"
-msgstr ""
+msgstr "dstnaeo789"
