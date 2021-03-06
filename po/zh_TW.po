@@ -5,14 +5,15 @@
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
 # Billy SU <billy4195.su@gmail.com>, 2020
+# PHLin <Cypressyew@gmail.com>, 2021
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-12-12 20:24+0000\n"
+"POT-Creation-Date: 2021-03-06 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: Billy SU <billy4195.su@gmail.com>, 2020\n"
+"Last-Translator: PHLin <Cypressyew@gmail.com>, 2021\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/fcitx/teams/12005/"
 "zh_TW/)\n"
 "Language: zh_TW\n"
@@ -45,17 +46,17 @@ msgstr "後方選擇字詞"
 msgid "Carpalx Keyboard"
 msgstr "Carpalx 鍵盤"
 
-#: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
+#: src/chewing-addon.conf.in.in:3 src/chewing.conf.in:3
 msgid "Chewing"
 msgstr "新酷音"
 
-#: src/chewing-addon.conf.in:4
+#: src/chewing-addon.conf.in.in:4
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Fcitx 的新酷音封装"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
-msgstr ""
+msgstr "Fcitx 5 的新酷音輸入法"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:8
 msgid "Chewing input method"
