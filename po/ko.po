@@ -4,15 +4,15 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
-# JungHee Lee <daemul72@gmail.com>, 2020
+# Jung Hee Lee <daemul72@gmail.com>, 2021
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-12-12 20:24+0000\n"
+"POT-Creation-Date: 2021-06-05 20:25+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: JungHee Lee <daemul72@gmail.com>, 2020\n"
+"Last-Translator: Jung Hee Lee <daemul72@gmail.com>, 2021\n"
 "Language-Team: Korean (https://www.transifex.com/fcitx/teams/12005/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -44,13 +44,13 @@ msgstr "역방향 문구 선택"
 msgid "Carpalx Keyboard"
 msgstr "Carpalx 키보드"
 
-#: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
+#: src/chewing-addon.conf.in.in:3 src/chewing.conf.in:3
 msgid "Chewing"
 msgstr "Chewing"
 
-#: src/chewing-addon.conf.in:4
+#: src/chewing-addon.conf.in.in:4
 msgid "Chewing Wrapper For Fcitx"
-msgstr "Fcitx Chewing 입력기"
+msgstr "Fcitx용 Chewing 입력기"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
