@@ -64,7 +64,7 @@ msgstr "新酷音輸入法"
 
 #: src/eim.h:65
 msgid "DACHEN_CP26 Keyboard"
-msgstr "大千26鍵"
+msgstr "大千 26 鍵"
 
 #: src/eim.h:60
 msgid "Default Keyboard"
@@ -84,7 +84,7 @@ msgstr "倚天鍵盤"
 
 #: src/eim.h:63
 msgid "ETen26 Keyboard"
-msgstr "倚天26鍵鍵盤"
+msgstr "倚天 26 鍵鍵盤"
 
 #: src/eim.h:62
 msgid "Gin-Yieh Keyboard"
@@ -92,7 +92,7 @@ msgstr "精業鍵盤"
 
 #: src/eim.h:66
 msgid "Han-Yu PinYin Keyboard"
-msgstr "漢語拼音排列"
+msgstr "漢語拼音鍵盤"
 
 #: src/eim.h:61
 msgid "Hsu's Keyboard"
@@ -116,7 +116,7 @@ msgstr "使用空白鍵選擇候選字詞"
 
 #: src/eim.h:75
 msgid "Use Keypad as Selection key"
-msgstr ""
+msgstr "使用數字鍵盤選擇候選字詞"
 
 #: src/eim.h:38
 msgid "aoeuhtn789"
