@@ -4,15 +4,16 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
-# Jung Hee Lee <daemul72@gmail.com>, 2021
+# 이정희 <daemul72@gmail.com>, 2021
+# Bon Keun Seo <scobyseo@gmail.com>, 2021
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-06-05 20:25+0000\n"
+"POT-Creation-Date: 2021-10-17 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: Jung Hee Lee <daemul72@gmail.com>, 2021\n"
+"Last-Translator: Bon Keun Seo <scobyseo@gmail.com>, 2021\n"
 "Language-Team: Korean (https://www.transifex.com/fcitx/teams/12005/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -54,11 +55,11 @@ msgstr "Fcitx용 Chewing 입력기"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
-msgstr ""
+msgstr "Fcitx 5 용 Chewing"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:8
 msgid "Chewing input method"
-msgstr ""
+msgstr "Chewing 입력기"
 
 #: src/eim.h:65
 msgid "DACHEN_CP26 Keyboard"
@@ -114,7 +115,7 @@ msgstr "스페이스바를 선택 키로"
 
 #: src/eim.h:75
 msgid "Use Keypad as Selection key"
-msgstr ""
+msgstr "키패드를 선택 키로 사용"
 
 #: src/eim.h:38
 msgid "aoeuhtn789"
