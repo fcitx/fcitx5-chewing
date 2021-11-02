@@ -4,14 +4,15 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
+# abc Def <hdogan1974@gmail.com>, 2021
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-12-12 20:24+0000\n"
+"POT-Creation-Date: 2021-11-02 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>, 2017\n"
+"Last-Translator: abc Def <hdogan1974@gmail.com>, 2021\n"
 "Language-Team: Turkish (https://www.transifex.com/fcitx/teams/12005/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -43,21 +44,21 @@ msgstr "Geriye doğru ifade seçimi"
 msgid "Carpalx Keyboard"
 msgstr "Carpalx Klavyesi"
 
-#: src/chewing-addon.conf.in:3 src/chewing.conf.in:3
+#: src/chewing-addon.conf.in.in:3 src/chewing.conf.in:3
 msgid "Chewing"
 msgstr "Çiğneme"
 
-#: src/chewing-addon.conf.in:4
+#: src/chewing-addon.conf.in.in:4
 msgid "Chewing Wrapper For Fcitx"
 msgstr "Fcitx için Çiğneme  Wrapperı"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
-msgstr ""
+msgstr "Fcixtx 5 için çiğneme"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:8
 msgid "Chewing input method"
-msgstr ""
+msgstr "Çiğneme giriş yöntemi"
 
 #: src/eim.h:65
 msgid "DACHEN_CP26 Keyboard"
@@ -113,7 +114,7 @@ msgstr "Seçim tuşu olarak boşluk tuşu"
 
 #: src/eim.h:75
 msgid "Use Keypad as Selection key"
-msgstr ""
+msgstr "Seçim tuşu olarak Tuş Takımını kullan"
 
 #: src/eim.h:38
 msgid "aoeuhtn789"
