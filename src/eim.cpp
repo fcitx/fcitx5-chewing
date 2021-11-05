@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2012~2012 Tai-Lin Chu <tailinchu@gmail.com>
  * SPDX-FileCopyrightText: 2012~2017 CSSlayer <wengxt@gmail.com>
  *
- * SPDX-License-Identifier: GPL-2.0-or-later
+ * SPDX-License-Identifier: LGPL-2.1-or-later
  *
  */
 #include "eim.h"
