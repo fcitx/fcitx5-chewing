@@ -14,11 +14,14 @@
 #include <fcitx-utils/i18n.h>
 #include <fcitx/addonfactory.h>
 #include <fcitx/addonmanager.h>
+#include <fcitx/candidatelist.h>
 #include <fcitx/inputmethodengine.h>
 #include <fcitx/instance.h>
 #include <type_traits>
 
 namespace fcitx {
+FCITX_CONFIG_ENUM_NAME_WITH_I18N(CandidateLayoutHint, N_("Not Set"),
+                                 N_("Vertical"), N_("Horizontal"));
 
 enum class ChewingSelectionKey {
     CSK_Digit,
@@ -71,6 +74,11 @@ FCITX_CONFIGURATION(
     OptionWithAnnotation<ChewingSelectionKey, ChewingSelectionKeyI18NAnnotation>
         SelectionKey{this, "SelectionKey", _("Selection Key"),
                      ChewingSelectionKey::CSK_Digit};
+    Option<int, IntConstrain> PageSize{this, "PageSize", _("Page Size"), 10,
+                                       IntConstrain(3, 10)};
+    OptionWithAnnotation<CandidateLayoutHint, CandidateLayoutHintI18NAnnotation>
+        CandidateLayout{this, "CandidateLayout", _("Candidate List Layout"),
+                        fcitx::CandidateLayoutHint::NotSet};
     Option<bool> UseKeypadAsSelectionKey{
         this, "UseKeypadAsSelection", _("Use Keypad as Selection key"), false};
     Option<bool> AddPhraseForward{this, "AddPhraseForward",

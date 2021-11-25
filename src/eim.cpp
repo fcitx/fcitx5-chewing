@@ -131,7 +131,7 @@ public:
     int size() const override { return candidateWords_.size(); }
     int cursorIndex() const override { return -1; }
     CandidateLayoutHint layoutHint() const override {
-        return CandidateLayoutHint::NotSet;
+        return *engine_->config().CandidateLayout;
     }
 
     // Need for paging
@@ -173,8 +173,6 @@ private:
 ChewingEngine::ChewingEngine(Instance *instance)
     : instance_(instance), context_(chewing_new()) {
     chewing_set_maxChiSymbolLen(context_.get(), CHEWING_MAX_LEN);
-    chewing_set_candPerPage(context_.get(),
-                            instance_->globalConfig().defaultPageSize());
     reloadConfig();
 }
 
@@ -187,6 +185,7 @@ void ChewingEngine::reloadConfig() {
 
 void ChewingEngine::populateConfig() {
     ChewingContext *ctx = context_.get();
+    chewing_set_candPerPage(ctx, *config_.PageSize);
     chewing_set_addPhraseDirection(ctx, *config_.AddPhraseForward ? 0 : 1);
     chewing_set_phraseChoiceRearward(ctx, *config_.ChoiceBackward ? 1 : 0);
     chewing_set_autoShiftCur(ctx, *config_.AutoShiftCursor ? 1 : 0);
