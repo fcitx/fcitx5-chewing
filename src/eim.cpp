@@ -398,6 +398,10 @@ void ChewingEngine::updateUI(InputContext *ic) {
     if (len == utf8::INVALID_LENGTH) {
         return;
     }
+    const auto useClientPreedit =
+        ic->capabilityFlags().test(CapabilityFlag::Preedit);
+    const auto format =
+        useClientPreedit ? TextFormatFlag::Underline : TextFormatFlag::NoFlag;
     Text preedit;
 
     int cur = chewing_cursor_Current(ctx);
@@ -408,15 +412,15 @@ void ChewingEngine::updateUI(InputContext *ic) {
     preedit.setCursor(rcur);
 
     // insert zuin in the middle
-    preedit.append(text.substr(0, rcur), TextFormatFlag::Underline);
-    preedit.append(zuin,
-                   {TextFormatFlag::HighLight, TextFormatFlag::Underline});
-    preedit.append(text.substr(rcur), TextFormatFlag::Underline);
+    preedit.append(text.substr(0, rcur), format);
+    preedit.append(zuin, {TextFormatFlag::HighLight, format});
+    preedit.append(text.substr(rcur), format);
 
-    if (!ic->capabilityFlags().test(CapabilityFlag::Preedit)) {
+    if (useClientPreedit) {
+        ic->inputPanel().setClientPreedit(preedit);
+    } else {
         ic->inputPanel().setPreedit(preedit);
     }
-    ic->inputPanel().setClientPreedit(preedit);
     ic->updatePreedit();
 }
 
