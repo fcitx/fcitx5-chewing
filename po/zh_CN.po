@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# csslayer <wengxt@gmail.com>, 2020
+# csslayer <wengxt@gmail.com>, 2021
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-11-25 20:24+0000\n"
+"POT-Creation-Date: 2021-12-04 15:32+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>, 2020\n"
+"Last-Translator: csslayer <wengxt@gmail.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/fcitx/teams/12005/"
 "zh_CN/)\n"
 "Language: zh_CN\n"
@@ -42,7 +42,7 @@ msgstr "后方选择字词"
 
 #: src/eim.h:80
 msgid "Candidate List Layout"
-msgstr ""
+msgstr "候选词列表方向"
 
 #: src/eim.h:70
 msgid "Carpalx Keyboard"
@@ -98,7 +98,7 @@ msgstr "汉语拼音键盘"
 
 #: src/eim.h:24
 msgid "Horizontal"
-msgstr ""
+msgstr "横排"
 
 #: src/eim.h:64
 msgid "Hsu's Keyboard"
@@ -114,11 +114,11 @@ msgstr "键盘布局"
 
 #: src/eim.h:23
 msgid "Not Set"
-msgstr ""
+msgstr "未设定"
 
 #: src/eim.h:77
 msgid "Page Size"
-msgstr ""
+msgstr "页大小"
 
 #: src/eim.h:75
 msgid "Selection Key"
@@ -134,7 +134,7 @@ msgstr "使用小键盘作为选择键"
 
 #: src/eim.h:24
 msgid "Vertical"
-msgstr ""
+msgstr "竖排"
 
 #: src/eim.h:41
 msgid "aoeuhtn789"
