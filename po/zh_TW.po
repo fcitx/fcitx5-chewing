@@ -6,14 +6,15 @@
 # Billy SU <billy4195.su@gmail.com>, 2020
 # PHLin <Cypressyew@gmail.com>, 2021
 # csslayer <wengxt@gmail.com>, 2021
+# Weizhong Yang <zonble@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-11-25 20:24+0000\n"
+"POT-Creation-Date: 2022-01-04 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>, 2021\n"
+"Last-Translator: Weizhong Yang <zonble@gmail.com>, 2022\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/fcitx/teams/12005/"
 "zh_TW/)\n"
 "Language: zh_TW\n"
@@ -44,7 +45,7 @@ msgstr "後方選擇字詞"
 
 #: src/eim.h:80
 msgid "Candidate List Layout"
-msgstr ""
+msgstr "候選字詞排列方式"
 
 #: src/eim.h:70
 msgid "Carpalx Keyboard"
@@ -100,7 +101,7 @@ msgstr "漢語拼音鍵盤"
 
 #: src/eim.h:24
 msgid "Horizontal"
-msgstr ""
+msgstr "水平"
 
 #: src/eim.h:64
 msgid "Hsu's Keyboard"
@@ -116,11 +117,11 @@ msgstr "鍵盤配置"
 
 #: src/eim.h:23
 msgid "Not Set"
-msgstr ""
+msgstr "尚未設置"
 
 #: src/eim.h:77
 msgid "Page Size"
-msgstr ""
+msgstr "頁面大小"
 
 #: src/eim.h:75
 msgid "Selection Key"
@@ -136,7 +137,7 @@ msgstr "使用數字鍵盤選擇候選字詞"
 
 #: src/eim.h:24
 msgid "Vertical"
-msgstr ""
+msgstr "垂直"
 
 #: src/eim.h:41
 msgid "aoeuhtn789"
