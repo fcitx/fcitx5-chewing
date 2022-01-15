@@ -4,14 +4,15 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
+# Dmitry <dmitrydmitry761@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-11-25 20:24+0000\n"
+"POT-Creation-Date: 2022-01-15 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>, 2017\n"
+"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2022\n"
 "Language-Team: Russian (https://www.transifex.com/fcitx/teams/12005/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +44,7 @@ msgstr "Выбор фразы сзади"
 
 #: src/eim.h:80
 msgid "Candidate List Layout"
-msgstr ""
+msgstr "Макет списка кандидатов"
 
 #: src/eim.h:70
 msgid "Carpalx Keyboard"
@@ -59,11 +60,11 @@ msgstr "Обертка чжуинь для Fcitx"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
-msgstr ""
+msgstr "Chewing для Fcitx 5"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:8
 msgid "Chewing input method"
-msgstr ""
+msgstr "Метод ввода Chewing"
 
 #: src/eim.h:68
 msgid "DACHEN_CP26 Keyboard"
@@ -99,7 +100,7 @@ msgstr "Клавиатура Han-Yu пиньинь"
 
 #: src/eim.h:24
 msgid "Horizontal"
-msgstr ""
+msgstr "Горизонтальный"
 
 #: src/eim.h:64
 msgid "Hsu's Keyboard"
@@ -115,11 +116,11 @@ msgstr "Раскладка клавиатуры"
 
 #: src/eim.h:23
 msgid "Not Set"
-msgstr ""
+msgstr "Не задано"
 
 #: src/eim.h:77
 msgid "Page Size"
-msgstr ""
+msgstr "Размер Страницы"
 
 #: src/eim.h:75
 msgid "Selection Key"
@@ -131,11 +132,11 @@ msgstr "Пробел в качестве клавиши выбора"
 
 #: src/eim.h:83
 msgid "Use Keypad as Selection key"
-msgstr ""
+msgstr "Использовать Keypad в качестве клавиши выбора"
 
 #: src/eim.h:24
 msgid "Vertical"
-msgstr ""
+msgstr "Вертикальный"
 
 #: src/eim.h:41
 msgid "aoeuhtn789"
