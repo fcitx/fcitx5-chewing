@@ -4,16 +4,16 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
-# Takuro Onoue <kusanaginoturugi@gmail.com>, 2020
 # UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020
+# Takuro Onoue <kusanaginoturugi@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-11-25 20:24+0000\n"
+"POT-Creation-Date: 2022-02-15 21:59+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2020\n"
+"Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>, 2022\n"
 "Language-Team: Japanese (https://www.transifex.com/fcitx/teams/12005/ja/)\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "後方フレーズを選択"
 
 #: src/eim.h:80
 msgid "Candidate List Layout"
-msgstr ""
+msgstr "候補リストのレイアウト"
 
 #: src/eim.h:70
 msgid "Carpalx Keyboard"
@@ -99,7 +99,7 @@ msgstr "Han-Yu PinYin キーボード"
 
 #: src/eim.h:24
 msgid "Horizontal"
-msgstr ""
+msgstr "水平"
 
 #: src/eim.h:64
 msgid "Hsu's Keyboard"
@@ -115,11 +115,11 @@ msgstr "キーボードレイアウト"
 
 #: src/eim.h:23
 msgid "Not Set"
-msgstr ""
+msgstr "未セット"
 
 #: src/eim.h:77
 msgid "Page Size"
-msgstr ""
+msgstr "ページサイズ"
 
 #: src/eim.h:75
 msgid "Selection Key"
@@ -135,7 +135,7 @@ msgstr "選択キーとしてキーパッドを使用する"
 
 #: src/eim.h:24
 msgid "Vertical"
-msgstr ""
+msgstr "垂直"
 
 #: src/eim.h:41
 msgid "aoeuhtn789"
