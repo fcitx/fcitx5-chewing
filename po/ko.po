@@ -5,15 +5,15 @@
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
 # Bon Keun Seo <scobyseo@gmail.com>, 2021
-# JungHee Lee <daemul72@gmail.com>, 2022
+# Junghee Lee <daemul72@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-03-01 20:24+0000\n"
+"POT-Creation-Date: 2022-04-09 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: JungHee Lee <daemul72@gmail.com>, 2022\n"
+"Last-Translator: Junghee Lee <daemul72@gmail.com>, 2022\n"
 "Language-Team: Korean (https://www.transifex.com/fcitx/teams/12005/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "역방향 문구 선택"
 
 #: src/eim.h:80
 msgid "Candidate List Layout"
-msgstr ""
+msgstr "후보 목록 자판"
 
 #: src/eim.h:70
 msgid "Carpalx Keyboard"
@@ -99,7 +99,7 @@ msgstr "Han-Yu 병음 키보드"
 
 #: src/eim.h:24
 msgid "Horizontal"
-msgstr ""
+msgstr "가로"
 
 #: src/eim.h:64
 msgid "Hsu's Keyboard"
@@ -115,11 +115,11 @@ msgstr "키보드 자판"
 
 #: src/eim.h:23
 msgid "Not Set"
-msgstr ""
+msgstr "지정되지 않음"
 
 #: src/eim.h:77
 msgid "Page Size"
-msgstr ""
+msgstr "페이지 크기"
 
 #: src/eim.h:75
 msgid "Selection Key"
@@ -135,7 +135,7 @@ msgstr "키패드를 선택 키로 사용"
 
 #: src/eim.h:24
 msgid "Vertical"
-msgstr ""
+msgstr "세로"
 
 #: src/eim.h:41
 msgid "aoeuhtn789"
