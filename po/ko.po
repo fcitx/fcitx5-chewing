@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-04-09 20:24+0000\n"
+"POT-Creation-Date: 2022-04-10 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: Junghee Lee <daemul72@gmail.com>, 2022\n"
 "Language-Team: Korean (https://www.transifex.com/fcitx/teams/12005/ko/)\n"
@@ -35,7 +35,7 @@ msgstr "문구를 앞에 추가"
 
 #: src/eim.h:89
 msgid "Automatically shift cursor"
-msgstr "자동으로 커서를 이동"
+msgstr "자동으로 커서 이동"
 
 #: src/eim.h:87
 msgid "Backward phrase choice"
@@ -59,7 +59,7 @@ msgstr "Fcitx용 Chewing 래퍼"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
-msgstr "Fcitx 5 용 Chewing"
+msgstr "Fcitx5용 Chewing"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:8
 msgid "Chewing input method"
@@ -95,7 +95,7 @@ msgstr "Gin-Yieh 키보드"
 
 #: src/eim.h:69
 msgid "Han-Yu PinYin Keyboard"
-msgstr "Han-Yu 병음 키보드"
+msgstr "Han-Yu Pinyin 키보드"
 
 #: src/eim.h:24
 msgid "Horizontal"
