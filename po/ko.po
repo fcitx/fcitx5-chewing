@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-04-10 20:24+0000\n"
+"POT-Creation-Date: 2022-04-13 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: Junghee Lee <daemul72@gmail.com>, 2022\n"
 "Language-Team: Korean (https://www.transifex.com/fcitx/teams/12005/ko/)\n"
@@ -31,7 +31,7 @@ msgstr "1234qweras"
 
 #: src/eim.h:85
 msgid "Add Phrase Forward"
-msgstr "문구를 앞에 추가"
+msgstr "구문 앞에 추가"
 
 #: src/eim.h:89
 msgid "Automatically shift cursor"
@@ -39,7 +39,7 @@ msgstr "자동으로 커서 이동"
 
 #: src/eim.h:87
 msgid "Backward phrase choice"
-msgstr "역방향 문구 선택"
+msgstr "역방향 구문 선택"
 
 #: src/eim.h:80
 msgid "Candidate List Layout"
