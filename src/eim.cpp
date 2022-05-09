@@ -282,6 +282,14 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         chewing_handle_Tab(ctx);
     } else if (keyEvent.key().isSimple()) {
         int scan_code = keyEvent.key().sym() & 0xff;
+        if (*config_.Layout == ChewingLayout::HanYuPinYin) {
+            const char *zuin_str = chewing_bopomofo_String_static(ctx);
+            // Workaround a bug in libchewing fixed in 2017 but never has stable
+            // release.
+            if (std::string_view(zuin_str).size() >= 9) {
+                return keyEvent.filterAndAccept();
+            }
+        }
         chewing_handle_Default(ctx, scan_code);
     } else if (keyEvent.key().check(FcitxKey_BackSpace)) {
         const char *zuin_str = chewing_bopomofo_String_static(ctx);
