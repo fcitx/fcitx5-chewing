@@ -87,6 +87,8 @@ FCITX_CONFIGURATION(
                                 _("Backward phrase choice"), true};
     Option<bool> AutoShiftCursor{this, "AutoShiftCursor",
                                  _("Automatically shift cursor"), false};
+    Option<bool> EasySymbolInput{this, "EasySymbolInput",
+                                 _("Enable easy symbol"), false};
     Option<bool> SpaceAsSelection{this, "SpaceAsSelection",
                                   _("Space as selection key"), true};
     OptionWithAnnotation<ChewingLayout, ChewingLayoutI18NAnnotation> Layout{

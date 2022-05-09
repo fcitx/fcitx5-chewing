@@ -196,10 +196,26 @@ void ChewingEngine::reloadConfig() {
 
 void ChewingEngine::populateConfig() {
     ChewingContext *ctx = context_.get();
+
+    chewing_set_KBType(
+        ctx, chewing_KBStr2Num(
+                 builtin_keymaps[static_cast<int>(*config_.Layout)].data()));
+
+    chewing_set_ChiEngMode(ctx, CHINESE_MODE);
+
+    int selkey[10];
+    int i = 0;
+    for (i = 0; i < 10; i++) {
+        selkey[i] =
+            builtin_selectkeys[static_cast<int>(*config_.SelectionKey)][i];
+    }
+
+    chewing_set_selKey(ctx, selkey, 10);
     chewing_set_candPerPage(ctx, *config_.PageSize);
     chewing_set_addPhraseDirection(ctx, *config_.AddPhraseForward ? 0 : 1);
     chewing_set_phraseChoiceRearward(ctx, *config_.ChoiceBackward ? 1 : 0);
     chewing_set_autoShiftCur(ctx, *config_.AutoShiftCursor ? 1 : 0);
+    chewing_set_easySymbolInput(ctx, *config_.EasySymbolInput ? 1 : 0);
     chewing_set_spaceAsSelection(ctx, *config_.SpaceAsSelection ? 1 : 0);
     chewing_set_escCleanAllBuf(ctx, 1);
 }
@@ -210,13 +226,7 @@ void ChewingEngine::reset(const InputMethodEntry &, InputContextEvent &event) {
 
 void ChewingEngine::doReset(InputContextEvent &event) {
     ChewingContext *ctx = context_.get();
-    chewing_Reset(ctx);
-
-    chewing_set_KBType(
-        ctx, chewing_KBStr2Num(
-                 builtin_keymaps[static_cast<int>(*config_.Layout)].data()));
-
-    chewing_set_ChiEngMode(ctx, CHINESE_MODE);
+    chewing_handle_Esc(ctx);
     updateUI(event.inputContext());
 }
 
@@ -369,17 +379,6 @@ void ChewingEngine::updateUI(InputContext *ic) {
     CHEWING_DEBUG() << "updateUI";
     ChewingContext *ctx = context_.get();
 
-    int selkey[10];
-    int i = 0;
-    for (i = 0; i < 10; i++) {
-        selkey[i] =
-            builtin_selectkeys[static_cast<int>(*config_.SelectionKey)][i];
-    }
-
-    chewing_set_selKey(ctx, selkey, 10);
-    chewing_set_candPerPage(ctx, instance_->globalConfig().defaultPageSize());
-    populateConfig();
-
     // clean up window asap
     ic->inputPanel().reset();
     ic->updateUserInterface(UserInterfaceComponent::InputPanel);
@@ -388,7 +387,7 @@ void ChewingEngine::updateUI(InputContext *ic) {
     const char *zuin_str = chewing_bopomofo_String_static(ctx);
 
     std::string text = buf_str.get();
-    std::string zuin = zuin_str;
+    std::string_view zuin = zuin_str;
     CHEWING_DEBUG() << "Text: " << text << " Zuin: " << zuin;
     /* if not check done, so there is candidate word */
     if (!chewing_cand_CheckDone(ctx)) {
@@ -424,7 +423,7 @@ void ChewingEngine::updateUI(InputContext *ic) {
 
     // insert zuin in the middle
     preedit.append(text.substr(0, rcur), format);
-    preedit.append(zuin, {TextFormatFlag::HighLight, format});
+    preedit.append(std::string(zuin), {TextFormatFlag::HighLight, format});
     preedit.append(text.substr(rcur), format);
 
     if (useClientPreedit) {
