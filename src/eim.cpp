@@ -438,11 +438,18 @@ void ChewingEngine::updateUI(InputContext *ic) {
     preedit.append(std::string(zuin), {TextFormatFlag::HighLight, format});
     preedit.append(text.substr(rcur), format);
 
+    if (chewing_aux_Check(ctx)) {
+        const char *aux_str = chewing_aux_String_static(ctx);
+        std::string aux = aux_str;
+        ic->inputPanel().setAuxDown(Text(aux));
+    }
+
     if (useClientPreedit) {
         ic->inputPanel().setClientPreedit(preedit);
     } else {
         ic->inputPanel().setPreedit(preedit);
     }
+
     ic->updatePreedit();
 }
 
