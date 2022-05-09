@@ -6,7 +6,7 @@ Version=@PROJECT_VERSION@
 Type=SharedLibrary
 OnDemand=True
 Configurable=True
-Library=chewing
+Library=libchewing
 
 [Addon/OptionalDependencies]
 0=chttrans

@@ -3,7 +3,6 @@ set(CHEWING_SOURCES
 )
 add_library(chewing MODULE ${CHEWING_SOURCES})
 target_link_libraries(chewing Fcitx5::Core Fcitx5::Config PkgConfig::Chewing)
-set_target_properties(chewing PROPERTIES PREFIX "")
 target_compile_definitions(chewing PRIVATE FCITX_GETTEXT_DOMAIN=\"fcitx5-chewing\")
 fcitx5_add_i18n_definition(TARGETS chewing)
 install(TARGETS chewing DESTINATION "${CMAKE_INSTALL_LIBDIR}/fcitx5")
