@@ -6,6 +6,7 @@
  *
  */
 #include "eim.h"
+#include <cstdarg>
 #include <fcitx-utils/utf8.h>
 #include <fcitx/inputcontext.h>
 #include <fcitx/inputpanel.h>
@@ -168,11 +169,21 @@ private:
     std::vector<Text> labels_;
 };
 
+void logger(void *, int, const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    vfprintf(stderr, fmt, ap);
+    va_end(ap);
+}
+
 } // namespace
 
 ChewingEngine::ChewingEngine(Instance *instance)
     : instance_(instance), context_(chewing_new()) {
     chewing_set_maxChiSymbolLen(context_.get(), CHEWING_MAX_LEN);
+    if (chewing_log().checkLogLevel(Debug)) {
+        chewing_set_logger(context_.get(), logger, nullptr);
+    }
     reloadConfig();
 }
 
