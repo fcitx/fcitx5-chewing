@@ -215,7 +215,6 @@ void ChewingEngine::populateConfig() {
     chewing_set_addPhraseDirection(ctx, *config_.AddPhraseForward ? 0 : 1);
     chewing_set_phraseChoiceRearward(ctx, *config_.ChoiceBackward ? 1 : 0);
     chewing_set_autoShiftCur(ctx, *config_.AutoShiftCursor ? 1 : 0);
-    chewing_set_easySymbolInput(ctx, *config_.EasySymbolInput ? 1 : 0);
     chewing_set_spaceAsSelection(ctx, *config_.SpaceAsSelection ? 1 : 0);
     chewing_set_escCleanAllBuf(ctx, 1);
 }
@@ -261,6 +260,7 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         return;
     }
 
+    chewing_set_easySymbolInput(ctx, 0);
     CHEWING_DEBUG() << "KeyEvent: " << keyEvent.key().toString();
     auto ic = keyEvent.inputContext();
     const KeyList keypadKeys{Key{FcitxKey_KP_1}, Key{FcitxKey_KP_2},
@@ -281,6 +281,9 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
     } else if (keyEvent.key().check(FcitxKey_Tab)) {
         chewing_handle_Tab(ctx);
     } else if (keyEvent.key().isSimple()) {
+        if (keyEvent.rawKey().states().test(KeyState::Shift)) {
+            chewing_set_easySymbolInput(ctx, *config_.EasySymbolInput ? 1 : 0);
+        }
         int scan_code = keyEvent.key().sym() & 0xff;
         if (*config_.Layout == ChewingLayout::HanYuPinYin) {
             const char *zuin_str = chewing_bopomofo_String_static(ctx);
@@ -291,6 +294,7 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
             }
         }
         chewing_handle_Default(ctx, scan_code);
+        chewing_set_easySymbolInput(ctx, 0);
     } else if (keyEvent.key().check(FcitxKey_BackSpace)) {
         const char *zuin_str = chewing_bopomofo_String_static(ctx);
         if (chewing_buffer_Len(ctx) == 0 && !zuin_str[0]) {

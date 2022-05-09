@@ -114,6 +114,7 @@ public:
     const Configuration *getConfig() const override { return &config_; }
     void setConfig(const RawConfig &config) override {
         config_.load(config, true);
+        populateConfig();
         safeSaveAsIni(config_, "conf/chewing.conf");
     }
 
