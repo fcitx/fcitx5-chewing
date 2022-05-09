@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-12-04 15:32+0000\n"
+"POT-Creation-Date: 2022-05-09 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: csslayer <wengxt@gmail.com>, 2021\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/fcitx/teams/12005/"
@@ -88,6 +88,10 @@ msgstr "倚天键盘"
 msgid "ETen26 Keyboard"
 msgstr "倚天26键键盘"
 
+#: src/eim.h:91
+msgid "Enable easy symbol"
+msgstr ""
+
 #: src/eim.h:65
 msgid "Gin-Yieh Keyboard"
 msgstr "精业键盘"
@@ -108,7 +112,7 @@ msgstr "许氏键盘"
 msgid "IBM Keyboard"
 msgstr "IBM键盘"
 
-#: src/eim.h:93
+#: src/eim.h:95
 msgid "Keyboard Layout"
 msgstr "键盘布局"
 
@@ -124,7 +128,7 @@ msgstr "页大小"
 msgid "Selection Key"
 msgstr "选词键"
 
-#: src/eim.h:91
+#: src/eim.h:93
 msgid "Space as selection key"
 msgstr "空格键选词"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-11-25 20:24+0000\n"
+"POT-Creation-Date: 2022-05-09 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: scootergrisen, 2021\n"
 "Language-Team: Danish (https://www.transifex.com/fcitx/teams/12005/da/)\n"
@@ -87,6 +87,10 @@ msgstr "ETen-tastatur"
 msgid "ETen26 Keyboard"
 msgstr "ETen26-tastatur"
 
+#: src/eim.h:91
+msgid "Enable easy symbol"
+msgstr ""
+
 #: src/eim.h:65
 msgid "Gin-Yieh Keyboard"
 msgstr "Gin-Yieh-tastatur"
@@ -107,7 +111,7 @@ msgstr "Hsu's tastatur"
 msgid "IBM Keyboard"
 msgstr "IBM-tastatur"
 
-#: src/eim.h:93
+#: src/eim.h:95
 msgid "Keyboard Layout"
 msgstr "Tastaturlayout"
 
@@ -123,7 +127,7 @@ msgstr ""
 msgid "Selection Key"
 msgstr "Valgtast"
 
-#: src/eim.h:91
+#: src/eim.h:93
 msgid "Space as selection key"
 msgstr "Mellemrum som valgtast"
 

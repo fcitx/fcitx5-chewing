@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-01-15 20:24+0000\n"
+"POT-Creation-Date: 2022-05-09 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>, 2022\n"
 "Language-Team: German (https://www.transifex.com/fcitx/teams/12005/de/)\n"
@@ -89,6 +89,10 @@ msgstr "ETen Tastatur"
 msgid "ETen26 Keyboard"
 msgstr "ETen26 Tastatur"
 
+#: src/eim.h:91
+msgid "Enable easy symbol"
+msgstr ""
+
 #: src/eim.h:65
 msgid "Gin-Yieh Keyboard"
 msgstr "Gin-Yieh Tastatur"
@@ -109,7 +113,7 @@ msgstr "Hsu's Tastatur"
 msgid "IBM Keyboard"
 msgstr "IBM Tastatur"
 
-#: src/eim.h:93
+#: src/eim.h:95
 msgid "Keyboard Layout"
 msgstr "Tastaturlayout"
 
@@ -125,7 +129,7 @@ msgstr "Seitengröße"
 msgid "Selection Key"
 msgstr "Auswahltaste"
 
-#: src/eim.h:91
+#: src/eim.h:93
 msgid "Space as selection key"
 msgstr "SPACE als Auswahltaste"
 

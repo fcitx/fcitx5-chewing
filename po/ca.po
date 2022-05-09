@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-11-25 20:24+0000\n"
+"POT-Creation-Date: 2022-05-09 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2017\n"
 "Language-Team: Catalan (https://www.transifex.com/fcitx/teams/12005/ca/)\n"
@@ -88,6 +88,10 @@ msgstr "Teclat ETen"
 msgid "ETen26 Keyboard"
 msgstr "Teclat ETen26"
 
+#: src/eim.h:91
+msgid "Enable easy symbol"
+msgstr ""
+
 #: src/eim.h:65
 msgid "Gin-Yieh Keyboard"
 msgstr "Teclat Gin-Yieh"
@@ -108,7 +112,7 @@ msgstr "Teclat Hsu"
 msgid "IBM Keyboard"
 msgstr "Teclat IBM"
 
-#: src/eim.h:93
+#: src/eim.h:95
 msgid "Keyboard Layout"
 msgstr "Disposició de teclat"
 
@@ -124,7 +128,7 @@ msgstr ""
 msgid "Selection Key"
 msgstr "Tecla de selecció"
 
-#: src/eim.h:91
+#: src/eim.h:93
 msgid "Space as selection key"
 msgstr "Espai com a tecla de selecció"
 
