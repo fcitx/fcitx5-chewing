@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# csslayer <wengxt@gmail.com>, 2021
+# csslayer <wengxt@gmail.com>, 2022
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-05-09 20:24+0000\n"
+"POT-Creation-Date: 2022-05-14 20:25+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>, 2021\n"
+"Last-Translator: csslayer <wengxt@gmail.com>, 2022\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/fcitx/teams/12005/"
 "zh_CN/)\n"
 "Language: zh_CN\n"
@@ -90,7 +90,7 @@ msgstr "倚天26键键盘"
 
 #: src/eim.h:91
 msgid "Enable easy symbol"
-msgstr ""
+msgstr "启用快捷符号输入"
 
 #: src/eim.h:65
 msgid "Gin-Yieh Keyboard"
