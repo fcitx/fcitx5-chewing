@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-05-09 20:24+0000\n"
+"POT-Creation-Date: 2022-05-15 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2022\n"
 "Language-Team: Russian (https://www.transifex.com/fcitx/teams/12005/ru/)\n"
@@ -92,7 +92,7 @@ msgstr "Клавиатура ETen26"
 
 #: src/eim.h:91
 msgid "Enable easy symbol"
-msgstr ""
+msgstr "Включить простой символ"
 
 #: src/eim.h:65
 msgid "Gin-Yieh Keyboard"
