@@ -7,14 +7,15 @@
 # PHLin <Cypressyew@gmail.com>, 2021
 # csslayer <wengxt@gmail.com>, 2021
 # Weizhong Yang <zonble@gmail.com>, 2022
+# yan12125, 2022
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-05-09 20:24+0000\n"
+"POT-Creation-Date: 2022-11-14 20:25+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: Weizhong Yang <zonble@gmail.com>, 2022\n"
+"Last-Translator: yan12125, 2022\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/fcitx/teams/12005/"
 "zh_TW/)\n"
 "Language: zh_TW\n"
@@ -93,7 +94,7 @@ msgstr "倚天 26 鍵鍵盤"
 
 #: src/eim.h:91
 msgid "Enable easy symbol"
-msgstr ""
+msgstr "啟用簡易符號輸入"
 
 #: src/eim.h:65
 msgid "Gin-Yieh Keyboard"
