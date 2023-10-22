@@ -12,8 +12,10 @@ include(GNUInstallDirs)
 include(ECMSetupVersion)
 include(ECMUninstallTarget)
 
-pkg_check_modules(Chewing "chewing>=0.5.0" IMPORTED_TARGET REQUIRED)
-pkg_get_variable(CHEWING_DATADIR "chewing" datadir)
+if (NOT DEFINED CHEWING_TARGET)
+    pkg_check_modules(Chewing "chewing>=0.5.0" IMPORTED_TARGET REQUIRED)
+    set(CHEWING_TARGET PkgConfig::Chewing)
+endif()
 
 include("${FCITX_INSTALL_CMAKECONFIG_DIR}/Fcitx5Utils/Fcitx5CompilerSettings.cmake")
 
