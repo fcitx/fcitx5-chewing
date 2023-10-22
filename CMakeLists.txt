@@ -17,11 +17,6 @@ pkg_get_variable(CHEWING_DATADIR "chewing" datadir)
 
 include("${FCITX_INSTALL_CMAKECONFIG_DIR}/Fcitx5Utils/Fcitx5CompilerSettings.cmake")
 
-configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/config.h"
-  )
-
 add_subdirectory(src)
 add_subdirectory(data)
 add_subdirectory(po)
