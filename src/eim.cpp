@@ -178,8 +178,19 @@ void logger(void *, int, const char *fmt, ...) {
 
 } // namespace
 
+ChewingContext *getChewingContext() {
+    const auto &sp = fcitx::StandardPath::global();
+    std::string dictData =
+        sp.locate(fcitx::StandardPath::Type::Data, "libchewing/dictionary.dat");
+    if (!dictData.empty()) {
+        std::string sysPath = fcitx::fs::dirName(dictData);
+        return chewing_new2(sysPath.c_str(), nullptr, nullptr, nullptr);
+    }
+    return chewing_new();
+}
+
 ChewingEngine::ChewingEngine(Instance *instance)
-    : instance_(instance), context_(chewing_new()) {
+    : instance_(instance), context_(getChewingContext()) {
     chewing_set_maxChiSymbolLen(context_.get(), CHEWING_MAX_LEN);
     if (chewing_log().checkLogLevel(Debug)) {
         chewing_set_logger(context_.get(), logger, nullptr);
@@ -451,6 +462,7 @@ void ChewingEngine::updateUI(InputContext *ic) {
     }
 
     ic->updatePreedit();
+    ic->updateUserInterface(UserInterfaceComponent::InputPanel);
 }
 
 void ChewingEngine::flushBuffer(InputContextEvent &event) {
