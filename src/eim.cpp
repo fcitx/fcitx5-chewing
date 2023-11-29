@@ -26,7 +26,7 @@ constexpr int CHEWING_MAX_LEN = 18;
 std::string builtin_keymaps[] = {
     "KB_DEFAULT",     "KB_HSU",          "KB_IBM",    "KB_GIN_YEIH",
     "KB_ET",          "KB_ET26",         "KB_DVORAK", "KB_DVORAK_HSU",
-    "KB_DACHEN_CP26", "KB_HANYU_PINYIN", "KB_CARPALX"};
+    "KB_DACHEN_CP26", "KB_HANYU_PINYIN", "KB_CARPALX", "KB_COLEMAK_DH_ANSI"};
 
 static const char *builtin_selectkeys[] = {
     "1234567890", "asdfghjkl;", "asdfzxcv89", "asdfjkl789",

@@ -52,14 +52,15 @@ enum class ChewingLayout {
     DvorakHsu,
     DACHEN_CP26,
     HanYuPinYin,
-    Carpalx
+    Carpalx,
+    ColemakDH_ANSI
 };
 FCITX_CONFIG_ENUM_NAME(ChewingLayout, "Default Keyboard", "Hsu's Keyboard",
                        "IBM Keyboard", "Gin-Yieh Keyboard", "ETen Keyboard",
                        "ETen26 Keyboard", "Dvorak Keyboard",
                        "Dvorak Keyboard with Hsu's support",
                        "DACHEN_CP26 Keyboard", "Han-Yu PinYin Keyboard",
-                       "Carpalx Keyboard");
+                       "Carpalx Keyboard", "Colemak-DH ANSI");
 FCITX_CONFIG_ENUM_I18N_ANNOTATION(ChewingLayout, N_("Default Keyboard"),
                                   N_("Hsu's Keyboard"), N_("IBM Keyboard"),
                                   N_("Gin-Yieh Keyboard"), N_("ETen Keyboard"),
@@ -67,7 +68,8 @@ FCITX_CONFIG_ENUM_I18N_ANNOTATION(ChewingLayout, N_("Default Keyboard"),
                                   N_("Dvorak Keyboard with Hsu's support"),
                                   N_("DACHEN_CP26 Keyboard"),
                                   N_("Han-Yu PinYin Keyboard"),
-                                  N_("Carpalx Keyboard"));
+                                  N_("Carpalx Keyboard"),
+                                  N_("Colemak-DH ANSI"));
 
 FCITX_CONFIGURATION(
     ChewingConfig,
