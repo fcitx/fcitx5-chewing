@@ -6,8 +6,12 @@
   <project_license>LGPL-2.1+</project_license>
   <name>Chewing for Fcitx 5</name>
   <summary>Chewing input method</summary>
+  <developer id="org.fcitx-im">
+      <name>The Fcitx Team</name>
+  </developer>
   <url type="homepage">https://fcitx-im.org</url>
   <url type="bugtracker">https://github.com/fcitx/fcitx5-chewing/issues</url>
+  <url type="vcs-browser">https://github.com/fcitx/fcitx5-chewing</url>
   <project_group>Fcitx</project_group>
   <releases>
     <release version="5.1.1" date="2023-11-01"/>
