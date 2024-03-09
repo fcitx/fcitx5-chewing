@@ -58,7 +58,7 @@ jobs:
       - name: Init CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: cpp,go
+          languages: cpp
           source-root: fcitx5-chewing
       - name: Build and Install fcitx5-chewing
         uses: fcitx/github-actions@cmake
