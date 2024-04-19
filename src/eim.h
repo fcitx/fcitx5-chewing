@@ -17,7 +17,6 @@
 #include <fcitx/candidatelist.h>
 #include <fcitx/inputmethodengine.h>
 #include <fcitx/instance.h>
-#include <type_traits>
 
 namespace fcitx {
 FCITX_CONFIG_ENUM_NAME_WITH_I18N(CandidateLayoutHint, N_("Not Set"),
@@ -105,7 +104,8 @@ public:
     void deactivate(const InputMethodEntry &entry,
                     InputContextEvent &event) override;
     void keyEvent(const InputMethodEntry &entry, KeyEvent &keyEvent) override;
-    void filterKey(const InputMethodEntry &, KeyEvent &) override;
+    void filterKey(const InputMethodEntry & /*entry*/,
+                   KeyEvent & /*event*/) override;
     void reloadConfig() override;
     void reset(const InputMethodEntry &entry,
                InputContextEvent &event) override;
