@@ -11,41 +11,45 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-05-09 20:24+0000\n"
+"POT-Creation-Date: 2024-04-19 20:25+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>, 2022\n"
-"Language-Team: German (https://www.transifex.com/fcitx/teams/12005/de/)\n"
+"Language-Team: German (https://app.transifex.com/fcitx/teams/12005/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/eim.h:39
+#: src/eim.h:38
 msgid "1234567890"
 msgstr "1234567890"
 
-#: src/eim.h:42
+#: src/eim.h:41
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/eim.h:85
+#: src/eim.h:92
+msgid "Action when switching input method"
+msgstr ""
+
+#: src/eim.h:95
 msgid "Add Phrase Forward"
 msgstr "Phrase nach vorne hinzufügen"
 
-#: src/eim.h:89
+#: src/eim.h:99
 msgid "Automatically shift cursor"
 msgstr "Cursor automatisch anheben"
 
-#: src/eim.h:87
+#: src/eim.h:97
 msgid "Backward phrase choice"
 msgstr "Phrase rückwärts auswählen"
 
-#: src/eim.h:80
+#: src/eim.h:85
 msgid "Candidate List Layout"
 msgstr ""
 
-#: src/eim.h:70
+#: src/eim.h:69
 msgid "Carpalx Keyboard"
 msgstr "Carpalx Tastatur"
 
@@ -65,98 +69,110 @@ msgstr ""
 msgid "Chewing input method"
 msgstr ""
 
-#: src/eim.h:68
+#: src/eim.h:73
+msgid "Clear"
+msgstr ""
+
+#: src/eim.h:74
+msgid "Commit current preedit"
+msgstr ""
+
+#: src/eim.h:75
+msgid "Commit default selection"
+msgstr ""
+
+#: src/eim.h:67
 msgid "DACHEN_CP26 Keyboard"
 msgstr "DACHEN_CP26 Tastatur"
 
-#: src/eim.h:63
+#: src/eim.h:62
 msgid "Default Keyboard"
 msgstr "Standardtastatur"
 
-#: src/eim.h:66
+#: src/eim.h:65
 msgid "Dvorak Keyboard"
 msgstr "Dvorak Tastatur"
 
-#: src/eim.h:67
+#: src/eim.h:66
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr "Dvorak Keyboard mit Hsu's Unterstützung"
 
-#: src/eim.h:65
+#: src/eim.h:64
 msgid "ETen Keyboard"
 msgstr "ETen Tastatur"
 
-#: src/eim.h:66
+#: src/eim.h:65
 msgid "ETen26 Keyboard"
 msgstr "ETen26 Tastatur"
 
-#: src/eim.h:91
+#: src/eim.h:101
 msgid "Enable easy symbol"
 msgstr ""
 
-#: src/eim.h:65
+#: src/eim.h:64
 msgid "Gin-Yieh Keyboard"
 msgstr "Gin-Yieh Tastatur"
 
-#: src/eim.h:69
+#: src/eim.h:68
 msgid "Han-Yu PinYin Keyboard"
 msgstr "Han-Yu PinYin Tastatur"
 
-#: src/eim.h:24
+#: src/eim.h:23
 msgid "Horizontal"
 msgstr "Horizontal"
 
-#: src/eim.h:64
+#: src/eim.h:63
 msgid "Hsu's Keyboard"
 msgstr "Hsu's Tastatur"
 
-#: src/eim.h:64
+#: src/eim.h:63
 msgid "IBM Keyboard"
 msgstr "IBM Tastatur"
 
-#: src/eim.h:95
+#: src/eim.h:105
 msgid "Keyboard Layout"
 msgstr "Tastaturlayout"
 
-#: src/eim.h:23
+#: src/eim.h:22
 msgid "Not Set"
 msgstr "Nicht festgelegt"
 
-#: src/eim.h:77
+#: src/eim.h:82
 msgid "Page Size"
 msgstr "Seitengröße"
 
-#: src/eim.h:75
+#: src/eim.h:80
 msgid "Selection Key"
 msgstr "Auswahltaste"
 
-#: src/eim.h:93
+#: src/eim.h:103
 msgid "Space as selection key"
 msgstr "SPACE als Auswahltaste"
 
-#: src/eim.h:83
+#: src/eim.h:88
 msgid "Use Keypad as Selection key"
 msgstr ""
 
-#: src/eim.h:24
+#: src/eim.h:23
 msgid "Vertical"
 msgstr "Vertikal"
 
-#: src/eim.h:41
+#: src/eim.h:40
 msgid "aoeuhtn789"
 msgstr "aoeuhtn789"
 
-#: src/eim.h:40
+#: src/eim.h:39
 msgid "asdfghjkl;"
 msgstr "asdfghjkl;"
 
-#: src/eim.h:41
+#: src/eim.h:40
 msgid "asdfjkl789"
 msgstr "asdfjkl789"
 
-#: src/eim.h:40
+#: src/eim.h:39
 msgid "asdfzxcv89"
 msgstr "asdfzxcv89"
 
-#: src/eim.h:42
+#: src/eim.h:41
 msgid "dstnaeo789"
 msgstr "dstnaeo789"
