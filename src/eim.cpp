@@ -379,6 +379,7 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         keyEvent.filterAndAccept();
     }
     if (chewing_commit_Check(ctx)) {
+        keyEvent.filterAndAccept();
         UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
         ic->commitString(str.get());
     }
