@@ -6,14 +6,20 @@
  *
  */
 #include "eim.h"
+#include <chewingio.h>
 #include <cstdarg>
+#include <fcitx-utils/keysymgen.h>
 #include <fcitx-utils/log.h>
 #include <fcitx-utils/utf8.h>
+#include <fcitx/candidatelist.h>
+#include <fcitx/event.h>
 #include <fcitx/inputcontext.h>
 #include <fcitx/inputpanel.h>
 #include <fcitx/statusarea.h>
 #include <fcitx/text.h>
+#include <fcitx/userinterface.h>
 #include <fcitx/userinterfacemanager.h>
+#include <memory>
 #include <utility>
 
 FCITX_DEFINE_LOG_CATEGORY(chewing_log, "chewing");
@@ -86,12 +92,37 @@ private:
 };
 
 class ChewingCandidateList : public CandidateList,
-                             public PageableCandidateList {
+                             public PageableCandidateList,
+                             public CursorMovableCandidateList,
+                             public CursorModifiableCandidateList {
 public:
     ChewingCandidateList(ChewingEngine *engine, InputContext *ic)
         : engine_(engine), ic_(ic) {
-        auto *ctx = engine_->context();
         setPageable(this);
+        setCursorMovable(this);
+        setCursorModifiable(this);
+
+        fillCandidate();
+    }
+
+    const Text &label(int idx) const override {
+        if (idx < 0 || idx >= size()) {
+            throw std::invalid_argument("Invalid index");
+        }
+        return labels_[idx];
+    }
+    const CandidateWord &candidate(int idx) const override {
+        if (idx < 0 || idx >= size()) {
+            throw std::invalid_argument("Invalid index");
+        }
+        return *candidateWords_[idx];
+    }
+
+    void fillCandidate() {
+        auto *ctx = engine_->context();
+        candidateWords_.clear();
+        labels_.clear();
+
         int index = 0;
         // get candidate word
         int pageSize = chewing_get_candPerPage(ctx);
@@ -112,37 +143,61 @@ public:
             index++;
         }
 
-        hasPrev_ = chewing_cand_CurrentPage(ctx) > 0;
-        hasNext_ =
-            chewing_cand_CurrentPage(ctx) + 1 < chewing_cand_TotalPage(ctx);
-    }
-
-    const Text &label(int idx) const override {
-        if (idx < 0 || idx >= size()) {
-            throw std::invalid_argument("Invalid index");
-        }
-        return labels_[idx];
-    }
-    const CandidateWord &candidate(int idx) const override {
-        if (idx < 0 || idx >= size()) {
-            throw std::invalid_argument("Invalid index");
-        }
-        return *candidateWords_[idx];
+        cursor_ = 0;
     }
 
     int size() const override { return candidateWords_.size(); }
-    int cursorIndex() const override { return -1; }
+    int cursorIndex() const override {
+        if (empty() || !*engine_->config().selectCandidateWithArrowKey) {
+            return -1;
+        }
+        return cursor_;
+    }
     CandidateLayoutHint layoutHint() const override {
-        return *engine_->config().CandidateLayout;
+        switch (*engine_->config().CandidateLayout) {
+        case ChewingCandidateLayout::Horizontal:
+            return CandidateLayoutHint::Horizontal;
+        case ChewingCandidateLayout::Vertical:
+            return CandidateLayoutHint::Vertical;
+        }
+        return CandidateLayoutHint::Horizontal;
     }
 
-    // Need for paging
-    bool hasPrev() const override { return hasPrev_; }
-    bool hasNext() const override { return hasNext_; }
+    // Need for paging, allow rotating pages.
+    bool hasPrev() const override { return true; }
+    bool hasNext() const override { return true; }
     void prev() override { paging(true); }
     void next() override { paging(false); }
 
     bool usedNextBefore() const override { return true; }
+
+    void prevCandidate() override {
+        if (cursor_ == 0) {
+            prev();
+            // We do not reset cursor to the last on purpose.
+            // This way it could be easily to change the range of current word.
+        } else {
+            cursor_ -= 1;
+            ic_->updateUserInterface(UserInterfaceComponent::InputPanel);
+        }
+    }
+
+    void nextCandidate() override {
+        if (cursor_ + 1 == size()) {
+            next();
+            cursor_ = 0;
+        } else {
+            cursor_ += 1;
+            ic_->updateUserInterface(UserInterfaceComponent::InputPanel);
+        }
+    }
+
+    void setCursorIndex(int cursor) override {
+        if (cursor < 0 || cursor >= size()) {
+            return;
+        }
+        cursor_ = cursor;
+    }
 
 private:
     void paging(bool prev) {
@@ -151,23 +206,37 @@ private:
         }
 
         auto *ctx = engine_->context();
+        const int currentPage = chewing_cand_CurrentPage(ctx);
         if (prev) {
-            chewing_handle_Left(ctx);
+            const int hasNext = chewing_cand_list_has_next(ctx);
+            const int hasPrev = chewing_cand_list_has_prev(ctx);
+            if ((currentPage == 0) && (hasNext == 1 || hasPrev == 1)) {
+                chewing_handle_Down(ctx);
+            } else {
+                chewing_handle_PageUp(ctx);
+            }
         } else {
-            chewing_handle_Right(ctx);
+            const int totalPage = chewing_cand_TotalPage(ctx);
+            if (currentPage == totalPage - 1) {
+                chewing_handle_Down(ctx);
+            } else {
+                chewing_handle_PageDown(ctx);
+            }
         }
 
         if (chewing_keystroke_CheckAbsorb(ctx)) {
-            engine_->updateUI(ic_);
+            fillCandidate();
+            engine_->updatePreedit(ic_);
+            ic_->updatePreedit();
+            ic_->updateUserInterface(UserInterfaceComponent::InputPanel);
         }
     }
 
-    bool hasPrev_ = false;
-    bool hasNext_ = false;
     ChewingEngine *engine_;
     InputContext *ic_;
     std::vector<std::unique_ptr<ChewingCandidateWord>> candidateWords_;
     std::vector<Text> labels_;
+    int cursor_ = 0;
 };
 
 void logger(void * /*context*/, int /*level*/, const char *fmt, ...) {
@@ -265,6 +334,11 @@ void ChewingEngine::activate(const InputMethodEntry & /*entry*/,
             instance_->userInterfaceManager().lookupAction("chttrans")) {
         inputContext->statusArea().addAction(StatusGroup::InputMethod, action);
     }
+    auto *ic = event.inputContext();
+    if (!ic_.isNull() && ic_.get() != ic) {
+        doReset(event);
+    }
+    ic_ = ic->watch();
 }
 
 void ChewingEngine::deactivate(const InputMethodEntry &entry,
@@ -276,27 +350,90 @@ void ChewingEngine::deactivate(const InputMethodEntry &entry,
     }
 }
 
-void ChewingEngine::keyEvent(const InputMethodEntry &entry,
-                             KeyEvent &keyEvent) {
-    auto *ctx = context_.get();
-    if (keyEvent.isRelease()) {
-        return;
+bool ChewingEngine::handleCandidateKeyEvent(const KeyEvent &keyEvent) {
+    auto *ic = keyEvent.inputContext();
+    auto candidateList = std::dynamic_pointer_cast<ChewingCandidateList>(
+        ic->inputPanel().candidateList());
+    if (!candidateList) {
+        return false;
     }
 
-    chewing_set_easySymbolInput(ctx, 0);
-    CHEWING_DEBUG() << "KeyEvent: " << keyEvent.key().toString();
-    auto *ic = keyEvent.inputContext();
     const KeyList keypadKeys{Key{FcitxKey_KP_1}, Key{FcitxKey_KP_2},
                              Key{FcitxKey_KP_3}, Key{FcitxKey_KP_4},
                              Key{FcitxKey_KP_5}, Key{FcitxKey_KP_6},
                              Key{FcitxKey_KP_7}, Key{FcitxKey_KP_8},
                              Key{FcitxKey_KP_9}, Key{FcitxKey_KP_0}};
-    if (*config_.UseKeypadAsSelectionKey && ic->inputPanel().candidateList()) {
+    if (*config_.UseKeypadAsSelectionKey) {
         if (int index = keyEvent.key().keyListIndex(keypadKeys);
-            index >= 0 && index < ic->inputPanel().candidateList()->size()) {
-            ic->inputPanel().candidateList()->candidate(index).select(ic);
-            return keyEvent.filterAndAccept();
+            index >= 0 && index < candidateList->size()) {
+            candidateList->candidate(index).select(ic);
+            return true;
         }
+    }
+
+    if (!*config_.selectCandidateWithArrowKey) {
+        return false;
+    }
+
+    if (keyEvent.key().check(FcitxKey_Right)) {
+        if (*config_.CandidateLayout == ChewingCandidateLayout::Horizontal) {
+            candidateList->nextCandidate();
+        } else {
+            candidateList->next();
+        }
+        return true;
+    }
+    if (keyEvent.key().check(FcitxKey_Left)) {
+        if (*config_.CandidateLayout == ChewingCandidateLayout::Horizontal) {
+            candidateList->prevCandidate();
+        } else {
+            candidateList->prev();
+        }
+        return true;
+    }
+    if (keyEvent.key().check(FcitxKey_Up)) {
+        if (*config_.CandidateLayout == ChewingCandidateLayout::Horizontal) {
+            candidateList->prev();
+        } else {
+            candidateList->prevCandidate();
+        }
+        return true;
+    }
+    if (keyEvent.key().check(FcitxKey_Down)) {
+        if (*config_.CandidateLayout == ChewingCandidateLayout::Horizontal) {
+            candidateList->next();
+        } else {
+            candidateList->nextCandidate();
+        }
+        return true;
+    }
+    if (keyEvent.key().check(FcitxKey_Return)) {
+        if (int index = candidateList->cursorIndex();
+            index >= 0 && index < candidateList->size()) {
+            candidateList->candidate(index).select(ic);
+        }
+        return true;
+    }
+    if (keyEvent.key().check(FcitxKey_space)) {
+        candidateList->next();
+        return true;
+    }
+    return false;
+}
+
+void ChewingEngine::keyEvent(const InputMethodEntry &entry,
+                             KeyEvent &keyEvent) {
+    if (keyEvent.isRelease()) {
+        return;
+    }
+    auto *ctx = context_.get();
+    auto *ic = keyEvent.inputContext();
+
+    chewing_set_easySymbolInput(ctx, 0);
+    CHEWING_DEBUG() << "KeyEvent: " << keyEvent.key().toString();
+
+    if (handleCandidateKeyEvent(keyEvent)) {
+        return keyEvent.filterAndAccept();
     }
 
     if (keyEvent.key().check(FcitxKey_space)) {
@@ -409,32 +546,21 @@ void ChewingEngine::filterKey(const InputMethodEntry & /*entry*/,
     }
 }
 
-void ChewingEngine::updateUI(InputContext *ic) {
-    CHEWING_DEBUG() << "updateUI";
+void ChewingEngine::updatePreeditImpl(InputContext *ic) {
+    ic->inputPanel().setClientPreedit(Text());
+    ic->inputPanel().setPreedit(Text());
+    ic->inputPanel().setAuxDown(Text());
+
     ChewingContext *ctx = context_.get();
-
-    // clean up window asap
-    ic->inputPanel().reset();
-    ic->updateUserInterface(UserInterfaceComponent::InputPanel);
-
     UniqueCPtr<char, chewing_free> buf_str(chewing_buffer_String(ctx));
     const char *zuin_str = chewing_bopomofo_String_static(ctx);
 
     std::string text = buf_str.get();
     std::string_view zuin = zuin_str;
     CHEWING_DEBUG() << "Text: " << text << " Zuin: " << zuin;
-    /* if not check done, so there is candidate word */
-    if (!chewing_cand_CheckDone(ctx)) {
-        ic->inputPanel().setCandidateList(
-            std::make_unique<ChewingCandidateList>(this, ic));
-        if (ic->inputPanel().candidateList()->empty()) {
-            ic->inputPanel().setCandidateList(nullptr);
-        }
-    }
 
     /* there is nothing */
-    if (zuin.empty() && text.empty() && !ic->inputPanel().candidateList()) {
-        ic->updatePreedit();
+    if (zuin.empty() && text.empty()) {
         return;
     }
 
@@ -471,8 +597,29 @@ void ChewingEngine::updateUI(InputContext *ic) {
     } else {
         ic->inputPanel().setPreedit(preedit);
     }
+}
 
+void ChewingEngine::updatePreedit(InputContext *ic) {
+    updatePreeditImpl(ic);
     ic->updatePreedit();
+}
+
+void ChewingEngine::updateUI(InputContext *ic) {
+    CHEWING_DEBUG() << "updateUI";
+    ChewingContext *ctx = context_.get();
+
+    // clean up window asap
+    ic->inputPanel().reset();
+    /* if not check done, so there is candidate word */
+    if (!chewing_cand_CheckDone(ctx)) {
+        ic->inputPanel().setCandidateList(
+            std::make_unique<ChewingCandidateList>(this, ic));
+        if (ic->inputPanel().candidateList()->empty()) {
+            ic->inputPanel().setCandidateList(nullptr);
+        }
+    }
+
+    updatePreedit(ic);
     ic->updateUserInterface(UserInterfaceComponent::InputPanel);
 }
 

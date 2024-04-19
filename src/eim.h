@@ -12,15 +12,24 @@
 #include <fcitx-config/enum.h>
 #include <fcitx-config/iniparser.h>
 #include <fcitx-utils/i18n.h>
+#include <fcitx-utils/trackableobject.h>
 #include <fcitx/addonfactory.h>
 #include <fcitx/addonmanager.h>
 #include <fcitx/candidatelist.h>
+#include <fcitx/event.h>
+#include <fcitx/inputcontext.h>
 #include <fcitx/inputmethodengine.h>
 #include <fcitx/instance.h>
 
 namespace fcitx {
-FCITX_CONFIG_ENUM_NAME_WITH_I18N(CandidateLayoutHint, N_("Not Set"),
-                                 N_("Vertical"), N_("Horizontal"));
+
+enum class ChewingCandidateLayout {
+    Vertical,
+    Horizontal,
+};
+
+FCITX_CONFIG_ENUM_NAME_WITH_I18N(ChewingCandidateLayout, N_("Vertical"),
+                                 N_("Horizontal"));
 
 enum class ChewingSelectionKey {
     CSK_Digit,
@@ -79,11 +88,15 @@ FCITX_CONFIGURATION(
     OptionWithAnnotation<ChewingSelectionKey, ChewingSelectionKeyI18NAnnotation>
         SelectionKey{this, "SelectionKey", _("Selection Key"),
                      ChewingSelectionKey::CSK_Digit};
+    Option<bool> selectCandidateWithArrowKey{
+        this, "SelectCandidateWithArrowKey",
+        _("Select candidate with arrow key"), true};
     Option<int, IntConstrain> PageSize{this, "PageSize", _("Page Size"), 10,
                                        IntConstrain(3, 10)};
-    OptionWithAnnotation<CandidateLayoutHint, CandidateLayoutHintI18NAnnotation>
+    OptionWithAnnotation<ChewingCandidateLayout,
+                         ChewingCandidateLayoutI18NAnnotation>
         CandidateLayout{this, "CandidateLayout", _("Candidate List Layout"),
-                        CandidateLayoutHint::NotSet};
+                        ChewingCandidateLayout::Horizontal};
     Option<bool> UseKeypadAsSelectionKey{
         this, "UseKeypadAsSelection", _("Use Keypad as Selection key"), false};
     OptionWithAnnotation<SwitchInputMethodBehavior,
@@ -130,6 +143,8 @@ public:
     }
 
     void updateUI(InputContext *ic);
+    void updatePreedit(InputContext *ic);
+    Text getPreedit(InputContext *ic);
 
     void flushBuffer(InputContextEvent &event);
     void doReset(InputContextEvent &event);
@@ -137,12 +152,16 @@ public:
     ChewingContext *context() { return context_.get(); }
 
 private:
+    bool handleCandidateKeyEvent(const KeyEvent &keyEvent);
+    void updatePreeditImpl(InputContext *ic);
+
     FCITX_ADDON_DEPENDENCY_LOADER(chttrans, instance_->addonManager());
 
     void populateConfig();
     Instance *instance_;
     ChewingConfig config_;
     UniqueCPtr<ChewingContext, chewing_delete> context_;
+    TrackableObjectReference<InputContext> ic_;
 };
 
 class ChewingEngineFactory : public AddonFactory {
