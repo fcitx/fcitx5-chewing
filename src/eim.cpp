@@ -194,11 +194,11 @@ void logger(void * /*context*/, int /*level*/, const char *fmt, ...) {
 } // namespace
 
 ChewingContext *getChewingContext() {
-    const auto &sp = fcitx::StandardPath::global();
+    const auto &sp = StandardPath::global();
     std::string dictData =
-        sp.locate(fcitx::StandardPath::Type::Data, "libchewing/dictionary.dat");
+        sp.locate(StandardPath::Type::Data, "libchewing/dictionary.dat");
     if (!dictData.empty()) {
-        std::string sysPath = fcitx::fs::dirName(dictData);
+        std::string sysPath = fs::dirName(dictData);
         return chewing_new2(sysPath.c_str(), nullptr, nullptr, nullptr);
     }
     return chewing_new();
@@ -477,18 +477,27 @@ void ChewingEngine::updateUI(InputContext *ic) {
 
 void ChewingEngine::flushBuffer(InputContextEvent &event) {
     auto *ctx = context_.get();
-    chewing_handle_Enter(ctx);
-    if (chewing_commit_Check(ctx)) {
-        UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
-        event.inputContext()->commitString(str.get());
+    if (*config_.switchInputMethodBehavior ==
+            SwitchInputMethodBehavior::CommitPreedit ||
+        *config_.switchInputMethodBehavior ==
+            SwitchInputMethodBehavior::CommitDefault) {
+        chewing_handle_Enter(ctx);
+        if (chewing_commit_Check(ctx)) {
+            UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
+            event.inputContext()->commitString(str.get());
+        }
     }
-    UniqueCPtr<char, chewing_free> buf_str(chewing_buffer_String(ctx));
-    const char *zuin_str = chewing_bopomofo_String_static(ctx);
-    std::string text = buf_str.get();
-    std::string zuin = zuin_str;
-    text += zuin;
-    if (!text.empty()) {
-        event.inputContext()->commitString(text);
+
+    if (*config_.switchInputMethodBehavior ==
+        SwitchInputMethodBehavior::CommitPreedit) {
+        UniqueCPtr<char, chewing_free> buf_str(chewing_buffer_String(ctx));
+        const char *zuin_str = chewing_bopomofo_String_static(ctx);
+        std::string text = buf_str.get();
+        std::string zuin = zuin_str;
+        text += zuin;
+        if (!text.empty()) {
+            event.inputContext()->commitString(text);
+        }
     }
     doReset(event);
 }

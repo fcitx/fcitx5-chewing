@@ -68,6 +68,12 @@ FCITX_CONFIG_ENUM_I18N_ANNOTATION(ChewingLayout, N_("Default Keyboard"),
                                   N_("Han-Yu PinYin Keyboard"),
                                   N_("Carpalx Keyboard"));
 
+enum class SwitchInputMethodBehavior { Clear, CommitPreedit, CommitDefault };
+
+FCITX_CONFIG_ENUM_NAME_WITH_I18N(SwitchInputMethodBehavior, N_("Clear"),
+                                 N_("Commit current preedit"),
+                                 N_("Commit default selection"))
+
 FCITX_CONFIGURATION(
     ChewingConfig,
     OptionWithAnnotation<ChewingSelectionKey, ChewingSelectionKeyI18NAnnotation>
@@ -77,9 +83,14 @@ FCITX_CONFIGURATION(
                                        IntConstrain(3, 10)};
     OptionWithAnnotation<CandidateLayoutHint, CandidateLayoutHintI18NAnnotation>
         CandidateLayout{this, "CandidateLayout", _("Candidate List Layout"),
-                        fcitx::CandidateLayoutHint::NotSet};
+                        CandidateLayoutHint::NotSet};
     Option<bool> UseKeypadAsSelectionKey{
         this, "UseKeypadAsSelection", _("Use Keypad as Selection key"), false};
+    OptionWithAnnotation<SwitchInputMethodBehavior,
+                         SwitchInputMethodBehaviorI18NAnnotation>
+        switchInputMethodBehavior{this, "SwitchInputMethodBehavior",
+                                  _("Action when switching input method"),
+                                  SwitchInputMethodBehavior::CommitDefault};
     Option<bool> AddPhraseForward{this, "AddPhraseForward",
                                   _("Add Phrase Forward"), true};
     Option<bool> ChoiceBackward{this, "ChoiceBackward",
