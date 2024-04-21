@@ -4,15 +4,15 @@
 #
 # Translators:
 # csslayer <wengxt@gmail.com>, 2017
-# Dmitry <dmitrydmitry761@gmail.com>, 2022
+# Dmitry <dmitrydmitry761@gmail.com>, 2024
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2024-04-20 20:25+0000\n"
+"POT-Creation-Date: 2024-04-21 20:25+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2022\n"
+"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/fcitx/teams/12005/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr "1234qweras"
 
 #: src/eim.h:105
 msgid "Action when switching input method"
-msgstr ""
+msgstr "Действие при переключении метода ввода"
 
 #: src/eim.h:108
 msgid "Add Phrase Forward"
@@ -72,15 +72,15 @@ msgstr "Метод ввода Chewing"
 
 #: src/eim.h:82
 msgid "Clear"
-msgstr ""
+msgstr "Очистить"
 
 #: src/eim.h:83
 msgid "Commit current preedit"
-msgstr ""
+msgstr "Подтвердить текущее предварительное редактирование"
 
 #: src/eim.h:84
 msgid "Commit default selection"
-msgstr ""
+msgstr "Подтвердить выбор по умолчанию"
 
 #: src/eim.h:76
 msgid "DACHEN_CP26 Keyboard"
@@ -140,7 +140,7 @@ msgstr "Размер Страницы"
 
 #: src/eim.h:93
 msgid "Select candidate with arrow key"
-msgstr ""
+msgstr "Выберите слово-кандидат с помощью клавиши со стрелкой"
 
 #: src/eim.h:89
 msgid "Selection Key"

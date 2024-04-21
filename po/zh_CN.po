@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2024-04-20 20:25+0000\n"
+"POT-Creation-Date: 2024-04-21 20:25+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: csslayer <wengxt@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/fcitx/teams/12005/"
@@ -138,7 +138,7 @@ msgstr "页大小"
 
 #: src/eim.h:93
 msgid "Select candidate with arrow key"
-msgstr ""
+msgstr "用方向键选择候选词"
 
 #: src/eim.h:89
 msgid "Selection Key"
