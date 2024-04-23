@@ -51,8 +51,8 @@ public:
         : CandidateWord(Text(std::move(str))), engine_(engine), index_(index) {}
 
     void select(InputContext *inputContext) const override {
-        auto pageSize = engine_->instance()->globalConfig().defaultPageSize();
         auto *ctx = engine_->context();
+        auto pageSize = chewing_get_candPerPage(ctx);
         int page = index_ / pageSize + chewing_cand_CurrentPage(ctx);
         int off = index_ % pageSize;
         if (page < 0 || page >= chewing_cand_TotalPage(ctx)) {
