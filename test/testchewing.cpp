@@ -100,6 +100,17 @@ void scheduleEvent(EventDispatcher *dispatcher, Instance *instance) {
         FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
             uuid, Key("Return"), false));
 
+        for (char c : std::string_view("fen1")) {
+            FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+                uuid, Key(static_cast<KeySym>(c)), false));
+        }
+        text = ic->inputPanel().preedit().toString();
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("space"), false));
+        FCITX_ASSERT(ic->inputPanel().candidateList());
+        FCITX_ASSERT(!ic->inputPanel().candidateList()->empty());
+        testfrontend->call<ITestFrontend::pushCommitExpectation>(text);
+
         instance->deactivate();
         dispatcher->schedule([dispatcher, instance]() {
             dispatcher->detach();
