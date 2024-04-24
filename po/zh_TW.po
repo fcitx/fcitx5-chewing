@@ -8,14 +8,15 @@
 # csslayer <wengxt@gmail.com>, 2021
 # Weizhong Yang <zonble@gmail.com>, 2022
 # yan12125, 2022
+# Lau YeeYu, 2024
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2024-04-20 20:25+0000\n"
+"POT-Creation-Date: 2024-04-24 20:25+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: yan12125, 2022\n"
+"Last-Translator: Lau YeeYu, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/fcitx/teams/12005/"
 "zh_TW/)\n"
 "Language: zh_TW\n"
@@ -34,7 +35,7 @@ msgstr "1234qweras"
 
 #: src/eim.h:105
 msgid "Action when switching input method"
-msgstr ""
+msgstr "切換輸入法時的行為"
 
 #: src/eim.h:108
 msgid "Add Phrase Forward"
@@ -74,15 +75,15 @@ msgstr "新酷音輸入法"
 
 #: src/eim.h:82
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #: src/eim.h:83
 msgid "Commit current preedit"
-msgstr ""
+msgstr "提交目前預編輯"
 
 #: src/eim.h:84
 msgid "Commit default selection"
-msgstr ""
+msgstr "提交預設選擇"
 
 #: src/eim.h:76
 msgid "DACHEN_CP26 Keyboard"
@@ -142,7 +143,7 @@ msgstr "頁面大小"
 
 #: src/eim.h:93
 msgid "Select candidate with arrow key"
-msgstr ""
+msgstr "用方向鍵選擇候選詞"
 
 #: src/eim.h:89
 msgid "Selection Key"
