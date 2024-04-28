@@ -20,6 +20,7 @@
 #include <fcitx/userinterface.h>
 #include <fcitx/userinterfacemanager.h>
 #include <memory>
+#include <mod_aux.h>
 #include <utility>
 
 FCITX_DEFINE_LOG_CATEGORY(chewing_log, "chewing");
@@ -318,7 +319,9 @@ void ChewingEngine::reset(const InputMethodEntry & /*entry*/,
 
 void ChewingEngine::doReset(InputContextEvent &event) {
     ChewingContext *ctx = context_.get();
-    chewing_handle_Esc(ctx);
+    chewing_cand_close(ctx);
+    chewing_clean_preedit_buf(ctx);
+    chewing_clean_bopomofo_buf(ctx);
     updateUI(event.inputContext());
 }
 
@@ -625,27 +628,30 @@ void ChewingEngine::updateUI(InputContext *ic) {
 
 void ChewingEngine::flushBuffer(InputContextEvent &event) {
     auto *ctx = context_.get();
+    std::string text;
     if (*config_.switchInputMethodBehavior ==
             SwitchInputMethodBehavior::CommitPreedit ||
         *config_.switchInputMethodBehavior ==
             SwitchInputMethodBehavior::CommitDefault) {
-        chewing_handle_Enter(ctx);
-        if (chewing_commit_Check(ctx)) {
-            UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
-            event.inputContext()->commitString(str.get());
+        chewing_cand_close(ctx);
+        if (chewing_buffer_Check(ctx)) {
+            // When not success, chewing_commit_preedit_buf will not change the
+            // output value. while chewing_handle_* will always update button
+            // result.
+            if (chewing_commit_preedit_buf(ctx) == 0 &&
+                chewing_commit_Check(ctx)) {
+                text.append(chewing_commit_String_static(ctx));
+            }
         }
     }
 
     if (*config_.switchInputMethodBehavior ==
         SwitchInputMethodBehavior::CommitPreedit) {
-        UniqueCPtr<char, chewing_free> buf_str(chewing_buffer_String(ctx));
-        const char *zuin_str = chewing_bopomofo_String_static(ctx);
-        std::string text = buf_str.get();
-        std::string zuin = zuin_str;
-        text += zuin;
-        if (!text.empty()) {
-            event.inputContext()->commitString(text);
-        }
+        text.append(chewing_buffer_String_static(ctx));
+        text.append(chewing_bopomofo_String_static(ctx));
+    }
+    if (!text.empty()) {
+        event.inputContext()->commitString(text);
     }
     doReset(event);
 }
