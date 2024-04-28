@@ -81,8 +81,7 @@ public:
         }
 
         if (chewing_commit_Check(ctx)) {
-            UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
-            inputContext->commitString(str.get());
+            inputContext->commitString(chewing_commit_String_static(ctx));
         }
         engine_->updateUI(inputContext);
     }
@@ -123,15 +122,18 @@ public:
         auto *ctx = engine_->context();
         candidateWords_.clear();
         labels_.clear();
+        cursor_ = 0;
 
         int index = 0;
         // get candidate word
-        int pageSize = chewing_get_candPerPage(ctx);
+        int pageSize = chewing_cand_ChoicePerPage(ctx);
+        if (pageSize <= 0) {
+            return;
+        }
         chewing_cand_Enumerate(ctx);
         while (chewing_cand_hasNext(ctx) && index < pageSize) {
-            UniqueCPtr<char, chewing_free> str(chewing_cand_String(ctx));
             candidateWords_.emplace_back(std::make_unique<ChewingCandidateWord>(
-                engine_, str.get(), index));
+                engine_, chewing_cand_String_static(ctx), index));
             if (index < 10) {
                 const char label[] = {
                     builtin_selectkeys[static_cast<int>(
@@ -143,8 +145,6 @@ public:
             }
             index++;
         }
-
-        cursor_ = 0;
     }
 
     int size() const override { return candidateWords_.size(); }
@@ -520,8 +520,7 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
     }
     if (chewing_commit_Check(ctx)) {
         keyEvent.filterAndAccept();
-        UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
-        ic->commitString(str.get());
+        ic->commitString(chewing_commit_String_static(ctx));
     }
     return updateUI(ic);
 }
@@ -555,10 +554,10 @@ void ChewingEngine::updatePreeditImpl(InputContext *ic) {
     ic->inputPanel().setAuxDown(Text());
 
     ChewingContext *ctx = context_.get();
-    UniqueCPtr<char, chewing_free> buf_str(chewing_buffer_String(ctx));
+    const char *buf_str = chewing_buffer_String_static(ctx);
     const char *zuin_str = chewing_bopomofo_String_static(ctx);
 
-    std::string text = buf_str.get();
+    std::string_view text = buf_str;
     std::string_view zuin = zuin_str;
     CHEWING_DEBUG() << "Text: " << text << " Zuin: " << zuin;
 
@@ -585,9 +584,9 @@ void ChewingEngine::updatePreeditImpl(InputContext *ic) {
     preedit.setCursor(rcur);
 
     // insert zuin in the middle
-    preedit.append(text.substr(0, rcur), format);
+    preedit.append(std::string(text.substr(0, rcur)), format);
     preedit.append(std::string(zuin), {TextFormatFlag::HighLight, format});
-    preedit.append(text.substr(rcur), format);
+    preedit.append(std::string(text.substr(rcur)), format);
 
     if (chewing_aux_Check(ctx)) {
         const char *aux_str = chewing_aux_String_static(ctx);
@@ -609,17 +608,12 @@ void ChewingEngine::updatePreedit(InputContext *ic) {
 
 void ChewingEngine::updateUI(InputContext *ic) {
     CHEWING_DEBUG() << "updateUI";
-    ChewingContext *ctx = context_.get();
-
     // clean up window asap
     ic->inputPanel().reset();
-    /* if not check done, so there is candidate word */
-    if (!chewing_cand_CheckDone(ctx)) {
-        ic->inputPanel().setCandidateList(
-            std::make_unique<ChewingCandidateList>(this, ic));
-        if (ic->inputPanel().candidateList()->empty()) {
-            ic->inputPanel().setCandidateList(nullptr);
-        }
+    ic->inputPanel().setCandidateList(
+        std::make_unique<ChewingCandidateList>(this, ic));
+    if (ic->inputPanel().candidateList()->empty()) {
+        ic->inputPanel().setCandidateList(nullptr);
     }
 
     updatePreedit(ic);
