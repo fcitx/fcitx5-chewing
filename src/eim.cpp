@@ -629,8 +629,7 @@ void ChewingEngine::flushBuffer(InputContextEvent &event) {
             SwitchInputMethodBehavior::CommitPreedit ||
         *config_.switchInputMethodBehavior ==
             SwitchInputMethodBehavior::CommitDefault) {
-        chewing_cand_close(ctx);
-        chewing_commit_preedit_buf(ctx);
+        chewing_handle_Enter(ctx);
         if (chewing_commit_Check(ctx)) {
             UniqueCPtr<char, chewing_free> str(chewing_commit_String(ctx));
             event.inputContext()->commitString(str.get());
