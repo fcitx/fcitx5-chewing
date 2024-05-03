@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2024-04-20 20:25+0000\n"
+"POT-Creation-Date: 2024-05-03 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2017\n"
 "Language-Team: Catalan (https://app.transifex.com/fcitx/teams/12005/ca/)\n"
@@ -28,27 +28,27 @@ msgstr "1234567890"
 msgid "1234qweras"
 msgstr "1234qweras"
 
-#: src/eim.h:105
+#: src/eim.h:111
 msgid "Action when switching input method"
 msgstr ""
 
-#: src/eim.h:108
+#: src/eim.h:114
 msgid "Add Phrase Forward"
 msgstr "Afegeix una frase endavant"
 
-#: src/eim.h:112
+#: src/eim.h:118
 msgid "Automatically shift cursor"
 msgstr "Desplaça el cursor automàticament"
 
-#: src/eim.h:110
+#: src/eim.h:116
 msgid "Backward phrase choice"
 msgstr "Elecció de frase enrere"
 
-#: src/eim.h:98
+#: src/eim.h:104
 msgid "Candidate List Layout"
 msgstr ""
 
-#: src/eim.h:78
+#: src/eim.h:83
 msgid "Carpalx Keyboard"
 msgstr "Teclat Carpalx"
 
@@ -68,51 +68,59 @@ msgstr ""
 msgid "Chewing input method"
 msgstr ""
 
-#: src/eim.h:82
+#: src/eim.h:88
 msgid "Clear"
 msgstr ""
 
-#: src/eim.h:83
-msgid "Commit current preedit"
+#: src/eim.h:84
+msgid "Colemak-DH ANSI Keyboard"
 msgstr ""
 
 #: src/eim.h:84
+msgid "Colemak-DH Orth Keyboard"
+msgstr ""
+
+#: src/eim.h:89
+msgid "Commit current preedit"
+msgstr ""
+
+#: src/eim.h:90
 msgid "Commit default selection"
 msgstr ""
 
-#: src/eim.h:76
+#: src/eim.h:81
 msgid "DACHEN_CP26 Keyboard"
 msgstr "Teclat DACHEN_CP26"
 
-#: src/eim.h:71
+#: src/eim.h:78
 msgid "Default Keyboard"
 msgstr "Teclat predeterminat"
 
-#: src/eim.h:74
+#: src/eim.h:80
 msgid "Dvorak Keyboard"
 msgstr "Teclat Dvorak"
 
-#: src/eim.h:75
+#: src/eim.h:81
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr "Teclat Dvorak amb suport Hsu"
 
-#: src/eim.h:73
+#: src/eim.h:79
 msgid "ETen Keyboard"
 msgstr "Teclat ETen"
 
-#: src/eim.h:74
+#: src/eim.h:80
 msgid "ETen26 Keyboard"
 msgstr "Teclat ETen26"
 
-#: src/eim.h:114
+#: src/eim.h:120
 msgid "Enable easy symbol"
 msgstr ""
 
-#: src/eim.h:73
+#: src/eim.h:79
 msgid "Gin-Yieh Keyboard"
 msgstr "Teclat Gin-Yieh"
 
-#: src/eim.h:77
+#: src/eim.h:82
 msgid "Han-Yu PinYin Keyboard"
 msgstr "Teclat Han-Yu PinYin"
 
@@ -120,35 +128,43 @@ msgstr "Teclat Han-Yu PinYin"
 msgid "Horizontal"
 msgstr ""
 
-#: src/eim.h:72
+#: src/eim.h:78
 msgid "Hsu's Keyboard"
 msgstr "Teclat Hsu"
 
-#: src/eim.h:72
+#: src/eim.h:79
 msgid "IBM Keyboard"
 msgstr "Teclat IBM"
 
-#: src/eim.h:118
+#: src/eim.h:124
 msgid "Keyboard Layout"
 msgstr "Disposició de teclat"
 
-#: src/eim.h:94
+#: src/eim.h:83
+msgid "MPS2 PinYin Keyboard"
+msgstr ""
+
+#: src/eim.h:100
 msgid "Page Size"
 msgstr ""
 
-#: src/eim.h:93
+#: src/eim.h:99
 msgid "Select candidate with arrow key"
 msgstr ""
 
-#: src/eim.h:89
+#: src/eim.h:95
 msgid "Selection Key"
 msgstr "Tecla de selecció"
 
-#: src/eim.h:116
+#: src/eim.h:122
 msgid "Space as selection key"
 msgstr "Espai com a tecla de selecció"
 
-#: src/eim.h:101
+#: src/eim.h:82
+msgid "THL PinYin Keyboard"
+msgstr ""
+
+#: src/eim.h:107
 msgid "Use Keypad as Selection key"
 msgstr ""
 
