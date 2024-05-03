@@ -471,14 +471,6 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
             chewing_set_easySymbolInput(ctx, *config_.EasySymbolInput ? 1 : 0);
         }
         int scan_code = keyEvent.key().sym() & 0xff;
-        if (*config_.Layout == ChewingLayout::HanYuPinYin) {
-            auto zuin = safeChewing_bopomofo_String(ctx);
-            // Workaround a bug in libchewing fixed in 2017 but never has
-            // stable release.
-            if (zuin.size() >= 9) {
-                return keyEvent.filterAndAccept();
-            }
-        }
         chewing_handle_Default(ctx, scan_code);
         chewing_set_easySymbolInput(ctx, 0);
     } else if (keyEvent.key().check(FcitxKey_BackSpace)) {
