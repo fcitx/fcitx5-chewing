@@ -60,22 +60,28 @@ enum class ChewingLayout {
     DvorakHsu,
     DACHEN_CP26,
     HanYuPinYin,
-    Carpalx
+    ThlPinYin,
+    Mps2PinYin,
+    Carpalx,
+    ColemakDH_ANSI,
+    ColemakDH_ORTH
 };
 FCITX_CONFIG_ENUM_NAME(ChewingLayout, "Default Keyboard", "Hsu's Keyboard",
                        "IBM Keyboard", "Gin-Yieh Keyboard", "ETen Keyboard",
                        "ETen26 Keyboard", "Dvorak Keyboard",
                        "Dvorak Keyboard with Hsu's support",
                        "DACHEN_CP26 Keyboard", "Han-Yu PinYin Keyboard",
-                       "Carpalx Keyboard");
-FCITX_CONFIG_ENUM_I18N_ANNOTATION(ChewingLayout, N_("Default Keyboard"),
-                                  N_("Hsu's Keyboard"), N_("IBM Keyboard"),
-                                  N_("Gin-Yieh Keyboard"), N_("ETen Keyboard"),
-                                  N_("ETen26 Keyboard"), N_("Dvorak Keyboard"),
-                                  N_("Dvorak Keyboard with Hsu's support"),
-                                  N_("DACHEN_CP26 Keyboard"),
-                                  N_("Han-Yu PinYin Keyboard"),
-                                  N_("Carpalx Keyboard"));
+                       "THL PinYin Keyboard", "MPS2 PinYin Keyboard",
+                       "Carpalx Keyboard", "Colemak-DH ANSI Keyboard",
+                       "Colemak-DH Orth Keyboard");
+FCITX_CONFIG_ENUM_I18N_ANNOTATION(
+    ChewingLayout, N_("Default Keyboard"), N_("Hsu's Keyboard"),
+    N_("IBM Keyboard"), N_("Gin-Yieh Keyboard"), N_("ETen Keyboard"),
+    N_("ETen26 Keyboard"), N_("Dvorak Keyboard"),
+    N_("Dvorak Keyboard with Hsu's support"), N_("DACHEN_CP26 Keyboard"),
+    N_("Han-Yu PinYin Keyboard"), N_("THL PinYin Keyboard"),
+    N_("MPS2 PinYin Keyboard"), N_("Carpalx Keyboard"),
+    N_("Colemak-DH ANSI Keyboard"), N_("Colemak-DH Orth Keyboard"));
 
 enum class SwitchInputMethodBehavior { Clear, CommitPreedit, CommitDefault };
 
