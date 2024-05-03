@@ -6,7 +6,6 @@
  *
  */
 #include "eim.h"
-#include <chewingio.h>
 #include <cstdarg>
 #include <fcitx-utils/keysymgen.h>
 #include <fcitx-utils/log.h>
@@ -20,7 +19,6 @@
 #include <fcitx/userinterface.h>
 #include <fcitx/userinterfacemanager.h>
 #include <memory>
-#include <mod_aux.h>
 #include <utility>
 
 FCITX_DEFINE_LOG_CATEGORY(chewing_log, "chewing");
@@ -45,6 +43,20 @@ const char *builtin_selectkeys[] = {
 static_assert(FCITX_ARRAY_SIZE(builtin_selectkeys) ==
                   ChewingSelectionKeyI18NAnnotation::enumLength,
               "Enum mismatch");
+
+#define DEFINE_SAFE_CHEWING_STRING_GETTER(NAME)                                \
+    static inline std::string safeChewing_##NAME##_String(                     \
+        ChewingContext *ctx) {                                                 \
+        if (chewing_##NAME##_Check(ctx)) {                                     \
+            return chewing_##NAME##_String_static(ctx);                        \
+        }                                                                      \
+        return "";                                                             \
+    }
+
+DEFINE_SAFE_CHEWING_STRING_GETTER(aux);
+DEFINE_SAFE_CHEWING_STRING_GETTER(buffer);
+DEFINE_SAFE_CHEWING_STRING_GETTER(bopomofo);
+DEFINE_SAFE_CHEWING_STRING_GETTER(commit);
 
 class ChewingCandidateWord : public CandidateWord {
 public:
@@ -81,7 +93,7 @@ public:
         }
 
         if (chewing_commit_Check(ctx)) {
-            inputContext->commitString(chewing_commit_String_static(ctx));
+            inputContext->commitString(safeChewing_commit_String(ctx));
         }
         engine_->updateUI(inputContext);
     }
@@ -449,34 +461,32 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         }
         int scan_code = keyEvent.key().sym() & 0xff;
         if (*config_.Layout == ChewingLayout::HanYuPinYin) {
-            const char *zuin_str = chewing_bopomofo_String_static(ctx);
-            // Workaround a bug in libchewing fixed in 2017 but never has stable
-            // release.
-            if (std::string_view(zuin_str).size() >= 9) {
+            auto zuin = safeChewing_bopomofo_String(ctx);
+            // Workaround a bug in libchewing fixed in 2017 but never has
+            // stable release.
+            if (zuin.size() >= 9) {
                 return keyEvent.filterAndAccept();
             }
         }
         chewing_handle_Default(ctx, scan_code);
         chewing_set_easySymbolInput(ctx, 0);
     } else if (keyEvent.key().check(FcitxKey_BackSpace)) {
-        const char *zuin_str = chewing_bopomofo_String_static(ctx);
-        if (chewing_buffer_Len(ctx) == 0 && !zuin_str[0]) {
+        if (chewing_buffer_Check(ctx) && chewing_bopomofo_Check(ctx)) {
             return;
         }
         chewing_handle_Backspace(ctx);
-        if (chewing_buffer_Len(ctx) == 0 && !zuin_str[0]) {
+        if (chewing_buffer_Check(ctx) && chewing_bopomofo_Check(ctx)) {
             keyEvent.filterAndAccept();
             return reset(entry, keyEvent);
         }
     } else if (keyEvent.key().check(FcitxKey_Escape)) {
         chewing_handle_Esc(ctx);
     } else if (keyEvent.key().check(FcitxKey_Delete)) {
-        const char *zuin_str = chewing_bopomofo_String_static(ctx);
-        if (chewing_buffer_Len(ctx) == 0 && !zuin_str[0]) {
+        if (chewing_buffer_Check(ctx) && chewing_bopomofo_Check(ctx)) {
             return;
         }
         chewing_handle_Del(ctx);
-        if (chewing_buffer_Len(ctx) == 0 && !zuin_str[0]) {
+        if (chewing_buffer_Check(ctx) && chewing_bopomofo_Check(ctx)) {
             keyEvent.filterAndAccept();
             return reset(entry, keyEvent);
         }
@@ -520,7 +530,7 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
     }
     if (chewing_commit_Check(ctx)) {
         keyEvent.filterAndAccept();
-        ic->commitString(chewing_commit_String_static(ctx));
+        ic->commitString(safeChewing_commit_String(ctx));
     }
     return updateUI(ic);
 }
@@ -554,11 +564,10 @@ void ChewingEngine::updatePreeditImpl(InputContext *ic) {
     ic->inputPanel().setAuxDown(Text());
 
     ChewingContext *ctx = context_.get();
-    const char *buf_str = chewing_buffer_String_static(ctx);
-    const char *zuin_str = chewing_bopomofo_String_static(ctx);
+    std::string buffer = safeChewing_buffer_String(ctx);
+    std::string_view text = buffer;
+    std::string zuin = safeChewing_bopomofo_String(ctx);
 
-    std::string_view text = buf_str;
-    std::string_view zuin = zuin_str;
     CHEWING_DEBUG() << "Text: " << text << " Zuin: " << zuin;
 
     /* there is nothing */
@@ -585,13 +594,11 @@ void ChewingEngine::updatePreeditImpl(InputContext *ic) {
 
     // insert zuin in the middle
     preedit.append(std::string(text.substr(0, rcur)), format);
-    preedit.append(std::string(zuin), {TextFormatFlag::HighLight, format});
+    preedit.append(std::move(zuin), {TextFormatFlag::HighLight, format});
     preedit.append(std::string(text.substr(rcur)), format);
 
-    if (chewing_aux_Check(ctx)) {
-        const char *aux_str = chewing_aux_String_static(ctx);
-        std::string aux = aux_str;
-        ic->inputPanel().setAuxDown(Text(aux));
+    if (auto aux = safeChewing_aux_String(ctx); !aux.empty()) {
+        ic->inputPanel().setAuxDown(Text(std::move(aux)));
     }
 
     if (useClientPreedit) {
@@ -632,17 +639,16 @@ void ChewingEngine::flushBuffer(InputContextEvent &event) {
             // When not success, chewing_commit_preedit_buf will not change the
             // output value. while chewing_handle_* will always update button
             // result.
-            if (chewing_commit_preedit_buf(ctx) == 0 &&
-                chewing_commit_Check(ctx)) {
-                text.append(chewing_commit_String_static(ctx));
+            if (chewing_commit_preedit_buf(ctx) == 0) {
+                text.append(safeChewing_commit_String(ctx));
             }
         }
     }
 
     if (*config_.switchInputMethodBehavior ==
         SwitchInputMethodBehavior::CommitPreedit) {
-        text.append(chewing_buffer_String_static(ctx));
-        text.append(chewing_bopomofo_String_static(ctx));
+        text.append(safeChewing_buffer_String(ctx));
+        text.append(safeChewing_bopomofo_String(ctx));
     }
     if (!text.empty()) {
         event.inputContext()->commitString(text);
