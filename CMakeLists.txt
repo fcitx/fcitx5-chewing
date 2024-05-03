@@ -17,7 +17,7 @@ option(ENABLE_TEST "Build Test" On)
 option(ENABLE_COVERAGE "Build the project with gcov support (Need ENABLE_TEST=On)" Off)
 
 if (NOT DEFINED CHEWING_TARGET)
-    pkg_check_modules(Chewing "chewing>=0.5.0" IMPORTED_TARGET REQUIRED)
+    pkg_check_modules(Chewing "chewing>=0.7.0" IMPORTED_TARGET REQUIRED)
     set(CHEWING_TARGET PkgConfig::Chewing)
 endif()
 
