@@ -8,9 +8,12 @@
 #define _FCITX5_CHEWING_EIM_H_
 
 #include <chewing.h>
+#include <chewingio.h>
 #include <fcitx-config/configuration.h>
 #include <fcitx-config/enum.h>
 #include <fcitx-config/iniparser.h>
+#include <fcitx-config/option.h>
+#include <fcitx-config/rawconfig.h>
 #include <fcitx-utils/i18n.h>
 #include <fcitx-utils/trackableobject.h>
 #include <fcitx/addonfactory.h>
@@ -66,6 +69,23 @@ enum class ChewingLayout {
     ColemakDH_ANSI,
     ColemakDH_ORTH
 };
+
+static constexpr const char *builtin_keymaps[] = {"KB_DEFAULT",
+                                                  "KB_HSU",
+                                                  "KB_IBM",
+                                                  "KB_GIN_YIEH",
+                                                  "KB_ET",
+                                                  "KB_ET26",
+                                                  "KB_DVORAK",
+                                                  "KB_DVORAK_HSU",
+                                                  "KB_DACHEN_CP26",
+                                                  "KB_HANYU_PINYIN",
+                                                  "KB_THL_PINYIN",
+                                                  "KB_MPS2_PINYIN",
+                                                  "KB_CARPALX",
+                                                  "KB_COLEMAK_DH_ANSI",
+                                                  "KB_COLEMAK_DH_ORTH"};
+
 FCITX_CONFIG_ENUM_NAME(ChewingLayout, "Default Keyboard", "Hsu's Keyboard",
                        "IBM Keyboard", "Gin-Yieh Keyboard", "ETen Keyboard",
                        "ETen26 Keyboard", "Dvorak Keyboard",
@@ -82,6 +102,43 @@ FCITX_CONFIG_ENUM_I18N_ANNOTATION(
     N_("Han-Yu PinYin Keyboard"), N_("THL PinYin Keyboard"),
     N_("MPS2 PinYin Keyboard"), N_("Carpalx Keyboard"),
     N_("Colemak-DH ANSI Keyboard"), N_("Colemak-DH Orth Keyboard"));
+
+class ChewingLayoutOption : public Option<ChewingLayout> {
+    using Base = Option<ChewingLayout>;
+
+public:
+    using Base::Base;
+
+    void dumpDescription(RawConfig &config) const override {
+        Base::dumpDescription(config);
+        config.remove("Enum");
+        for (size_t i = 0; i < supportedLayouts_.size(); i++) {
+            config.setValueByPath("Enum/" + std::to_string(i),
+                                  _ChewingLayout_Names[static_cast<size_t>(
+                                      supportedLayouts_[i])]);
+            config.setValueByPath(
+                "EnumI18n/" + std::to_string(i),
+                ChewingLayoutI18NAnnotation::toString(supportedLayouts_[i]));
+        }
+    }
+
+private:
+    static inline std::vector<ChewingLayout> supportedLayouts() {
+        std::vector<ChewingLayout> supported = {ChewingLayout::Default};
+        auto defaultNum = chewing_KBStr2Num(builtin_keymaps[0]);
+        for (size_t i = 1; i < ChewingLayoutI18NAnnotation::enumLength;
+             i++) {
+            auto num = chewing_KBStr2Num(builtin_keymaps[i]);
+            if (num == defaultNum) {
+                continue;
+            }
+            supported.push_back(static_cast<ChewingLayout>(i));
+        }
+
+        return supported;
+    }
+    std::vector<ChewingLayout> supportedLayouts_ = supportedLayouts();
+};
 
 enum class SwitchInputMethodBehavior { Clear, CommitPreedit, CommitDefault };
 
@@ -120,8 +177,8 @@ FCITX_CONFIGURATION(
                                  _("Enable easy symbol"), false};
     Option<bool> SpaceAsSelection{this, "SpaceAsSelection",
                                   _("Space as selection key"), true};
-    OptionWithAnnotation<ChewingLayout, ChewingLayoutI18NAnnotation> Layout{
-        this, "Layout", _("Keyboard Layout"), ChewingLayout::Default};);
+    ChewingLayoutOption Layout{this, "Layout", _("Keyboard Layout"),
+                               ChewingLayout::Default};);
 
 class ChewingEngine final : public InputMethodEngine {
 public:
