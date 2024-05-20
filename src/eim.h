@@ -126,8 +126,7 @@ private:
     static inline std::vector<ChewingLayout> supportedLayouts() {
         std::vector<ChewingLayout> supported = {ChewingLayout::Default};
         auto defaultNum = chewing_KBStr2Num(builtin_keymaps[0]);
-        for (size_t i = 1; i < ChewingLayoutI18NAnnotation::enumLength;
-             i++) {
+        for (size_t i = 1; i < ChewingLayoutI18NAnnotation::enumLength; i++) {
             auto num = chewing_KBStr2Num(builtin_keymaps[i]);
             if (num == defaultNum) {
                 continue;
