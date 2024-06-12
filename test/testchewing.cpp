@@ -6,20 +6,26 @@
  */
 #include "testdir.h"
 #include "testfrontend_public.h"
+#include <fcitx-config/rawconfig.h>
 #include <fcitx-utils/eventdispatcher.h>
+#include <fcitx-utils/key.h>
 #include <fcitx-utils/keysym.h>
 #include <fcitx-utils/log.h>
+#include <fcitx-utils/macros.h>
 #include <fcitx-utils/standardpath.h>
 #include <fcitx-utils/testing.h>
 #include <fcitx/addonmanager.h>
+#include <fcitx/inputmethodgroup.h>
 #include <fcitx/inputmethodmanager.h>
 #include <fcitx/inputpanel.h>
 #include <fcitx/instance.h>
+#include <string>
+#include <string_view>
 
 using namespace fcitx;
 
-void scheduleEvent(EventDispatcher *dispatcher, Instance *instance) {
-    dispatcher->schedule([instance]() {
+void testBasic(Instance *instance) {
+    instance->eventDispatcher().schedule([instance]() {
         auto *chewing = instance->addonManager().addon("chewing", true);
         FCITX_ASSERT(chewing);
         auto defaultGroup = instance->inputMethodManager().currentGroup();
@@ -114,8 +120,40 @@ void scheduleEvent(EventDispatcher *dispatcher, Instance *instance) {
 
         instance->deactivate();
     });
+}
 
-    dispatcher->schedule([instance]() {
+void testBackspaceWithBuffer(Instance *instance) {
+    instance->eventDispatcher().schedule([instance]() {
+        auto *chewing = instance->addonManager().addon("chewing", true);
+        FCITX_ASSERT(chewing);
+        RawConfig config;
+        config.setValueByPath("Layout", "Default");
+        chewing->setConfig(config);
+        auto *testfrontend = instance->addonManager().addon("testfrontend");
+        auto uuid =
+            testfrontend->call<ITestFrontend::createInputContext>("testapp");
+        auto *ic = instance->inputContextManager().findByUUID(uuid);
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("Control+space"), false));
+        FCITX_ASSERT(instance->inputMethod(ic) == "chewing");
+
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("z"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("p"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("space"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key(FcitxKey_BackSpace), false));
+        auto text = ic->inputPanel().preedit().toString();
+        FCITX_ASSERT(text.empty());
+
+        instance->deactivate();
+    });
+}
+
+void testBackspaceWhenBufferEmpty(Instance *instance) {
+    instance->eventDispatcher().schedule([instance]() {
         auto *chewing = instance->addonManager().addon("chewing", true);
         FCITX_ASSERT(chewing);
         RawConfig config;
@@ -150,8 +188,50 @@ void scheduleEvent(EventDispatcher *dispatcher, Instance *instance) {
 
         instance->deactivate();
     });
+}
 
-    dispatcher->schedule([instance]() {
+void testBackspaceWithBopomofo(Instance *instance) {
+    instance->eventDispatcher().schedule([instance]() {
+        auto *chewing = instance->addonManager().addon("chewing", true);
+        FCITX_ASSERT(chewing);
+        RawConfig config;
+        config.setValueByPath("Layout", "Default");
+        chewing->setConfig(config);
+        auto *testfrontend = instance->addonManager().addon("testfrontend");
+        auto uuid =
+            testfrontend->call<ITestFrontend::createInputContext>("testapp");
+        auto *ic = instance->inputContextManager().findByUUID(uuid);
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("Control+space"), false));
+        FCITX_ASSERT(instance->inputMethod(ic) == "chewing");
+
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("z"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("p"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("space"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("z"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("p"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("space"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key(FcitxKey_BackSpace), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key(FcitxKey_BackSpace), false));
+        auto text = ic->inputPanel().preedit().toString();
+        FCITX_ASSERT(text.empty());
+        FCITX_ASSERT(!testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key(FcitxKey_BackSpace), false));
+
+        instance->deactivate();
+    });
+}
+
+void testCommitPreedit(Instance *instance) {
+    instance->eventDispatcher().schedule([instance]() {
         auto *chewing = instance->addonManager().addon("chewing", true);
         FCITX_ASSERT(chewing);
         RawConfig config;
@@ -188,11 +268,6 @@ void scheduleEvent(EventDispatcher *dispatcher, Instance *instance) {
 
         instance->deactivate();
     });
-
-    dispatcher->schedule([dispatcher, instance]() {
-        dispatcher->detach();
-        instance->exit();
-    });
 }
 
 int main() {
@@ -206,9 +281,14 @@ int main() {
     fcitx::Log::setLogRule("default=5,chewing=5");
     Instance instance(FCITX_ARRAY_SIZE(argv), argv);
     instance.addonManager().registerDefaultLoader(nullptr);
-    EventDispatcher dispatcher;
-    dispatcher.attach(&instance.eventLoop());
-    scheduleEvent(&dispatcher, &instance);
+
+    testBasic(&instance);
+    testBackspaceWhenBufferEmpty(&instance);
+    testBackspaceWithBuffer(&instance);
+    testBackspaceWithBopomofo(&instance);
+    testCommitPreedit(&instance);
+
+    instance.eventDispatcher().schedule([&instance]() { instance.exit(); });
     instance.exec();
 
     return 0;
