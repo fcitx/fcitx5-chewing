@@ -468,22 +468,26 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         chewing_handle_Default(ctx, scan_code);
         chewing_set_easySymbolInput(ctx, 0);
     } else if (keyEvent.key().check(FcitxKey_BackSpace)) {
-        if ((chewing_buffer_Check(ctx)) == 0 && (chewing_bopomofo_Check(ctx) == 0)) {
+        if ((chewing_buffer_Check(ctx)) == 0 &&
+            (chewing_bopomofo_Check(ctx) == 0)) {
             return;
         }
         chewing_handle_Backspace(ctx);
-        if ((chewing_buffer_Check(ctx)) == 0 && (chewing_bopomofo_Check(ctx) == 0)) {
+        if ((chewing_buffer_Check(ctx)) == 0 &&
+            (chewing_bopomofo_Check(ctx) == 0)) {
             keyEvent.filterAndAccept();
             return reset(entry, keyEvent);
         }
     } else if (keyEvent.key().check(FcitxKey_Escape)) {
         chewing_handle_Esc(ctx);
     } else if (keyEvent.key().check(FcitxKey_Delete)) {
-        if ((chewing_buffer_Check(ctx)) == 0 && (chewing_bopomofo_Check(ctx) == 0)) {
+        if ((chewing_buffer_Check(ctx)) == 0 &&
+            (chewing_bopomofo_Check(ctx) == 0)) {
             return;
         }
         chewing_handle_Del(ctx);
-        if ((chewing_buffer_Check(ctx)) == 0 && (chewing_bopomofo_Check(ctx) == 0)) {
+        if ((chewing_buffer_Check(ctx)) == 0 &&
+            (chewing_bopomofo_Check(ctx) == 0)) {
             keyEvent.filterAndAccept();
             return reset(entry, keyEvent);
         }
