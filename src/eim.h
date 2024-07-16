@@ -8,7 +8,6 @@
 #define _FCITX5_CHEWING_EIM_H_
 
 #include <chewing.h>
-#include <chewingio.h>
 #include <fcitx-config/configuration.h>
 #include <fcitx-config/enum.h>
 #include <fcitx-config/iniparser.h>
