@@ -10,7 +10,6 @@
 #include <cstdarg>
 #include <cstdio>
 #include <fcitx-utils/keysym.h>
-#include <fcitx-utils/keysymgen.h>
 #include <fcitx-utils/log.h>
 #include <fcitx-utils/utf8.h>
 #include <fcitx/candidatelist.h>
