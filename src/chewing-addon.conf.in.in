@@ -8,6 +8,9 @@ OnDemand=True
 Configurable=True
 Library=libchewing
 
+[Addon/Dependencies]
+0=core:@REQUIRED_FCITX_VERSION@
+
 [Addon/OptionalDependencies]
 0=chttrans
 

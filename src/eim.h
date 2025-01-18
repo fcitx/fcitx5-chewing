@@ -8,20 +8,26 @@
 #define _FCITX5_CHEWING_EIM_H_
 
 #include <chewing.h>
+#include <cstddef>
 #include <fcitx-config/configuration.h>
 #include <fcitx-config/enum.h>
 #include <fcitx-config/iniparser.h>
 #include <fcitx-config/option.h>
 #include <fcitx-config/rawconfig.h>
 #include <fcitx-utils/i18n.h>
+#include <fcitx-utils/misc.h>
 #include <fcitx-utils/trackableobject.h>
 #include <fcitx/addonfactory.h>
+#include <fcitx/addoninstance.h>
 #include <fcitx/addonmanager.h>
 #include <fcitx/candidatelist.h>
 #include <fcitx/event.h>
 #include <fcitx/inputcontext.h>
 #include <fcitx/inputmethodengine.h>
 #include <fcitx/instance.h>
+#include <fcitx/text.h>
+#include <string>
+#include <vector>
 
 namespace fcitx {
 
@@ -122,7 +128,7 @@ public:
     }
 
 private:
-    static inline std::vector<ChewingLayout> supportedLayouts() {
+    static std::vector<ChewingLayout> supportedLayouts() {
         std::vector<ChewingLayout> supported = {ChewingLayout::Default};
         auto defaultNum = chewing_KBStr2Num(builtin_keymaps[0]);
         for (size_t i = 1; i < ChewingLayoutI18NAnnotation::enumLength; i++) {

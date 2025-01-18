@@ -6,7 +6,10 @@
  *
  */
 #include "eim.h"
+#include <chewing.h>
 #include <cstdarg>
+#include <cstdio>
+#include <fcitx-utils/keysym.h>
 #include <fcitx-utils/keysymgen.h>
 #include <fcitx-utils/log.h>
 #include <fcitx-utils/utf8.h>
@@ -20,6 +23,7 @@
 #include <fcitx/userinterfacemanager.h>
 #include <memory>
 #include <utility>
+#include <vector>
 
 FCITX_DEFINE_LOG_CATEGORY(chewing_log, "chewing");
 #define CHEWING_DEBUG() FCITX_LOGC(chewing_log, Debug)
@@ -445,7 +449,8 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
     CHEWING_DEBUG() << "KeyEvent: " << keyEvent.key().toString();
 
     if (handleCandidateKeyEvent(keyEvent)) {
-        return keyEvent.filterAndAccept();
+        keyEvent.filterAndAccept();
+        return;
     }
 
     if (keyEvent.key().check(FcitxKey_space)) {
@@ -462,7 +467,8 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
             // Workaround a bug in libchewing fixed in 2017 but never has
             // stable release.
             if (zuin.size() >= 9) {
-                return keyEvent.filterAndAccept();
+                keyEvent.filterAndAccept();
+                return;
             }
         }
         chewing_handle_Default(ctx, scan_code);
@@ -476,7 +482,8 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         if ((chewing_buffer_Check(ctx)) == 0 &&
             (chewing_bopomofo_Check(ctx) == 0)) {
             keyEvent.filterAndAccept();
-            return reset(entry, keyEvent);
+            reset(entry, keyEvent);
+            return;
         }
     } else if (keyEvent.key().check(FcitxKey_Escape)) {
         chewing_handle_Esc(ctx);
@@ -489,7 +496,8 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         if ((chewing_buffer_Check(ctx)) == 0 &&
             (chewing_bopomofo_Check(ctx) == 0)) {
             keyEvent.filterAndAccept();
-            return reset(entry, keyEvent);
+            reset(entry, keyEvent);
+            return;
         }
     } else if (keyEvent.key().check(FcitxKey_Up)) {
         chewing_handle_Up(ctx);
@@ -659,4 +667,4 @@ void ChewingEngine::flushBuffer(InputContextEvent &event) {
 
 } // namespace fcitx
 
-FCITX_ADDON_FACTORY(fcitx::ChewingEngineFactory);
+FCITX_ADDON_FACTORY_V2(chewing, fcitx::ChewingEngineFactory);

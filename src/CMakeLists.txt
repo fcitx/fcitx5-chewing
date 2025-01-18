@@ -1,7 +1,7 @@
 set(CHEWING_SOURCES
     eim.cpp
 )
-add_library(chewing MODULE ${CHEWING_SOURCES})
+add_fcitx5_addon(chewing ${CHEWING_SOURCES})
 target_link_libraries(chewing Fcitx5::Core Fcitx5::Config ${CHEWING_TARGET})
 target_compile_definitions(chewing PRIVATE FCITX_GETTEXT_DOMAIN=\"fcitx5-chewing\")
 fcitx5_add_i18n_definition(TARGETS chewing)
