@@ -74,6 +74,10 @@ msgstr "Метод ввода Chewing"
 msgid "Clear"
 msgstr "Очистить"
 
+#: src/eim.h:84
+msgid "Colemak Keyboard"
+msgstr "Клавиатура Colemak"
+
 #: src/eim.h:104
 msgid "Colemak-DH ANSI Keyboard"
 msgstr "Клавиатура Colemak-DH ANSI"
