@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-03-22 20:24+0000\n"
+"POT-Creation-Date: 2025-04-22 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: hoanghuy309 <hoanghuy309@gmail.com>, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/fcitx/teams/12005/vi/)\n"
@@ -93,7 +93,7 @@ msgstr ""
 
 #: src/eim.h:103
 msgid "Default Keyboard"
-msgstr ""
+msgstr "Bàn Phím Mặc Định"
 
 #: src/eim.h:105
 msgid "Dvorak Keyboard"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: src/eim.h:184
 msgid "Keyboard Layout"
-msgstr ""
+msgstr "Bố Cục Bàn Phím"
 
 #: src/eim.h:108
 msgid "MPS2 PinYin Keyboard"
@@ -149,15 +149,15 @@ msgstr ""
 
 #: src/eim.h:160
 msgid "Select candidate with arrow key"
-msgstr ""
+msgstr "Chọn ứng cử viên với phím mũi tên"
 
 #: src/eim.h:156
 msgid "Selection Key"
-msgstr ""
+msgstr "Phím Lựa Chọn"
 
 #: src/eim.h:183
 msgid "Space as selection key"
-msgstr ""
+msgstr "Khoảng trắng làm phím lựa chọn"
 
 #: src/eim.h:107
 msgid "THL PinYin Keyboard"
