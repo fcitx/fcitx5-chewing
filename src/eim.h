@@ -71,6 +71,7 @@ enum class ChewingLayout {
     ThlPinYin,
     Mps2PinYin,
     Carpalx,
+    Colemak,
     ColemakDH_ANSI,
     ColemakDH_ORTH
 };
@@ -88,6 +89,7 @@ static constexpr const char *builtin_keymaps[] = {"KB_DEFAULT",
                                                   "KB_THL_PINYIN",
                                                   "KB_MPS2_PINYIN",
                                                   "KB_CARPALX",
+                                                  "KB_COLEMAK",
                                                   "KB_COLEMAK_DH_ANSI",
                                                   "KB_COLEMAK_DH_ORTH"};
 
@@ -97,7 +99,7 @@ FCITX_CONFIG_ENUM_NAME(ChewingLayout, "Default Keyboard", "Hsu's Keyboard",
                        "Dvorak Keyboard with Hsu's support",
                        "DACHEN_CP26 Keyboard", "Han-Yu PinYin Keyboard",
                        "THL PinYin Keyboard", "MPS2 PinYin Keyboard",
-                       "Carpalx Keyboard", "Colemak-DH ANSI Keyboard",
+                       "Carpalx Keyboard", "Colemak Keyboard", "Colemak-DH ANSI Keyboard",
                        "Colemak-DH Orth Keyboard");
 FCITX_CONFIG_ENUM_I18N_ANNOTATION(
     ChewingLayout, N_("Default Keyboard"), N_("Hsu's Keyboard"),
@@ -106,7 +108,7 @@ FCITX_CONFIG_ENUM_I18N_ANNOTATION(
     N_("Dvorak Keyboard with Hsu's support"), N_("DACHEN_CP26 Keyboard"),
     N_("Han-Yu PinYin Keyboard"), N_("THL PinYin Keyboard"),
     N_("MPS2 PinYin Keyboard"), N_("Carpalx Keyboard"),
-    N_("Colemak-DH ANSI Keyboard"), N_("Colemak-DH Orth Keyboard"));
+    N_("Colemak Keyboard"), N_("Colemak-DH ANSI Keyboard"), N_("Colemak-DH Orth Keyboard"));
 
 class ChewingLayoutOption : public Option<ChewingLayout> {
     using Base = Option<ChewingLayout>;

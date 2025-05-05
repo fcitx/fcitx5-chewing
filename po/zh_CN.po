@@ -74,6 +74,10 @@ msgid "Clear"
 msgstr "清空"
 
 #: src/eim.h:104
+msgid "Colemak Keyboard"
+msgstr "Colemak 键盘"
+
+#: src/eim.h:104
 msgid "Colemak-DH ANSI Keyboard"
 msgstr "Colemak-DH ANSI 键盘"
 
