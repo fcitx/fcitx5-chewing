@@ -6,22 +6,33 @@
  *
  */
 #include "eim.h"
+#include <array>
 #include <chewing.h>
 #include <cstdarg>
 #include <cstdio>
+#include <fcitx-config/iniparser.h>
+#include <fcitx-utils/capabilityflags.h>
+#include <fcitx-utils/key.h>
 #include <fcitx-utils/keysym.h>
 #include <fcitx-utils/log.h>
-#include <fcitx-utils/standardpath.h>
+#include <fcitx-utils/standardpaths.h>
+#include <fcitx-utils/textformatflags.h>
 #include <fcitx-utils/utf8.h>
+#include <fcitx/addoninstance.h>
 #include <fcitx/candidatelist.h>
 #include <fcitx/event.h>
 #include <fcitx/inputcontext.h>
 #include <fcitx/inputpanel.h>
+#include <fcitx/instance.h>
 #include <fcitx/statusarea.h>
 #include <fcitx/text.h>
 #include <fcitx/userinterface.h>
 #include <fcitx/userinterfacemanager.h>
+#include <filesystem>
 #include <memory>
+#include <stdexcept>
+#include <string>
+#include <string_view>
 #include <utility>
 #include <vector>
 
@@ -34,12 +45,17 @@ namespace {
 
 constexpr int CHEWING_MAX_LEN = 18;
 
-const char *builtin_selectkeys[] = {
-    "1234567890", "asdfghjkl;", "asdfzxcv89", "asdfjkl789",
-    "aoeuhtn789", "1234qweras", "dstnaeo789",
-};
+constexpr auto builtin_selectkeys = std::to_array<std::string_view>({
+    "1234567890",
+    "asdfghjkl;",
+    "asdfzxcv89",
+    "asdfjkl789",
+    "aoeuhtn789",
+    "1234qweras",
+    "dstnaeo789",
+});
 
-static_assert(FCITX_ARRAY_SIZE(builtin_selectkeys) ==
+static_assert(builtin_selectkeys.size() ==
                   ChewingSelectionKeyI18NAnnotation::enumLength,
               "Enum mismatch");
 
@@ -65,7 +81,7 @@ public:
     void select(InputContext *inputContext) const override {
         auto *ctx = engine_->context();
         auto pageSize = chewing_get_candPerPage(ctx);
-        int page = index_ / pageSize + chewing_cand_CurrentPage(ctx);
+        int page = (index_ / pageSize) + chewing_cand_CurrentPage(ctx);
         int off = index_ % pageSize;
         if (page < 0 || page >= chewing_cand_TotalPage(ctx)) {
             return;
@@ -275,11 +291,11 @@ void logger(void * /*context*/, int /*level*/, const char *fmt, ...) {
 } // namespace
 
 ChewingContext *getChewingContext() {
-    const auto &sp = StandardPath::global();
-    std::string dictData =
-        sp.locate(StandardPath::Type::Data, "libchewing/dictionary.dat");
+    const auto &sp = StandardPaths::global();
+    std::filesystem::path dictData =
+        sp.locate(StandardPathsType::Data, "libchewing/dictionary.dat");
     if (!dictData.empty()) {
-        std::string sysPath = fs::dirName(dictData);
+        std::string sysPath = dictData.parent_path().string();
         return chewing_new2(sysPath.c_str(), nullptr, nullptr, nullptr);
     }
     return chewing_new();
@@ -366,7 +382,7 @@ void ChewingEngine::deactivate(const InputMethodEntry &entry,
     }
 }
 
-bool ChewingEngine::handleCandidateKeyEvent(const KeyEvent &keyEvent) {
+bool ChewingEngine::handleCandidateKeyEvent(const KeyEvent &keyEvent) const {
     auto *ic = keyEvent.inputContext();
     auto candidateList = std::dynamic_pointer_cast<ChewingCandidateList>(
         ic->inputPanel().candidateList());
@@ -541,7 +557,7 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         keyEvent.filterAndAccept();
         ic->commitString(safeChewing_commit_String(ctx));
     }
-    return updateUI(ic);
+    updateUI(ic);
 }
 
 void ChewingEngine::filterKey(const InputMethodEntry & /*entry*/,
@@ -555,7 +571,8 @@ void ChewingEngine::filterKey(const InputMethodEntry & /*entry*/,
          keyEvent.key().check(FcitxKey_space, KeyState::Shift) ||
          keyEvent.key().check(FcitxKey_Tab) ||
          keyEvent.key().check(FcitxKey_Return, KeyState::Shift))) {
-        return keyEvent.filterAndAccept();
+        keyEvent.filterAndAccept();
+        return;
     }
 
     if (!ic->inputPanel().candidateList()) {

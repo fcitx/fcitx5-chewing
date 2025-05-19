@@ -219,7 +219,7 @@ public:
     ChewingContext *context() { return context_.get(); }
 
 private:
-    bool handleCandidateKeyEvent(const KeyEvent &keyEvent);
+    bool handleCandidateKeyEvent(const KeyEvent &keyEvent) const;
     void updatePreeditImpl(InputContext *ic);
 
     FCITX_ADDON_DEPENDENCY_LOADER(chttrans, instance_->addonManager());
