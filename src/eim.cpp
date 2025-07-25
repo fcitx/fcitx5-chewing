@@ -469,10 +469,11 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         return;
     }
 
+    int chewingReturnValue = 0;
     if (keyEvent.key().check(FcitxKey_space)) {
-        chewing_handle_Space(ctx);
+        chewingReturnValue = chewing_handle_Space(ctx);
     } else if (keyEvent.key().check(FcitxKey_Tab)) {
-        chewing_handle_Tab(ctx);
+        chewingReturnValue = chewing_handle_Tab(ctx);
     } else if (keyEvent.key().isSimple()) {
         if (keyEvent.rawKey().states().test(KeyState::Shift)) {
             chewing_set_easySymbolInput(ctx, *config_.EasySymbolInput ? 1 : 0);
@@ -487,14 +488,14 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
                 return;
             }
         }
-        chewing_handle_Default(ctx, scan_code);
+        chewingReturnValue = chewing_handle_Default(ctx, scan_code);
         chewing_set_easySymbolInput(ctx, 0);
     } else if (keyEvent.key().check(FcitxKey_BackSpace)) {
         if ((chewing_buffer_Check(ctx)) == 0 &&
             (chewing_bopomofo_Check(ctx) == 0)) {
             return;
         }
-        chewing_handle_Backspace(ctx);
+        chewingReturnValue = chewing_handle_Backspace(ctx);
         if ((chewing_buffer_Check(ctx)) == 0 &&
             (chewing_bopomofo_Check(ctx) == 0)) {
             keyEvent.filterAndAccept();
@@ -502,13 +503,13 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
             return;
         }
     } else if (keyEvent.key().check(FcitxKey_Escape)) {
-        chewing_handle_Esc(ctx);
+        chewingReturnValue = chewing_handle_Esc(ctx);
     } else if (keyEvent.key().check(FcitxKey_Delete)) {
         if ((chewing_buffer_Check(ctx)) == 0 &&
             (chewing_bopomofo_Check(ctx) == 0)) {
             return;
         }
-        chewing_handle_Del(ctx);
+        chewingReturnValue = chewing_handle_Del(ctx);
         if ((chewing_buffer_Check(ctx)) == 0 &&
             (chewing_bopomofo_Check(ctx) == 0)) {
             keyEvent.filterAndAccept();
@@ -516,41 +517,44 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
             return;
         }
     } else if (keyEvent.key().check(FcitxKey_Up)) {
-        chewing_handle_Up(ctx);
+        chewingReturnValue = chewing_handle_Up(ctx);
     } else if (keyEvent.key().check(FcitxKey_Down)) {
-        chewing_handle_Down(ctx);
+        chewingReturnValue = chewing_handle_Down(ctx);
     } else if (keyEvent.key().check(FcitxKey_Page_Down)) {
-        chewing_handle_PageDown(ctx);
+        chewingReturnValue = chewing_handle_PageDown(ctx);
     } else if (keyEvent.key().check(FcitxKey_Page_Up)) {
-        chewing_handle_PageUp(ctx);
+        chewingReturnValue = chewing_handle_PageUp(ctx);
     } else if (keyEvent.key().check(FcitxKey_Right)) {
-        chewing_handle_Right(ctx);
+        chewingReturnValue = chewing_handle_Right(ctx);
     } else if (keyEvent.key().check(FcitxKey_Left)) {
-        chewing_handle_Left(ctx);
+        chewingReturnValue = chewing_handle_Left(ctx);
     } else if (keyEvent.key().check(FcitxKey_Home)) {
-        chewing_handle_Home(ctx);
+        chewingReturnValue = chewing_handle_Home(ctx);
     } else if (keyEvent.key().check(FcitxKey_End)) {
-        chewing_handle_End(ctx);
+        chewingReturnValue = chewing_handle_End(ctx);
     } else if (keyEvent.key().check(FcitxKey_space, KeyState::Shift)) {
-        chewing_handle_ShiftSpace(ctx);
+        chewingReturnValue = chewing_handle_ShiftSpace(ctx);
     } else if (keyEvent.key().check(FcitxKey_Left, KeyState::Shift)) {
-        chewing_handle_ShiftLeft(ctx);
+        chewingReturnValue = chewing_handle_ShiftLeft(ctx);
     } else if (keyEvent.key().check(FcitxKey_Right, KeyState::Shift)) {
-        chewing_handle_ShiftRight(ctx);
+        chewingReturnValue = chewing_handle_ShiftRight(ctx);
     } else if (keyEvent.key().check(FcitxKey_Return)) {
-        chewing_handle_Enter(ctx);
+        chewingReturnValue = chewing_handle_Enter(ctx);
     } else if (keyEvent.key().states() == KeyState::Ctrl &&
                Key(keyEvent.key().sym()).isDigit()) {
-        chewing_handle_CtrlNum(ctx, keyEvent.key().sym());
+        chewingReturnValue = chewing_handle_CtrlNum(ctx, keyEvent.key().sym());
     } else {
         // to do: more chewing_handle
         return;
     }
 
+    CHEWING_DEBUG() << "Chewing return value: " << chewingReturnValue;
     if (chewing_keystroke_CheckIgnore(ctx)) {
+        CHEWING_DEBUG() << "Keystroke ignored";
         return;
     }
     if (chewing_keystroke_CheckAbsorb(ctx)) {
+        CHEWING_DEBUG() << "Keystroke absorbed";
         keyEvent.filterAndAccept();
     }
     if (chewing_commit_Check(ctx)) {
