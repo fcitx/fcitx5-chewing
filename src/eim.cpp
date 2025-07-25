@@ -351,6 +351,7 @@ void ChewingEngine::doReset(InputContextEvent &event) {
     chewing_cand_close(ctx);
     chewing_clean_preedit_buf(ctx);
     chewing_clean_bopomofo_buf(ctx);
+    chewing_Reset(ctx);
     updateUI(event.inputContext());
 }
 
