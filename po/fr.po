@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the fcitx5-chewing package.
+#
+# Translators:
+# Popolon_Github, 2025
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fcitx5-chewing\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2025-09-11 20:24+0000\n"
+"PO-Revision-Date: 2017-12-08 17:30+0000\n"
+"Last-Translator: Popolon_Github, 2025\n"
+"Language-Team: French (https://app.transifex.com/fcitx/teams/12005/fr/)\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2;\n"
+
+#: src/eim.h:55
+msgid "1234567890"
+msgstr ""
+
+#: src/eim.h:58
+msgid "1234qweras"
+msgstr ""
+
+#: src/eim.h:172
+msgid "Action when switching input method"
+msgstr "Action lors d'un changement de méthode de saisie"
+
+#: src/eim.h:175
+msgid "Add Phrase Forward"
+msgstr ""
+
+#: src/eim.h:179
+msgid "Automatically shift cursor"
+msgstr ""
+
+#: src/eim.h:177
+msgid "Backward phrase choice"
+msgstr ""
+
+#: src/eim.h:165
+msgid "Candidate List Layout"
+msgstr "Disposition de la liste de propositions"
+
+#: src/eim.h:108
+msgid "Carpalx Keyboard"
+msgstr "Clavier Carpalx"
+
+#: src/chewing-addon.conf.in.in:2 src/chewing.conf.in:2
+msgid "Chewing"
+msgstr "Chewing"
+
+#: src/chewing-addon.conf.in.in:3
+msgid "Chewing Wrapper For Fcitx"
+msgstr ""
+
+#: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
+msgid "Chewing for Fcitx 5"
+msgstr ""
+
+#: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:8
+msgid "Chewing input method"
+msgstr "Méthode de saisie Chewing"
+
+#: src/eim.h:149
+msgid "Clear"
+msgstr "Nettoyer"
+
+#: src/eim.h:109
+msgid "Colemak-DH ANSI Keyboard"
+msgstr ""
+
+#: src/eim.h:109
+msgid "Colemak-DH Orth Keyboard"
+msgstr ""
+
+#: src/eim.h:150
+msgid "Commit current preedit"
+msgstr ""
+
+#: src/eim.h:151
+msgid "Commit default selection"
+msgstr ""
+
+#: src/eim.h:106
+msgid "DACHEN_CP26 Keyboard"
+msgstr ""
+
+#: src/eim.h:103
+msgid "Default Keyboard"
+msgstr "Clavier par défaut"
+
+#: src/eim.h:105
+msgid "Dvorak Keyboard"
+msgstr "Clavier Dvorak"
+
+#: src/eim.h:106
+msgid "Dvorak Keyboard with Hsu's support"
+msgstr ""
+
+#: src/eim.h:104
+msgid "ETen Keyboard"
+msgstr "Clavier ETen"
+
+#: src/eim.h:105
+msgid "ETen26 Keyboard"
+msgstr "Clavier ETen26"
+
+#: src/eim.h:181
+msgid "Enable easy symbol"
+msgstr ""
+
+#: src/eim.h:104
+msgid "Gin-Yieh Keyboard"
+msgstr "Clavier Gin-Yieh"
+
+#: src/eim.h:107
+msgid "Han-Yu PinYin Keyboard"
+msgstr "Clavier Han-Yu PinYin"
+
+#: src/eim.h:40
+msgid "Horizontal"
+msgstr "Horizontal"
+
+#: src/eim.h:103
+msgid "Hsu's Keyboard"
+msgstr "Clavier Hsu"
+
+#: src/eim.h:104
+msgid "IBM Keyboard"
+msgstr "Clavier IBM"
+
+#: src/eim.h:184
+msgid "Keyboard Layout"
+msgstr "Disposition clavier"
+
+#: src/eim.h:108
+msgid "MPS2 PinYin Keyboard"
+msgstr "Clavier MPS2 PinYin"
+
+#: src/eim.h:161
+msgid "Page Size"
+msgstr "Taille de page"
+
+#: src/eim.h:160
+msgid "Select candidate with arrow key"
+msgstr "Sélectionner les propositions avec les touches des flèches"
+
+#: src/eim.h:156
+msgid "Selection Key"
+msgstr "Touche de sélection"
+
+#: src/eim.h:183
+msgid "Space as selection key"
+msgstr "Espace comme touche de sélection"
+
+#: src/eim.h:107
+msgid "THL PinYin Keyboard"
+msgstr "Clavier THL PinYin"
+
+#: src/eim.h:168
+msgid "Use Keypad as Selection key"
+msgstr "Utiliser le pavé numérique comme touche de séléction"
+
+#: src/eim.h:39
+msgid "Vertical"
+msgstr "Vertical"
+
+#: src/eim.h:57
+msgid "aoeuhtn789"
+msgstr ""
+
+#: src/eim.h:56
+msgid "asdfghjkl;"
+msgstr ""
+
+#: src/eim.h:57
+msgid "asdfjkl789"
+msgstr ""
+
+#: src/eim.h:56
+msgid "asdfzxcv89"
+msgstr ""
+
+#: src/eim.h:58
+msgid "dstnaeo789"
+msgstr ""
