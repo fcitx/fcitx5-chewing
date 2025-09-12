@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-09-11 20:24+0000\n"
+"POT-Creation-Date: 2025-09-12 20:24+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
 "Last-Translator: Popolon_Github, 2025\n"
 "Language-Team: French (https://app.transifex.com/fcitx/teams/12005/fr/)\n"
@@ -34,15 +34,15 @@ msgstr "Action lors d'un changement de méthode de saisie"
 
 #: src/eim.h:175
 msgid "Add Phrase Forward"
-msgstr ""
+msgstr "Ajouter la phrase en avant"
 
 #: src/eim.h:179
 msgid "Automatically shift cursor"
-msgstr ""
+msgstr "Décale automatiquement le curseur"
 
 #: src/eim.h:177
 msgid "Backward phrase choice"
-msgstr ""
+msgstr "Sélection de la phrase en arrière"
 
 #: src/eim.h:165
 msgid "Candidate List Layout"
@@ -58,11 +58,11 @@ msgstr "Chewing"
 
 #: src/chewing-addon.conf.in.in:3
 msgid "Chewing Wrapper For Fcitx"
-msgstr ""
+msgstr "Adaptateur Chewing pour Fcitx"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:7
 msgid "Chewing for Fcitx 5"
-msgstr ""
+msgstr "Chewing pour Fcitx 5"
 
 #: org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml.in:8
 msgid "Chewing input method"
@@ -74,23 +74,23 @@ msgstr "Nettoyer"
 
 #: src/eim.h:109
 msgid "Colemak-DH ANSI Keyboard"
-msgstr ""
+msgstr "Clavier Colemak-DH ANSI"
 
 #: src/eim.h:109
 msgid "Colemak-DH Orth Keyboard"
-msgstr ""
+msgstr "Clavier Colemak-DH Orth"
 
 #: src/eim.h:150
 msgid "Commit current preedit"
-msgstr ""
+msgstr "Valider la pré-édition actuelle"
 
 #: src/eim.h:151
 msgid "Commit default selection"
-msgstr ""
+msgstr "Valider la sélection par défaut"
 
 #: src/eim.h:106
 msgid "DACHEN_CP26 Keyboard"
-msgstr ""
+msgstr "Clavier DACHEN_CP26"
 
 #: src/eim.h:103
 msgid "Default Keyboard"
@@ -102,7 +102,7 @@ msgstr "Clavier Dvorak"
 
 #: src/eim.h:106
 msgid "Dvorak Keyboard with Hsu's support"
-msgstr ""
+msgstr "Clavier Dvorak avec support de Hsu"
 
 #: src/eim.h:104
 msgid "ETen Keyboard"
@@ -114,7 +114,7 @@ msgstr "Clavier ETen26"
 
 #: src/eim.h:181
 msgid "Enable easy symbol"
-msgstr ""
+msgstr "Activer easy symbol"
 
 #: src/eim.h:104
 msgid "Gin-Yieh Keyboard"
@@ -174,20 +174,20 @@ msgstr "Vertical"
 
 #: src/eim.h:57
 msgid "aoeuhtn789"
-msgstr ""
+msgstr "aoeuhtn789"
 
 #: src/eim.h:56
 msgid "asdfghjkl;"
-msgstr ""
+msgstr "asdfghjkl;"
 
 #: src/eim.h:57
 msgid "asdfjkl789"
-msgstr ""
+msgstr "asdfjkl789"
 
 #: src/eim.h:56
 msgid "asdfzxcv89"
-msgstr ""
+msgstr "asdfzxcv89"
 
 #: src/eim.h:58
 msgid "dstnaeo789"
-msgstr ""
+msgstr "dstnaeo789"
