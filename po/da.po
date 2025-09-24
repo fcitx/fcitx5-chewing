@@ -72,6 +72,10 @@ msgid "Clear"
 msgstr ""
 
 #: src/eim.h:84
+msgid "Colemak Keyboard"
+msgstr ""
+
+#: src/eim.h:84
 msgid "Colemak-DH ANSI Keyboard"
 msgstr ""
 
