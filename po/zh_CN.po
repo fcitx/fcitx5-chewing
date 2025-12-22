@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# Xuetian Weng <wengxt@gmail.com>, 2024
 # Yiyu Liu, 2024
+# Xuetian Weng <wengxt@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-12-22 05:39+0000\n"
+"POT-Creation-Date: 2025-12-22 06:01+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: Yiyu Liu, 2024\n"
+"Last-Translator: Xuetian Weng <wengxt@gmail.com>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/fcitx/teams/12005/"
 "zh_CN/)\n"
 "Language: zh_CN\n"
@@ -75,7 +75,7 @@ msgstr "清空"
 
 #: src/eim.h:111
 msgid "Colemak Keyboard"
-msgstr ""
+msgstr "Colemak 键盘"
 
 #: src/eim.h:111
 msgid "Colemak-DH ANSI Keyboard"
