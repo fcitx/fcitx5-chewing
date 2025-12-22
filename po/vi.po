@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the fcitx5-chewing package.
 #
 # Translators:
-# hoanghuy309 <hoanghuy309@gmail.com>, 2025
+# Huy Võ <hoanghuy309@gmail.com>, 2025
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx5-chewing\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2025-04-22 20:24+0000\n"
+"POT-Creation-Date: 2025-12-22 05:39+0000\n"
 "PO-Revision-Date: 2017-12-08 17:30+0000\n"
-"Last-Translator: hoanghuy309 <hoanghuy309@gmail.com>, 2025\n"
+"Last-Translator: Huy Võ <hoanghuy309@gmail.com>, 2025\n"
 "Language-Team: Vietnamese (https://app.transifex.com/fcitx/teams/12005/vi/)\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
@@ -27,27 +27,27 @@ msgstr ""
 msgid "1234qweras"
 msgstr ""
 
-#: src/eim.h:172
+#: src/eim.h:174
 msgid "Action when switching input method"
 msgstr "Hành động khi chuyển đổi kiểu gõ"
 
-#: src/eim.h:175
+#: src/eim.h:177
 msgid "Add Phrase Forward"
 msgstr ""
 
-#: src/eim.h:179
+#: src/eim.h:181
 msgid "Automatically shift cursor"
 msgstr ""
 
-#: src/eim.h:177
+#: src/eim.h:179
 msgid "Backward phrase choice"
 msgstr ""
 
-#: src/eim.h:165
+#: src/eim.h:167
 msgid "Candidate List Layout"
 msgstr ""
 
-#: src/eim.h:108
+#: src/eim.h:110
 msgid "Carpalx Keyboard"
 msgstr ""
 
@@ -67,59 +67,63 @@ msgstr ""
 msgid "Chewing input method"
 msgstr ""
 
-#: src/eim.h:149
+#: src/eim.h:151
 msgid "Clear"
 msgstr ""
 
-#: src/eim.h:109
+#: src/eim.h:111
+msgid "Colemak Keyboard"
+msgstr ""
+
+#: src/eim.h:111
 msgid "Colemak-DH ANSI Keyboard"
 msgstr ""
 
-#: src/eim.h:109
+#: src/eim.h:111
 msgid "Colemak-DH Orth Keyboard"
 msgstr ""
 
-#: src/eim.h:150
+#: src/eim.h:152
 msgid "Commit current preedit"
 msgstr ""
 
-#: src/eim.h:151
+#: src/eim.h:153
 msgid "Commit default selection"
 msgstr ""
 
-#: src/eim.h:106
+#: src/eim.h:108
 msgid "DACHEN_CP26 Keyboard"
 msgstr ""
 
-#: src/eim.h:103
+#: src/eim.h:105
 msgid "Default Keyboard"
 msgstr "Bàn Phím Mặc Định"
 
-#: src/eim.h:105
+#: src/eim.h:107
 msgid "Dvorak Keyboard"
 msgstr ""
 
-#: src/eim.h:106
+#: src/eim.h:108
 msgid "Dvorak Keyboard with Hsu's support"
 msgstr ""
 
-#: src/eim.h:104
+#: src/eim.h:106
 msgid "ETen Keyboard"
 msgstr ""
 
-#: src/eim.h:105
+#: src/eim.h:107
 msgid "ETen26 Keyboard"
 msgstr ""
 
-#: src/eim.h:181
+#: src/eim.h:183
 msgid "Enable easy symbol"
 msgstr ""
 
-#: src/eim.h:104
+#: src/eim.h:106
 msgid "Gin-Yieh Keyboard"
 msgstr ""
 
-#: src/eim.h:107
+#: src/eim.h:109
 msgid "Han-Yu PinYin Keyboard"
 msgstr ""
 
@@ -127,43 +131,43 @@ msgstr ""
 msgid "Horizontal"
 msgstr ""
 
-#: src/eim.h:103
+#: src/eim.h:105
 msgid "Hsu's Keyboard"
 msgstr ""
 
-#: src/eim.h:104
+#: src/eim.h:106
 msgid "IBM Keyboard"
 msgstr ""
 
-#: src/eim.h:184
+#: src/eim.h:186
 msgid "Keyboard Layout"
 msgstr "Bố Cục Bàn Phím"
 
-#: src/eim.h:108
+#: src/eim.h:110
 msgid "MPS2 PinYin Keyboard"
 msgstr ""
 
-#: src/eim.h:161
+#: src/eim.h:163
 msgid "Page Size"
 msgstr ""
 
-#: src/eim.h:160
+#: src/eim.h:162
 msgid "Select candidate with arrow key"
 msgstr "Chọn ứng cử viên với phím mũi tên"
 
-#: src/eim.h:156
+#: src/eim.h:158
 msgid "Selection Key"
 msgstr "Phím Lựa Chọn"
 
-#: src/eim.h:183
+#: src/eim.h:185
 msgid "Space as selection key"
 msgstr "Khoảng trắng làm phím lựa chọn"
 
-#: src/eim.h:107
+#: src/eim.h:109
 msgid "THL PinYin Keyboard"
 msgstr ""
 
-#: src/eim.h:168
+#: src/eim.h:170
 msgid "Use Keypad as Selection key"
 msgstr ""
 
