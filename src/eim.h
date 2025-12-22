@@ -76,22 +76,13 @@ enum class ChewingLayout {
     ColemakDH_ORTH
 };
 
-static constexpr const char *builtin_keymaps[] = {"KB_DEFAULT",
-                                                  "KB_HSU",
-                                                  "KB_IBM",
-                                                  "KB_GIN_YIEH",
-                                                  "KB_ET",
-                                                  "KB_ET26",
-                                                  "KB_DVORAK",
-                                                  "KB_DVORAK_HSU",
-                                                  "KB_DACHEN_CP26",
-                                                  "KB_HANYU_PINYIN",
-                                                  "KB_THL_PINYIN",
-                                                  "KB_MPS2_PINYIN",
-                                                  "KB_CARPALX",
-                                                  "KB_COLEMAK",
-                                                  "KB_COLEMAK_DH_ANSI",
-                                                  "KB_COLEMAK_DH_ORTH"};
+static constexpr const char *builtin_keymaps[] = {
+    "KB_DEFAULT",        "KB_HSU",        "KB_IBM",
+    "KB_GIN_YIEH",       "KB_ET",         "KB_ET26",
+    "KB_DVORAK",         "KB_DVORAK_HSU", "KB_DACHEN_CP26",
+    "KB_HANYU_PINYIN",   "KB_THL_PINYIN", "KB_MPS2_PINYIN",
+    "KB_CARPALX",        "KB_COLEMAK",    "KB_COLEMAK_DH_ANSI",
+    "KB_COLEMAK_DH_ORTH"};
 
 FCITX_CONFIG_ENUM_NAME(ChewingLayout, "Default Keyboard", "Hsu's Keyboard",
                        "IBM Keyboard", "Gin-Yieh Keyboard", "ETen Keyboard",
@@ -99,16 +90,16 @@ FCITX_CONFIG_ENUM_NAME(ChewingLayout, "Default Keyboard", "Hsu's Keyboard",
                        "Dvorak Keyboard with Hsu's support",
                        "DACHEN_CP26 Keyboard", "Han-Yu PinYin Keyboard",
                        "THL PinYin Keyboard", "MPS2 PinYin Keyboard",
-                       "Carpalx Keyboard", "Colemak Keyboard", "Colemak-DH ANSI Keyboard",
-                       "Colemak-DH Orth Keyboard");
+                       "Carpalx Keyboard", "Colemak Keyboard",
+                       "Colemak-DH ANSI Keyboard", "Colemak-DH Orth Keyboard");
 FCITX_CONFIG_ENUM_I18N_ANNOTATION(
     ChewingLayout, N_("Default Keyboard"), N_("Hsu's Keyboard"),
     N_("IBM Keyboard"), N_("Gin-Yieh Keyboard"), N_("ETen Keyboard"),
     N_("ETen26 Keyboard"), N_("Dvorak Keyboard"),
     N_("Dvorak Keyboard with Hsu's support"), N_("DACHEN_CP26 Keyboard"),
     N_("Han-Yu PinYin Keyboard"), N_("THL PinYin Keyboard"),
-    N_("MPS2 PinYin Keyboard"), N_("Carpalx Keyboard"),
-    N_("Colemak Keyboard"), N_("Colemak-DH ANSI Keyboard"), N_("Colemak-DH Orth Keyboard"));
+    N_("MPS2 PinYin Keyboard"), N_("Carpalx Keyboard"), N_("Colemak Keyboard"),
+    N_("Colemak-DH ANSI Keyboard"), N_("Colemak-DH Orth Keyboard"));
 
 class ChewingLayoutOption : public Option<ChewingLayout> {
     using Base = Option<ChewingLayout>;
