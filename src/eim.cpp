@@ -293,7 +293,7 @@ void logger(void * /*context*/, int /*level*/, const char *fmt, ...) {
 ChewingContext *getChewingContext() {
     const auto &sp = StandardPaths::global();
     std::filesystem::path dictData =
-        sp.locate(StandardPathsType::Data, "libchewing/dictionary.dat");
+        sp.locate(StandardPathsType::Data, "libchewing/tsi.dat");
     if (!dictData.empty()) {
         std::string sysPath = dictData.parent_path().string();
         return chewing_new2(sysPath.c_str(), nullptr, nullptr, nullptr);
