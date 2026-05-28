@@ -30,6 +30,7 @@
 #include <fcitx/userinterfacemanager.h>
 #include <filesystem>
 #include <memory>
+#include <optional>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -72,6 +73,42 @@ DEFINE_SAFE_CHEWING_STRING_GETTER(aux);
 DEFINE_SAFE_CHEWING_STRING_GETTER(buffer);
 DEFINE_SAFE_CHEWING_STRING_GETTER(bopomofo);
 DEFINE_SAFE_CHEWING_STRING_GETTER(commit);
+
+bool isAsciiPunctuation(uint32_t unicode) {
+    return (unicode >= 0x21 && unicode <= 0x2f) ||
+           (unicode >= 0x3a && unicode <= 0x40) ||
+           (unicode >= 0x5b && unicode <= 0x60) ||
+           (unicode >= 0x7b && unicode <= 0x7e);
+}
+
+std::optional<char> literalForKey(const KeyEvent &keyEvent) {
+    const auto key = keyEvent.key();
+    if (!key.isSimple()) {
+        return std::nullopt;
+    }
+    const auto unicode = Key::keySymToUnicode(key.sym());
+    if (key.isUAZ() || isAsciiPunctuation(unicode)) {
+        return static_cast<char>(unicode);
+    }
+    return std::nullopt;
+}
+
+bool isHsuFirstToneKey(const ChewingConfig &config, const KeyEvent &keyEvent) {
+    if (*config.Layout != ChewingLayout::Hsu || !keyEvent.key().isSimple()) {
+        return false;
+    }
+    const auto unicode = Key::keySymToUnicode(keyEvent.key().sym());
+    return unicode == 'q' || unicode == 'Q';
+}
+
+int chewingKeyCodeForEvent(const ChewingConfig &config,
+                           const KeyEvent &keyEvent) {
+    const auto key = keyEvent.key();
+    if (*config.Layout == ChewingLayout::Hsu && key.isUAZ()) {
+        return Key::keySymToUnicode(key.sym()) - 'A' + 'a';
+    }
+    return key.sym() & 0xff;
+}
 
 class ChewingCandidateWord : public CandidateWord {
 public:
@@ -352,6 +389,7 @@ void ChewingEngine::doReset(InputContextEvent &event) {
     chewing_clean_preedit_buf(ctx);
     chewing_clean_bopomofo_buf(ctx);
     chewing_Reset(ctx);
+    populateConfig();
     updateUI(event.inputContext());
 }
 
@@ -447,11 +485,24 @@ bool ChewingEngine::handleCandidateKeyEvent(const KeyEvent &keyEvent) const {
         }
         return true;
     }
-    if (keyEvent.key().check(FcitxKey_space)) {
-        candidateList->next();
-        return true;
-    }
     return false;
+}
+
+void ChewingEngine::commitLiteralAndReset(KeyEvent &keyEvent, char literal) {
+    auto *ctx = context_.get();
+    auto *ic = keyEvent.inputContext();
+    if (chewing_buffer_Check(ctx) || chewing_bopomofo_Check(ctx)) {
+        chewing_commit_preedit_buf(ctx);
+        if (chewing_commit_Check(ctx)) {
+            ic->commitString(safeChewing_commit_String(ctx));
+        }
+    }
+    ic->commitString(std::string(1, literal));
+    chewing_cand_close(ctx);
+    chewing_clean_preedit_buf(ctx);
+    chewing_clean_bopomofo_buf(ctx);
+    keyEvent.filterAndAccept();
+    updateUI(ic);
 }
 
 void ChewingEngine::keyEvent(const InputMethodEntry &entry,
@@ -470,16 +521,25 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         return;
     }
 
+    if (auto literal = literalForKey(keyEvent)) {
+        commitLiteralAndReset(keyEvent, *literal);
+        return;
+    }
+
     int chewingReturnValue = 0;
-    if (keyEvent.key().check(FcitxKey_space)) {
+    if ((isHsuFirstToneKey(config_, keyEvent) ||
+         keyEvent.key().check(FcitxKey_space)) &&
+        chewing_bopomofo_Check(ctx)) {
         chewingReturnValue = chewing_handle_Space(ctx);
+    } else if (keyEvent.key().check(FcitxKey_space)) {
+        return;
     } else if (keyEvent.key().check(FcitxKey_Tab)) {
         chewingReturnValue = chewing_handle_Tab(ctx);
     } else if (keyEvent.key().isSimple()) {
         if (keyEvent.rawKey().states().test(KeyState::Shift)) {
             chewing_set_easySymbolInput(ctx, *config_.EasySymbolInput ? 1 : 0);
         }
-        int scan_code = keyEvent.key().sym() & 0xff;
+        int scan_code = chewingKeyCodeForEvent(config_, keyEvent);
         if (*config_.Layout == ChewingLayout::HanYuPinYin) {
             auto zuin = safeChewing_bopomofo_String(ctx);
             // Workaround a bug in libchewing fixed in 2017 but never has
