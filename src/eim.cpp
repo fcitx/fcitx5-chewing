@@ -109,6 +109,28 @@ bool isHsuFirstToneKey(const ChewingConfig &config, const KeyEvent &keyEvent) {
     return unicode == 'q' || unicode == 'Q';
 }
 
+bool isPreeditCommitKey(const ChewingConfig &config, const KeyEvent &keyEvent) {
+    return keyEvent.key().check(FcitxKey_space) ||
+           keyEvent.key().check(FcitxKey_Return) ||
+           isHsuFirstToneKey(config, keyEvent);
+}
+
+bool shouldCommitPreedit(const ChewingConfig &config, const KeyEvent &keyEvent,
+                         ChewingContext *ctx) {
+    return isPreeditCommitKey(config, keyEvent) &&
+           (!isHsuFirstToneKey(config, keyEvent) ||
+            !chewing_bopomofo_Check(ctx));
+}
+
+void commitAndCleanPreedit(ChewingContext *ctx, InputContext *ic) {
+    chewing_commit_preedit_buf(ctx);
+    if (chewing_commit_Check(ctx)) {
+        ic->commitString(safeChewing_commit_String(ctx));
+    }
+    chewing_clean_preedit_buf(ctx);
+    chewing_clean_bopomofo_buf(ctx);
+}
+
 int chewingKeyCodeForEvent(const ChewingConfig &config,
                            const KeyEvent &keyEvent) {
     const auto key = keyEvent.key();
@@ -125,36 +147,18 @@ public:
 
     void select(InputContext *inputContext) const override {
         auto *ctx = engine_->context();
-        auto pageSize = chewing_get_candPerPage(ctx);
-        int page = (index_ / pageSize) + chewing_cand_CurrentPage(ctx);
-        int off = index_ % pageSize;
-        if (page < 0 || page >= chewing_cand_TotalPage(ctx)) {
-            return;
-        }
-        int lastPage = chewing_cand_CurrentPage(ctx);
-        while (page != chewing_cand_CurrentPage(ctx)) {
-            if (page < chewing_cand_CurrentPage(ctx)) {
-                chewing_handle_Left(ctx);
+        const bool hasCandidates = chewing_cand_TotalChoice(ctx) > 0;
+        const bool openedHere = !hasCandidates && chewing_buffer_Check(ctx) &&
+                                chewing_cand_open(ctx) == 0;
+        if ((!hasCandidates && !openedHere) ||
+            chewing_cand_choose_by_index(ctx, index_) != 0) {
+            if (openedHere) {
+                chewing_cand_close(ctx);
             }
-            if (page > chewing_cand_CurrentPage(ctx)) {
-                chewing_handle_Right(ctx);
-            }
-            /* though useless, but take care if there is a bug cause freeze */
-            if (lastPage == chewing_cand_CurrentPage(ctx)) {
-                break;
-            }
-            lastPage = chewing_cand_CurrentPage(ctx);
-        }
-        chewing_handle_Default(ctx, builtin_selectkeys[static_cast<int>(
-                                        *engine_->config().SelectionKey)][off]);
-
-        if (chewing_keystroke_CheckIgnore(ctx)) {
             return;
         }
 
-        if (chewing_commit_Check(ctx)) {
-            inputContext->commitString(safeChewing_commit_String(ctx));
-        }
+        commitAndCleanPreedit(ctx, inputContext);
         engine_->updateUI(inputContext);
     }
 
@@ -196,30 +200,39 @@ public:
         labels_.clear();
         cursor_ = 0;
 
-        int index = 0;
-        // get candidate word
+        const bool openedPreview =
+            chewing_cand_TotalChoice(ctx) <= 0 && chewing_buffer_Check(ctx) &&
+            !chewing_bopomofo_Check(ctx) && chewing_cand_open(ctx) == 0;
+        previewOnly_ = openedPreview;
+
         int pageSize = chewing_cand_ChoicePerPage(ctx);
-        if (pageSize <= 0) {
-            return;
-        }
-        chewing_cand_Enumerate(ctx);
-        while (chewing_cand_hasNext(ctx) && index < pageSize) {
-            candidateWords_.emplace_back(std::make_unique<ChewingCandidateWord>(
-                engine_, chewing_cand_String_static(ctx), index));
-            if (index < 10) {
-                const char label[] = {
-                    builtin_selectkeys[static_cast<int>(
-                        *engine_->config().SelectionKey)][index],
-                    '.', '\0'};
-                labels_.emplace_back(label);
-            } else {
-                labels_.emplace_back();
+        if (pageSize > 0 && chewing_cand_TotalChoice(ctx) > 0) {
+            int index = 0;
+            chewing_cand_Enumerate(ctx);
+            while (chewing_cand_hasNext(ctx) && index < pageSize) {
+                candidateWords_.emplace_back(
+                    std::make_unique<ChewingCandidateWord>(
+                        engine_, chewing_cand_String_static(ctx), index));
+                if (index < 10) {
+                    const char label[] = {
+                        builtin_selectkeys[static_cast<int>(
+                            *engine_->config().SelectionKey)][index],
+                        '.', '\0'};
+                    labels_.emplace_back(label);
+                } else {
+                    labels_.emplace_back();
+                }
+                index++;
             }
-            index++;
+        }
+
+        if (openedPreview) {
+            chewing_cand_close(ctx);
         }
     }
 
     int size() const override { return candidateWords_.size(); }
+    bool previewOnly() const { return previewOnly_; }
     int cursorIndex() const override {
         if (empty() || !*engine_->config().selectCandidateWithArrowKey) {
             return -1;
@@ -309,6 +322,7 @@ private:
     InputContext *ic_;
     std::vector<std::unique_ptr<ChewingCandidateWord>> candidateWords_;
     std::vector<Text> labels_;
+    bool previewOnly_ = false;
     int cursor_ = 0;
 };
 
@@ -433,7 +447,7 @@ bool ChewingEngine::handleCandidateKeyEvent(const KeyEvent &keyEvent) const {
     auto *ic = keyEvent.inputContext();
     auto candidateList = std::dynamic_pointer_cast<ChewingCandidateList>(
         ic->inputPanel().candidateList());
-    if (!candidateList) {
+    if (!candidateList || candidateList->previewOnly()) {
         return false;
     }
 
@@ -500,17 +514,26 @@ void ChewingEngine::commitLiteralAndReset(KeyEvent &keyEvent, char literal) {
     auto *ctx = context_.get();
     auto *ic = keyEvent.inputContext();
     if (chewing_buffer_Check(ctx) || chewing_bopomofo_Check(ctx)) {
-        chewing_commit_preedit_buf(ctx);
-        if (chewing_commit_Check(ctx)) {
-            ic->commitString(safeChewing_commit_String(ctx));
-        }
+        commitAndCleanPreedit(ctx, ic);
     }
     ic->commitString(std::string(1, literal));
     chewing_cand_close(ctx);
-    chewing_clean_preedit_buf(ctx);
-    chewing_clean_bopomofo_buf(ctx);
     keyEvent.filterAndAccept();
     updateUI(ic);
+}
+
+bool ChewingEngine::commitPreedit(KeyEvent &keyEvent) {
+    auto *ctx = context_.get();
+    if (!chewing_buffer_Check(ctx)) {
+        return false;
+    }
+
+    auto *ic = keyEvent.inputContext();
+    chewing_cand_close(ctx);
+    commitAndCleanPreedit(ctx, ic);
+    keyEvent.filterAndAccept();
+    updateUI(ic);
+    return true;
 }
 
 void ChewingEngine::keyEvent(const InputMethodEntry &entry,
@@ -523,6 +546,11 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
 
     chewing_set_easySymbolInput(ctx, 0);
     CHEWING_DEBUG() << "KeyEvent: " << keyEvent.key().toString();
+
+    if (shouldCommitPreedit(config_, keyEvent, ctx) &&
+        commitPreedit(keyEvent)) {
+        return;
+    }
 
     if (handleCandidateKeyEvent(keyEvent)) {
         keyEvent.filterAndAccept();
@@ -635,7 +663,14 @@ void ChewingEngine::filterKey(const InputMethodEntry & /*entry*/,
         return;
     }
     auto *ic = keyEvent.inputContext();
-    if (ic->inputPanel().candidateList() &&
+    auto candidateList = ic->inputPanel().candidateList();
+    auto chewingCandidateList =
+        candidateList
+            ? std::dynamic_pointer_cast<ChewingCandidateList>(candidateList)
+            : nullptr;
+    if (candidateList &&
+        (!chewingCandidateList || !chewingCandidateList->previewOnly()) &&
+        !isPreeditCommitKey(config_, keyEvent) &&
         (keyEvent.key().isSimple() || keyEvent.key().isCursorMove() ||
          keyEvent.key().check(FcitxKey_space, KeyState::Shift) ||
          keyEvent.key().check(FcitxKey_Tab) ||
