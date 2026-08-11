@@ -50,23 +50,36 @@ void testBasic(Instance *instance) {
         FCITX_ASSERT(ic->inputPanel().preedit().toString() == "ㄈㄣ");
         FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
             uuid, Key("space"), false));
+        FCITX_ASSERT(!ic->inputPanel().candidateList());
+        std::string text = ic->inputPanel().preedit().toString();
+        testfrontend->call<ITestFrontend::pushCommitExpectation>(text);
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key(FcitxKey_KP_Enter), false));
+
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("z"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("p"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("space"), false));
         FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
             uuid, Key("Down"), false));
         FCITX_ASSERT(ic->inputPanel().candidateList());
         FCITX_ASSERT(!ic->inputPanel().candidateList()->empty());
         // This should be the case.
         FCITX_ASSERT(ic->inputPanel().candidateList()->size() >= 7);
-        std::string text =
-            ic->inputPanel().candidateList()->candidate(6).text().toString();
+        text = ic->inputPanel().candidateList()->candidate(6).text().toString();
 
         testfrontend->call<ITestFrontend::pushCommitExpectation>(text);
         ic->inputPanel().candidateList()->toCursorModifiable()->setCursorIndex(
             6);
         FCITX_ASSERT(ic->inputPanel().candidateList()->cursorIndex() == 6);
+        // Keypad Enter should select the highlighted candidate and then commit,
+        // just like Return.
         FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
-            uuid, Key("Return"), false));
+            uuid, Key(FcitxKey_KP_Enter), false));
         FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
-            uuid, Key("Return"), false));
+            uuid, Key(FcitxKey_KP_Enter), false));
 
         RawConfig config;
         config.setValueByPath("Layout", "Han-Yu PinYin Keyboard");
