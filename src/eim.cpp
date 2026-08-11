@@ -440,7 +440,8 @@ bool ChewingEngine::handleCandidateKeyEvent(const KeyEvent &keyEvent) const {
         }
         return true;
     }
-    if (keyEvent.key().check(FcitxKey_Return)) {
+    if ((keyEvent.key().check(FcitxKey_Return) ||
+         keyEvent.key().check(FcitxKey_KP_Enter))) {
         if (int index = candidateList->cursorIndex();
             index >= 0 && index < candidateList->size()) {
             candidateList->candidate(index).select(ic);
@@ -539,7 +540,8 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
         chewingReturnValue = chewing_handle_ShiftLeft(ctx);
     } else if (keyEvent.key().check(FcitxKey_Right, KeyState::Shift)) {
         chewingReturnValue = chewing_handle_ShiftRight(ctx);
-    } else if (keyEvent.key().check(FcitxKey_Return)) {
+    } else if ((keyEvent.key().check(FcitxKey_Return) ||
+                keyEvent.key().check(FcitxKey_KP_Enter))) {
         chewingReturnValue = chewing_handle_Enter(ctx);
     } else if (keyEvent.key().states() == KeyState::Ctrl &&
                Key(keyEvent.key().sym()).isDigit()) {

@@ -63,10 +63,12 @@ void testBasic(Instance *instance) {
         ic->inputPanel().candidateList()->toCursorModifiable()->setCursorIndex(
             6);
         FCITX_ASSERT(ic->inputPanel().candidateList()->cursorIndex() == 6);
+        // Keypad Enter should select the highlighted candidate and then commit,
+        // just like Return.
         FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
-            uuid, Key("Return"), false));
+            uuid, Key(FcitxKey_KP_Enter), false));
         FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
-            uuid, Key("Return"), false));
+            uuid, Key(FcitxKey_KP_Enter), false));
 
         RawConfig config;
         config.setValueByPath("Layout", "Han-Yu PinYin Keyboard");
