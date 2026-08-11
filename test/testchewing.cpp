@@ -50,13 +50,25 @@ void testBasic(Instance *instance) {
         FCITX_ASSERT(ic->inputPanel().preedit().toString() == "ㄈㄣ");
         FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
             uuid, Key("space"), false));
+        FCITX_ASSERT(!ic->inputPanel().candidateList());
+        std::string text = ic->inputPanel().preedit().toString();
+        testfrontend->call<ITestFrontend::pushCommitExpectation>(text);
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key(FcitxKey_KP_Enter), false));
+
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("z"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("p"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("space"), false));
         FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
             uuid, Key("Down"), false));
         FCITX_ASSERT(ic->inputPanel().candidateList());
         FCITX_ASSERT(!ic->inputPanel().candidateList()->empty());
         // This should be the case.
         FCITX_ASSERT(ic->inputPanel().candidateList()->size() >= 7);
-        std::string text =
+        text =
             ic->inputPanel().candidateList()->candidate(6).text().toString();
 
         testfrontend->call<ITestFrontend::pushCommitExpectation>(text);
