@@ -68,8 +68,7 @@ void testBasic(Instance *instance) {
         FCITX_ASSERT(!ic->inputPanel().candidateList()->empty());
         // This should be the case.
         FCITX_ASSERT(ic->inputPanel().candidateList()->size() >= 7);
-        text =
-            ic->inputPanel().candidateList()->candidate(6).text().toString();
+        text = ic->inputPanel().candidateList()->candidate(6).text().toString();
 
         testfrontend->call<ITestFrontend::pushCommitExpectation>(text);
         ic->inputPanel().candidateList()->toCursorModifiable()->setCursorIndex(
