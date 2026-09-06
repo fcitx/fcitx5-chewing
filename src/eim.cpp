@@ -339,6 +339,20 @@ void ChewingEngine::populateConfig() {
     chewing_set_autoShiftCur(ctx, *config_.AutoShiftCursor ? 1 : 0);
     chewing_set_spaceAsSelection(ctx, *config_.SpaceAsSelection ? 1 : 0);
     chewing_set_escCleanAllBuf(ctx, 1);
+
+    int conversionEngine = CHEWING_CONVERSION_ENGINE;
+    switch (*config_.ConversionEngine) {
+    case ChewingConversionEngine::Simple:
+        conversionEngine = SIMPLE_CONVERSION_ENGINE;
+        break;
+    case ChewingConversionEngine::Chewing:
+        conversionEngine = CHEWING_CONVERSION_ENGINE;
+        break;
+    case ChewingConversionEngine::FuzzyChewing:
+        conversionEngine = FUZZY_CHEWING_CONVERSION_ENGINE;
+        break;
+    }
+    chewing_config_set_int(ctx, "chewing.conversion_engine", conversionEngine);
 }
 
 void ChewingEngine::reset(const InputMethodEntry & /*entry*/,

@@ -143,6 +143,14 @@ FCITX_CONFIG_ENUM_NAME_WITH_I18N(SwitchInputMethodBehavior, N_("Clear"),
                                  N_("Commit current preedit"),
                                  N_("Commit default selection"))
 
+// Values must stay in sync with libchewing's chewing.conversion_engine:
+// SIMPLE_CONVERSION_ENGINE (0), CHEWING_CONVERSION_ENGINE (1),
+// FUZZY_CHEWING_CONVERSION_ENGINE (2).
+enum class ChewingConversionEngine { Simple, Chewing, FuzzyChewing };
+
+FCITX_CONFIG_ENUM_NAME_WITH_I18N(ChewingConversionEngine, N_("Simple"),
+                                 N_("Chewing"), N_("Fuzzy Chewing"))
+
 FCITX_CONFIGURATION(
     ChewingConfig,
     OptionWithAnnotation<ChewingSelectionKey, ChewingSelectionKeyI18NAnnotation>
@@ -174,6 +182,10 @@ FCITX_CONFIGURATION(
                                  _("Enable easy symbol"), false};
     Option<bool> SpaceAsSelection{this, "SpaceAsSelection",
                                   _("Space as selection key"), true};
+    OptionWithAnnotation<ChewingConversionEngine,
+                         ChewingConversionEngineI18NAnnotation>
+        ConversionEngine{this, "ConversionEngine", _("Conversion Engine"),
+                         ChewingConversionEngine::Chewing};
     ChewingLayoutOption Layout{this, "Layout", _("Keyboard Layout"),
                                ChewingLayout::Default};);
 
