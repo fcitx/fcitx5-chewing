@@ -242,6 +242,83 @@ void testBackspaceWithBopomofo(Instance *instance) {
     });
 }
 
+void testSmartSymbols(Instance *instance) {
+    instance->eventDispatcher().schedule([instance]() {
+        auto *chewing = instance->addonManager().addon("chewing", true);
+        FCITX_ASSERT(chewing);
+        RawConfig config;
+        config.setValueByPath("Layout", "Default");
+        config.setValueByPath("AsusSmartSymbolInput", "True");
+        chewing->setConfig(config);
+        auto *testfrontend = instance->addonManager().addon("testfrontend");
+        auto uuid =
+            testfrontend->call<ITestFrontend::createInputContext>("testapp");
+        auto *ic = instance->inputContextManager().findByUUID(uuid);
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("Control+space"), false));
+        FCITX_ASSERT(instance->inputMethod(ic) == "chewing");
+
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key(FcitxKey_grave), false));
+        FCITX_ASSERT(ic->inputPanel().candidateList());
+        FCITX_ASSERT(ic->inputPanel().candidateList()->candidate(0).text().toString() ==
+                     "，");
+        testfrontend->call<ITestFrontend::pushCommitExpectation>("，");
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("1"), false));
+
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("z"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("p"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("space"), false));
+        auto text = ic->inputPanel().preedit().toString();
+        testfrontend->call<ITestFrontend::pushCommitExpectation>(text);
+        testfrontend->call<ITestFrontend::pushCommitExpectation>(",");
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key(FcitxKey_comma, KeyState::Ctrl), false));
+
+        instance->deactivate();
+    });
+}
+
+void testSmartEnglish(Instance *instance) {
+    instance->eventDispatcher().schedule([instance]() {
+        auto *chewing = instance->addonManager().addon("chewing", true);
+        FCITX_ASSERT(chewing);
+        RawConfig config;
+        config.setValueByPath("Layout", "Default");
+        config.setValueByPath("AsusSmartSymbolInput", "True");
+        config.setValueByPath("DefaultInputMode", "Smart");
+        chewing->setConfig(config);
+        auto *testfrontend = instance->addonManager().addon("testfrontend");
+        auto uuid =
+            testfrontend->call<ITestFrontend::createInputContext>("testapp");
+        auto *ic = instance->inputContextManager().findByUUID(uuid);
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("Control+space"), false));
+        FCITX_ASSERT(instance->inputMethod(ic) == "chewing");
+
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("z"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("p"), false));
+        FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+            uuid, Key("space"), false));
+        auto text = ic->inputPanel().preedit().toString();
+        FCITX_ASSERT(!text.empty());
+
+        testfrontend->call<ITestFrontend::pushCommitExpectation>(text + "good");
+        for (char c : std::string_view("good")) {
+            FCITX_ASSERT(testfrontend->call<ITestFrontend::sendKeyEvent>(
+                uuid, Key(static_cast<KeySym>(c)), false));
+        }
+
+        instance->deactivate();
+    });
+}
+
 void testCommitPreedit(Instance *instance) {
     instance->eventDispatcher().schedule([instance]() {
         auto *chewing = instance->addonManager().addon("chewing", true);
@@ -299,6 +376,8 @@ int main() {
     testBackspaceWithBuffer(&instance);
     testBackspaceWithBopomofo(&instance);
     testCommitPreedit(&instance);
+    testSmartSymbols(&instance);
+    testSmartEnglish(&instance);
 
     instance.eventDispatcher().schedule([&instance]() { instance.exit(); });
     instance.exec();

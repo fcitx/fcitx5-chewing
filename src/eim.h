@@ -20,12 +20,14 @@
 #include <fcitx/addonfactory.h>
 #include <fcitx/addoninstance.h>
 #include <fcitx/addonmanager.h>
+#include <fcitx/action.h>
 #include <fcitx/candidatelist.h>
 #include <fcitx/event.h>
 #include <fcitx/inputcontext.h>
 #include <fcitx/inputmethodengine.h>
 #include <fcitx/instance.h>
 #include <fcitx/text.h>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -139,6 +141,11 @@ private:
 
 enum class SwitchInputMethodBehavior { Clear, CommitPreedit, CommitDefault };
 
+enum class ChewingInputMode { Smart, ForceChinese, ForceEnglish };
+
+FCITX_CONFIG_ENUM_NAME_WITH_I18N(ChewingInputMode, N_("Smart"),
+                                 N_("Chinese"), N_("English"))
+
 FCITX_CONFIG_ENUM_NAME_WITH_I18N(SwitchInputMethodBehavior, N_("Clear"),
                                  N_("Commit current preedit"),
                                  N_("Commit default selection"))
@@ -172,12 +179,22 @@ FCITX_CONFIGURATION(
                                  _("Automatically shift cursor"), false};
     Option<bool> EasySymbolInput{this, "EasySymbolInput",
                                  _("Enable easy symbol"), false};
+    Option<bool> AsusSmartSymbolInput{
+        this, "AsusSmartSymbolInput",
+        _("Enable ASUS-like smart symbol input"), true};
+    OptionWithAnnotation<ChewingInputMode, ChewingInputModeI18NAnnotation>
+        DefaultInputMode{this, "DefaultInputMode", _("Default input mode"),
+                         ChewingInputMode::Smart};
     Option<bool> SpaceAsSelection{this, "SpaceAsSelection",
                                   _("Space as selection key"), true};
     ChewingLayoutOption Layout{this, "Layout", _("Keyboard Layout"),
                                ChewingLayout::Default};);
 
-class ChewingEngine final : public InputMethodEngine {
+class ChewingInputModeAction;
+class ChewingSetInputModeAction;
+class Menu;
+
+class ChewingEngine final : public InputMethodEngineV3 {
 public:
     ChewingEngine(Instance *instance);
     ~ChewingEngine();
@@ -188,6 +205,14 @@ public:
     void deactivate(const InputMethodEntry &entry,
                     InputContextEvent &event) override;
     void keyEvent(const InputMethodEntry &entry, KeyEvent &keyEvent) override;
+    std::string subMode(const InputMethodEntry &entry,
+                        InputContext &inputContext) override;
+    std::string subModeIconImpl(const InputMethodEntry &entry,
+                                InputContext &ic) override;
+    std::string subModeLabelImpl(const InputMethodEntry &entry,
+                                 InputContext &ic) override;
+    void invokeActionImpl(const InputMethodEntry &entry,
+                          InvokeActionEvent &event) override;
     void filterKey(const InputMethodEntry & /*entry*/,
                    KeyEvent & /*event*/) override;
     void reloadConfig() override;
@@ -210,9 +235,17 @@ public:
     void doReset(InputContextEvent &event);
 
     ChewingContext *context() { return context_.get(); }
+    ChewingInputMode inputMode() const { return inputMode_; }
+    void commitCurrentPreedit(InputContext *ic);
+    void setInputMode(InputContext *ic, ChewingInputMode mode);
+    void toggleInputMode(InputContext *ic);
+    void updateInputModeAction(InputContext *ic);
 
 private:
+    bool handleInputModeHotkey(const KeyEvent &keyEvent);
     bool handleCandidateKeyEvent(const KeyEvent &keyEvent) const;
+    bool handleSmartSymbolCandidateKeyEvent(const KeyEvent &keyEvent) const;
+    void showSmartSymbolCandidates(InputContext *ic);
     void updatePreeditImpl(InputContext *ic);
 
     FCITX_ADDON_DEPENDENCY_LOADER(chttrans, instance_->addonManager());
@@ -221,6 +254,13 @@ private:
     Instance *instance_;
     ChewingConfig config_;
     UniqueCPtr<ChewingContext, chewing_delete> context_;
+    ChewingInputMode inputMode_ = ChewingInputMode::Smart;
+    std::unique_ptr<ChewingInputModeAction> inputModeAction_;
+    std::unique_ptr<Menu> inputModeMenu_;
+    std::vector<std::unique_ptr<ChewingSetInputModeAction>> inputModeMenuActions_;
+    std::string smartEnglishPrefix_;
+    std::string smartEnglishBuffer_;
+    bool smartEnglishPassthrough_ = false;
     TrackableObjectReference<InputContext> ic_;
 };
 

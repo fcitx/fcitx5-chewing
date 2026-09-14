@@ -8,6 +8,7 @@
 #include "eim.h"
 #include <array>
 #include <chewing.h>
+#include <cctype>
 #include <cstdarg>
 #include <cstdio>
 #include <fcitx-config/iniparser.h>
@@ -24,6 +25,7 @@
 #include <fcitx/inputcontext.h>
 #include <fcitx/inputpanel.h>
 #include <fcitx/instance.h>
+#include <fcitx/menu.h>
 #include <fcitx/statusarea.h>
 #include <fcitx/text.h>
 #include <fcitx/userinterface.h>
@@ -267,6 +269,247 @@ private:
     int cursor_ = 0;
 };
 
+class SmartSymbolCandidateWord : public CandidateWord {
+public:
+    SmartSymbolCandidateWord(ChewingEngine *engine, std::string symbol)
+        : CandidateWord(Text(symbol)), engine_(engine),
+          symbol_(std::move(symbol)) {}
+
+    void select(InputContext *inputContext) const override {
+        engine_->commitCurrentPreedit(inputContext);
+        inputContext->commitString(symbol_);
+        inputContext->inputPanel().reset();
+        inputContext->updateUserInterface(UserInterfaceComponent::InputPanel);
+    }
+
+private:
+    ChewingEngine *engine_;
+    std::string symbol_;
+};
+
+class SmartSymbolCandidateList : public CandidateList,
+                                 public CursorMovableCandidateList,
+                                 public CursorModifiableCandidateList {
+public:
+    explicit SmartSymbolCandidateList(ChewingEngine *engine)
+        : engine_(engine) {
+        setCursorMovable(this);
+        setCursorModifiable(this);
+        constexpr auto symbols = std::to_array<std::string_view>({
+            "，", "。", "、", "；", "：", "？", "！", "（", "）", "「",
+            "」", "『", "』", "…", "—", "～", "《", "》", "〈", "〉",
+        });
+        for (size_t i = 0; i < symbols.size(); i++) {
+            candidateWords_.emplace_back(
+                std::make_unique<SmartSymbolCandidateWord>(
+                    engine_, std::string(symbols[i])));
+            if (i < 10) {
+                labels_.emplace_back(std::to_string((i + 1) % 10) + ".");
+            } else {
+                labels_.emplace_back();
+            }
+        }
+    }
+
+    const Text &label(int idx) const override { return labels_[idx]; }
+    const CandidateWord &candidate(int idx) const override {
+        return *candidateWords_[idx];
+    }
+    int size() const override { return candidateWords_.size(); }
+    int cursorIndex() const override { return cursor_; }
+    CandidateLayoutHint layoutHint() const override {
+        return CandidateLayoutHint::Horizontal;
+    }
+    void prevCandidate() override {
+        cursor_ = cursor_ == 0 ? size() - 1 : cursor_ - 1;
+    }
+    void nextCandidate() override { cursor_ = (cursor_ + 1) % size(); }
+    void setCursorIndex(int cursor) override {
+        if (cursor >= 0 && cursor < size()) {
+            cursor_ = cursor;
+        }
+    }
+
+private:
+    ChewingEngine *engine_;
+    std::vector<std::unique_ptr<SmartSymbolCandidateWord>> candidateWords_;
+    std::vector<Text> labels_;
+    int cursor_ = 0;
+};
+
+bool isSmartSymbolHotkey(const Key &key) {
+    return key.check(FcitxKey_grave) || key.check(FcitxKey_asciitilde);
+}
+
+bool isInputModeHotkey(const Key &key) {
+    static const KeyList hotkeys{Key("Control+Shift+space"),
+                                 Key("Control+Alt+space"),
+                                 Key("Control+grave")};
+    for (const auto &hotkey : hotkeys) {
+        if (key.check(hotkey)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool isPrintableKey(const Key &key) {
+    return !key.hasModifier() && Key::keySymToUnicode(key.sym());
+}
+
+bool isAsciiAlphaKey(const Key &key) {
+    if (key.hasModifier()) {
+        return false;
+    }
+    const auto sym = key.sym();
+    return (sym >= 'a' && sym <= 'z') || (sym >= 'A' && sym <= 'Z');
+}
+
+std::string asciiLower(std::string_view text) {
+    std::string result;
+    result.reserve(text.size());
+    for (const auto c : text) {
+        result.push_back(std::tolower(static_cast<unsigned char>(c)));
+    }
+    return result;
+}
+
+bool containsEnglishVowel(std::string_view text) {
+    for (const auto c : text) {
+        switch (std::tolower(static_cast<unsigned char>(c))) {
+        case 'a':
+        case 'e':
+        case 'i':
+        case 'o':
+        case 'u':
+            return true;
+        }
+    }
+    return false;
+}
+
+bool smartEnglishExactWord(std::string_view token) {
+    // Small hot-path vocabulary: keep it compact and local. Linear scan over
+    // this small table avoids allocations/hash setup on every key press and is
+    // fast enough for the input path.
+    static constexpr auto words = std::to_array<std::string_view>({
+        "about",   "access",  "account", "ai",      "api",     "app",
+        "arch",    "asus",    "audio",   "blog",    "bot",     "browser",
+        "bug",     "build",   "cache",   "chat",    "chatgpt", "chrome",
+        "code",    "config",  "cpu",     "data",    "debug",   "desktop",
+        "dev",     "device",  "display", "docker",  "download", "drive",
+        "email",   "error",   "fcitx",   "file",    "fix",     "github",
+        "git",     "gnome",   "good",    "google",  "gpt",     "gpu",
+        "hello",   "help",    "hotkey",  "http",    "https",   "hyprland",
+        "icon",    "input",   "install", "intel",   "issue",   "json",
+        "key",     "keyboard", "linux",  "local",   "login",   "menu",
+        "mode",    "model",   "monitor", "network", "nvidia",  "openai",
+        "package", "password", "pkg",    "plugin",  "proxy",   "python",
+        "reload",  "restart", "script",  "server",  "shell",   "space",
+        "status",  "super",   "system",  "terminal", "test",   "this",
+        "tool",    "type",    "update",  "usb",     "user",    "version",
+        "video",   "wayland", "wifi",    "window",  "windows", "word",
+        "work",    "workspace", "world", "zoom",
+    });
+    const auto lower = asciiLower(token);
+    for (const auto word : words) {
+        if (lower == word) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int longestConsonantRun(std::string_view lower) {
+    int longest = 0;
+    int current = 0;
+    for (const auto c : lower) {
+        const bool vowel = c == 'a' || c == 'e' || c == 'i' || c == 'o' ||
+                           c == 'u';
+        if (vowel) {
+            current = 0;
+        } else {
+            longest = std::max(longest, ++current);
+        }
+    }
+    return longest;
+}
+
+bool smartEnglishLikelyWord(std::string_view token, bool final) {
+    if (token.size() < 2 || token.size() > 32) {
+        return false;
+    }
+    if (smartEnglishExactWord(token)) {
+        return true;
+    }
+    if (!final && token.size() < 5) {
+        return false;
+    }
+
+    const auto lower = asciiLower(token);
+    int score = 0;
+    if (containsEnglishVowel(lower)) {
+        score += 2;
+    } else if (lower.size() >= 3) {
+        score -= 4;
+    }
+
+    static constexpr auto strongNgrams = std::to_array<std::string_view>({
+        "ing", "ion", "tion", "ght", "sch", "str", "ent", "est",
+        "ous", "ive", "able", "ment", "ware", "load", "code",
+    });
+    static constexpr auto ngrams = std::to_array<std::string_view>({
+        "al", "an", "ar", "as", "at", "ch", "ck", "co", "de", "ed",
+        "el", "en", "er", "es", "et", "fi", "gh", "go", "gr", "he",
+        "ht", "ic", "in", "io", "is", "it", "le", "ll", "lo", "ng",
+        "oo", "op", "or", "ou", "ow", "re", "sh", "sp", "st", "te",
+        "th", "ti", "to", "tt", "us", "wi", "wo",
+    });
+    for (const auto ngram : strongNgrams) {
+        if (lower.find(ngram) != std::string::npos) {
+            score += 3;
+        }
+    }
+    for (const auto ngram : ngrams) {
+        if (lower.find(ngram) != std::string::npos) {
+            score += 1;
+        }
+    }
+
+    if (lower.ends_with("ed") || lower.ends_with("er") ||
+        lower.ends_with("es") || lower.ends_with("ly") ||
+        lower.ends_with("s")) {
+        score += 1;
+    }
+    if (lower.size() >= 4) {
+        score += 1;
+    }
+    if (lower.size() >= 6) {
+        score += 1;
+    }
+
+    const int consonantRun = longestConsonantRun(lower);
+    if (consonantRun >= 4) {
+        score -= 3;
+    } else if (consonantRun >= 3) {
+        score -= 1;
+    }
+
+    // Avoid treating short arbitrary bopomofo key sequences as English.  At a
+    // word boundary we can be slightly more permissive; mid-word needs higher
+    // confidence because we will commit immediately.
+    return score >= (final ? 5 : 8);
+}
+
+bool isCtrlPrintableSymbol(const Key &key) {
+    if (key.states() != KeyState::Ctrl) {
+        return false;
+    }
+    const auto sym = key.sym();
+    return sym >= 0x21 && sym <= 0x7e && !Key(sym).isDigit() &&
+           !Key(sym).isLAZ() && !Key(sym).isUAZ();
+}
+
 void logger(void * /*context*/, int /*level*/, const char *fmt, ...) {
     if (!chewing_log().checkLogLevel(Debug)) {
         return;
@@ -290,6 +533,87 @@ void logger(void * /*context*/, int /*level*/, const char *fmt, ...) {
 
 } // namespace
 
+std::string inputModeText(ChewingInputMode mode) {
+    switch (mode) {
+    case ChewingInputMode::Smart:
+        return _("智");
+    case ChewingInputMode::ForceChinese:
+        return _("中");
+    case ChewingInputMode::ForceEnglish:
+        return _("英");
+    }
+    return _("智");
+}
+
+std::string inputModeIcon(ChewingInputMode mode) {
+    switch (mode) {
+    case ChewingInputMode::Smart:
+        return "fcitx-chewing-smart";
+    case ChewingInputMode::ForceChinese:
+        return "fcitx-chewing-chinese";
+    case ChewingInputMode::ForceEnglish:
+        return "fcitx-chewing-english";
+    }
+    return "fcitx-chewing";
+}
+
+class ChewingInputModeAction : public Action {
+public:
+    explicit ChewingInputModeAction(ChewingEngine *engine) : engine_(engine) {
+        setHotkey(KeyList{Key("Control+Shift+space"),
+                          Key("Control+Alt+space"), Key("Control+grave")});
+    }
+
+    std::string shortText(InputContext *) const override {
+        return inputModeText(engine_->inputMode());
+    }
+
+    std::string icon(InputContext *) const override {
+        return inputModeIcon(engine_->inputMode());
+    }
+
+    std::string longText(InputContext *) const override {
+        return _("Chewing input mode: Smart / Chinese / English");
+    }
+
+    void activate(InputContext *ic) override { engine_->toggleInputMode(ic); }
+
+private:
+    ChewingEngine *engine_;
+};
+
+class ChewingSetInputModeAction : public Action {
+public:
+    ChewingSetInputModeAction(ChewingEngine *engine, ChewingInputMode mode)
+        : engine_(engine), mode_(mode) {
+        setCheckable(true);
+    }
+
+    std::string shortText(InputContext *) const override {
+        switch (mode_) {
+        case ChewingInputMode::Smart:
+            return _("Smart input mode");
+        case ChewingInputMode::ForceChinese:
+            return _("Chinese mode");
+        case ChewingInputMode::ForceEnglish:
+            return _("English mode");
+        }
+        return {};
+    }
+
+    std::string icon(InputContext *) const override { return inputModeIcon(mode_); }
+
+    bool isChecked(InputContext *) const override {
+        return engine_->inputMode() == mode_;
+    }
+
+    void activate(InputContext *ic) override { engine_->setInputMode(ic, mode_); }
+
+private:
+    ChewingEngine *engine_;
+    ChewingInputMode mode_;
+};
+
 ChewingContext *getChewingContext() {
     const auto &sp = StandardPaths::global();
     std::filesystem::path dictData =
@@ -302,7 +626,22 @@ ChewingContext *getChewingContext() {
 }
 
 ChewingEngine::ChewingEngine(Instance *instance)
-    : instance_(instance), context_(getChewingContext()) {
+    : instance_(instance), context_(getChewingContext()),
+      inputModeAction_(std::make_unique<ChewingInputModeAction>(this)),
+      inputModeMenu_(std::make_unique<Menu>()) {
+    inputModeAction_->registerAction("chewing-input-mode",
+                                     &instance_->userInterfaceManager());
+    inputModeAction_->setMenu(inputModeMenu_.get());
+    int modeIndex = 0;
+    for (auto mode : {ChewingInputMode::Smart, ChewingInputMode::ForceChinese,
+                      ChewingInputMode::ForceEnglish}) {
+        auto action = std::make_unique<ChewingSetInputModeAction>(this, mode);
+        action->registerAction("chewing-set-input-mode-" +
+                                   std::to_string(modeIndex++),
+                               &instance_->userInterfaceManager());
+        inputModeMenu_->addAction(action.get());
+        inputModeMenuActions_.push_back(std::move(action));
+    }
     chewing_set_maxChiSymbolLen(context_.get(), CHEWING_MAX_LEN);
     chewing_set_logger(context_.get(), logger, nullptr);
     reloadConfig();
@@ -317,6 +656,7 @@ void ChewingEngine::reloadConfig() {
 
 void ChewingEngine::populateConfig() {
     ChewingContext *ctx = context_.get();
+    inputMode_ = *config_.DefaultInputMode;
 
     CHEWING_DEBUG() << "Set layout to: "
                     << builtin_keymaps[static_cast<int>(*config_.Layout)];
@@ -347,6 +687,9 @@ void ChewingEngine::reset(const InputMethodEntry & /*entry*/,
 }
 
 void ChewingEngine::doReset(InputContextEvent &event) {
+    smartEnglishPrefix_.clear();
+    smartEnglishBuffer_.clear();
+    smartEnglishPassthrough_ = false;
     ChewingContext *ctx = context_.get();
     chewing_cand_close(ctx);
     chewing_clean_preedit_buf(ctx);
@@ -367,6 +710,9 @@ void ChewingEngine::activate(const InputMethodEntry & /*entry*/,
             instance_->userInterfaceManager().lookupAction("chttrans")) {
         inputContext->statusArea().addAction(StatusGroup::InputMethod, action);
     }
+    inputContext->statusArea().addAction(StatusGroup::BeforeInputMethod,
+                                         inputModeAction_.get());
+    updateInputModeAction(inputContext);
     auto *ic = event.inputContext();
     if (!ic_.isNull() && ic_.get() != ic) {
         doReset(event);
@@ -381,6 +727,145 @@ void ChewingEngine::deactivate(const InputMethodEntry &entry,
     } else {
         reset(entry, event);
     }
+}
+
+void ChewingEngine::updateInputModeAction(InputContext *ic) {
+    if (inputModeAction_) {
+        inputModeAction_->update(ic);
+    }
+    if (ic) {
+        ic->updateUserInterface(UserInterfaceComponent::StatusArea);
+    }
+}
+
+void ChewingEngine::setInputMode(InputContext *ic, ChewingInputMode mode) {
+    if (mode == inputMode_) {
+        return;
+    }
+    smartEnglishPrefix_.clear();
+    smartEnglishBuffer_.clear();
+    smartEnglishPassthrough_ = false;
+    if (mode == ChewingInputMode::ForceEnglish) {
+        commitCurrentPreedit(ic);
+        chewing_set_ChiEngMode(context_.get(), SYMBOL_MODE);
+    } else {
+        chewing_set_ChiEngMode(context_.get(), CHINESE_MODE);
+    }
+    inputMode_ = mode;
+    updateInputModeAction(ic);
+
+}
+
+void ChewingEngine::toggleInputMode(InputContext *ic) {
+    switch (inputMode_) {
+    case ChewingInputMode::Smart:
+        setInputMode(ic, ChewingInputMode::ForceChinese);
+        break;
+    case ChewingInputMode::ForceChinese:
+        setInputMode(ic, ChewingInputMode::ForceEnglish);
+        break;
+    case ChewingInputMode::ForceEnglish:
+        setInputMode(ic, ChewingInputMode::Smart);
+        break;
+    }
+}
+
+bool ChewingEngine::handleInputModeHotkey(const KeyEvent &keyEvent) {
+    if (!isInputModeHotkey(keyEvent.key())) {
+        return false;
+    }
+    toggleInputMode(keyEvent.inputContext());
+    return true;
+}
+
+std::string ChewingEngine::subMode(const InputMethodEntry & /*entry*/,
+                                   InputContext & /*inputContext*/) {
+    return inputModeText(inputMode_);
+}
+
+std::string ChewingEngine::subModeIconImpl(const InputMethodEntry & /*entry*/,
+                                           InputContext & /*ic*/) {
+    return inputModeIcon(inputMode_);
+}
+
+std::string ChewingEngine::subModeLabelImpl(const InputMethodEntry & /*entry*/,
+                                            InputContext & /*ic*/) {
+    return inputModeText(inputMode_);
+}
+
+void ChewingEngine::invokeActionImpl(const InputMethodEntry & /*entry*/,
+                                     InvokeActionEvent &event) {
+    if (event.action() == InvokeActionEvent::Action::LeftClick) {
+        toggleInputMode(event.inputContext());
+        event.filter();
+    }
+}
+
+bool ChewingEngine::handleSmartSymbolCandidateKeyEvent(
+    const KeyEvent &keyEvent) const {
+    auto *ic = keyEvent.inputContext();
+    auto candidateList = std::dynamic_pointer_cast<SmartSymbolCandidateList>(
+        ic->inputPanel().candidateList());
+    if (!candidateList) {
+        return false;
+    }
+
+    const auto &key = keyEvent.key();
+    int index = -1;
+    if (key.check(FcitxKey_1)) {
+        index = 0;
+    } else if (key.check(FcitxKey_2)) {
+        index = 1;
+    } else if (key.check(FcitxKey_3)) {
+        index = 2;
+    } else if (key.check(FcitxKey_4)) {
+        index = 3;
+    } else if (key.check(FcitxKey_5)) {
+        index = 4;
+    } else if (key.check(FcitxKey_6)) {
+        index = 5;
+    } else if (key.check(FcitxKey_7)) {
+        index = 6;
+    } else if (key.check(FcitxKey_8)) {
+        index = 7;
+    } else if (key.check(FcitxKey_9)) {
+        index = 8;
+    } else if (key.check(FcitxKey_0)) {
+        index = 9;
+    }
+    if (index >= 0 && index < candidateList->size()) {
+        candidateList->candidate(index).select(ic);
+        return true;
+    }
+    if (key.check(FcitxKey_Right) || key.check(FcitxKey_Down) ||
+        key.check(FcitxKey_space) || key.check(FcitxKey_Tab)) {
+        candidateList->nextCandidate();
+        ic->updateUserInterface(UserInterfaceComponent::InputPanel);
+        return true;
+    }
+    if (key.check(FcitxKey_Left) || key.check(FcitxKey_Up)) {
+        candidateList->prevCandidate();
+        ic->updateUserInterface(UserInterfaceComponent::InputPanel);
+        return true;
+    }
+    if (key.check(FcitxKey_Return) || key.check(FcitxKey_KP_Enter)) {
+        candidateList->candidate(candidateList->cursorIndex()).select(ic);
+        return true;
+    }
+    if (key.check(FcitxKey_Escape)) {
+        ic->inputPanel().reset();
+        ic->updateUserInterface(UserInterfaceComponent::InputPanel);
+        return true;
+    }
+    return false;
+}
+
+void ChewingEngine::showSmartSymbolCandidates(InputContext *ic) {
+    ic->inputPanel().reset();
+    ic->inputPanel().setAuxDown(Text(_("Smart Symbols")));
+    ic->inputPanel().setCandidateList(
+        std::make_unique<SmartSymbolCandidateList>(this));
+    ic->updateUserInterface(UserInterfaceComponent::InputPanel);
 }
 
 bool ChewingEngine::handleCandidateKeyEvent(const KeyEvent &keyEvent) const {
@@ -466,7 +951,100 @@ void ChewingEngine::keyEvent(const InputMethodEntry &entry,
     chewing_set_easySymbolInput(ctx, 0);
     CHEWING_DEBUG() << "KeyEvent: " << keyEvent.key().toString();
 
-    if (handleCandidateKeyEvent(keyEvent)) {
+    if (handleInputModeHotkey(keyEvent) ||
+        handleSmartSymbolCandidateKeyEvent(keyEvent) ||
+        handleCandidateKeyEvent(keyEvent)) {
+        keyEvent.filterAndAccept();
+        return;
+    }
+
+    if (inputMode_ == ChewingInputMode::ForceEnglish &&
+        isPrintableKey(keyEvent.key())) {
+        commitCurrentPreedit(ic);
+        return;
+    }
+
+    if (inputMode_ == ChewingInputMode::Smart && smartEnglishPassthrough_) {
+        if (isAsciiAlphaKey(keyEvent.key())) {
+            ic->commitString(std::string(1, static_cast<char>(keyEvent.key().sym())));
+            keyEvent.filterAndAccept();
+            return;
+        }
+        if (keyEvent.key().check(FcitxKey_space)) {
+            ic->commitString(" ");
+            smartEnglishPassthrough_ = false;
+            keyEvent.filterAndAccept();
+            return;
+        }
+        smartEnglishPassthrough_ = false;
+    }
+
+    if (inputMode_ == ChewingInputMode::Smart &&
+        *config_.Layout != ChewingLayout::HanYuPinYin &&
+        isAsciiAlphaKey(keyEvent.key()) &&
+        (chewing_buffer_Check(ctx) || !smartEnglishBuffer_.empty())) {
+        // Speculatively remember raw alphabetic keys after an existing Chinese
+        // preedit.  libchewing will treat these keys as bopomofo, so checking
+        // chewing_bopomofo_Check() would stop detection after the first letter.
+        // Once we see a short alphabetic run, restore the original Chinese
+        // preedit and commit the raw letters as English.
+        if (smartEnglishBuffer_.empty()) {
+            smartEnglishPrefix_ = safeChewing_buffer_String(ctx);
+        }
+        smartEnglishBuffer_.push_back(static_cast<char>(keyEvent.key().sym()));
+        if (smartEnglishLikelyWord(smartEnglishBuffer_, false)) {
+            chewing_cand_close(ctx);
+            chewing_clean_preedit_buf(ctx);
+            chewing_clean_bopomofo_buf(ctx);
+            chewing_Reset(ctx);
+            ic->commitString(smartEnglishPrefix_ + smartEnglishBuffer_);
+            smartEnglishPrefix_.clear();
+            smartEnglishBuffer_.clear();
+            smartEnglishPassthrough_ = true;
+            keyEvent.filterAndAccept();
+            updateUI(ic);
+            return;
+        }
+    } else if (!isAsciiAlphaKey(keyEvent.key())) {
+        if (inputMode_ == ChewingInputMode::Smart && !smartEnglishBuffer_.empty() &&
+            smartEnglishLikelyWord(smartEnglishBuffer_, true)) {
+            chewing_cand_close(ctx);
+            chewing_clean_preedit_buf(ctx);
+            chewing_clean_bopomofo_buf(ctx);
+            chewing_Reset(ctx);
+            ic->commitString(smartEnglishPrefix_ + smartEnglishBuffer_);
+            smartEnglishPrefix_.clear();
+            smartEnglishBuffer_.clear();
+            if (keyEvent.key().check(FcitxKey_space)) {
+                ic->commitString(" ");
+                keyEvent.filterAndAccept();
+                updateUI(ic);
+                return;
+            }
+            if (isPrintableKey(keyEvent.key())) {
+                ic->commitString(std::string(
+                    1, static_cast<char>(keyEvent.key().sym())));
+                keyEvent.filterAndAccept();
+                updateUI(ic);
+                return;
+            }
+            updateUI(ic);
+        }
+        smartEnglishPrefix_.clear();
+        smartEnglishBuffer_.clear();
+    }
+
+    if (*config_.AsusSmartSymbolInput && inputMode_ != ChewingInputMode::ForceEnglish &&
+        isSmartSymbolHotkey(keyEvent.key())) {
+        showSmartSymbolCandidates(ic);
+        keyEvent.filterAndAccept();
+        return;
+    }
+
+    if (*config_.AsusSmartSymbolInput && inputMode_ != ChewingInputMode::ForceEnglish &&
+        isCtrlPrintableSymbol(keyEvent.key())) {
+        commitCurrentPreedit(ic);
+        ic->commitString(std::string(1, static_cast<char>(keyEvent.key().sym())));
         keyEvent.filterAndAccept();
         return;
     }
@@ -583,10 +1161,16 @@ void ChewingEngine::filterKey(const InputMethodEntry & /*entry*/,
     }
 
     if (!ic->inputPanel().candidateList()) {
-        // Check if this key will produce something, if so, flush
-        if (!keyEvent.key().hasModifier() &&
-            Key::keySymToUnicode(keyEvent.key().sym())) {
-            flushBuffer(keyEvent);
+        // Check if this key will produce something, if so, flush.
+        if (isPrintableKey(keyEvent.key())) {
+            if (inputMode_ == ChewingInputMode::ForceChinese) {
+                return;
+            }
+            if (*config_.AsusSmartSymbolInput) {
+                commitCurrentPreedit(ic);
+            } else {
+                flushBuffer(keyEvent);
+            }
         }
     }
 }
@@ -658,6 +1242,32 @@ void ChewingEngine::updateUI(InputContext *ic) {
 
     updatePreedit(ic);
     ic->updateUserInterface(UserInterfaceComponent::InputPanel);
+}
+
+void ChewingEngine::commitCurrentPreedit(InputContext *ic) {
+    auto *ctx = context_.get();
+    std::string text;
+    chewing_cand_close(ctx);
+    if (chewing_buffer_Check(ctx)) {
+        if (chewing_commit_preedit_buf(ctx) == 0) {
+            text.append(safeChewing_commit_String(ctx));
+        } else {
+            text.append(safeChewing_buffer_String(ctx));
+        }
+    }
+    if (text.empty() && chewing_bopomofo_Check(ctx)) {
+        text.append(safeChewing_bopomofo_String(ctx));
+    }
+    if (!text.empty()) {
+        ic->commitString(text);
+    }
+    chewing_cand_close(ctx);
+    chewing_clean_preedit_buf(ctx);
+    chewing_clean_bopomofo_buf(ctx);
+    chewing_Reset(ctx);
+    smartEnglishPrefix_.clear();
+    smartEnglishBuffer_.clear();
+    smartEnglishPassthrough_ = false;
 }
 
 void ChewingEngine::flushBuffer(InputContextEvent &event) {
