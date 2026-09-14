@@ -83,6 +83,14 @@ echo "==> Installing addon module"
 echo "    $BUILT_LIB -> $FCITX_LIB_DIR/$LIB_NAME"
 sudo install -Dm755 "$BUILT_LIB" "$FCITX_LIB_DIR/$LIB_NAME"
 
+if [[ -d "$ROOT_DIR/data/smart-english" ]]; then
+  echo "==> Installing smart English dictionaries"
+  sudo install -Dm644 "$ROOT_DIR/data/smart-english/smart-english-words.txt" \
+    /usr/share/fcitx5/chewing/smart-english-words.txt
+  sudo install -Dm644 "$ROOT_DIR/data/smart-english/smart-english-proper-nouns.txt" \
+    /usr/share/fcitx5/chewing/smart-english-proper-nouns.txt
+fi
+
 if [[ -d "$ROOT_DIR/data/scalable/apps" ]]; then
   echo "==> Installing mode icons"
   for icon in fcitx-chewing-smart.svg fcitx-chewing-chinese.svg fcitx-chewing-english.svg; do

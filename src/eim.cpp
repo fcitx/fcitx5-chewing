@@ -6,6 +6,7 @@
  *
  */
 #include "eim.h"
+#include <algorithm>
 #include <array>
 #include <chewing.h>
 #include <cctype>
@@ -31,10 +32,12 @@
 #include <fcitx/userinterface.h>
 #include <fcitx/userinterfacemanager.h>
 #include <filesystem>
+#include <fstream>
 #include <memory>
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -388,117 +391,173 @@ bool containsEnglishVowel(std::string_view text) {
     return false;
 }
 
-bool smartEnglishExactWord(std::string_view token) {
-    // Small hot-path vocabulary: keep it compact and local. Linear scan over
-    // this small table avoids allocations/hash setup on every key press and is
-    // fast enough for the input path.
-    static constexpr auto words = std::to_array<std::string_view>({
-        "about",   "access",  "account", "ai",      "api",     "app",
-        "arch",    "asus",    "audio",   "blog",    "bot",     "browser",
-        "bug",     "build",   "cache",   "chat",    "chatgpt", "chrome",
-        "code",    "config",  "cpu",     "data",    "debug",   "desktop",
-        "dev",     "device",  "display", "docker",  "download", "drive",
-        "email",   "error",   "fcitx",   "file",    "fix",     "github",
-        "git",     "gnome",   "good",    "google",  "gpt",     "gpu",
-        "hello",   "help",    "hotkey",  "http",    "https",   "hyprland",
-        "icon",    "input",   "install", "intel",   "issue",   "json",
-        "key",     "keyboard", "linux",  "local",   "login",   "menu",
-        "mode",    "model",   "monitor", "network", "nvidia",  "openai",
-        "package", "password", "pkg",    "plugin",  "proxy",   "python",
-        "reload",  "restart", "script",  "server",  "shell",   "space",
-        "status",  "super",   "system",  "terminal", "test",   "this",
-        "tool",    "type",    "update",  "usb",     "user",    "version",
-        "video",   "wayland", "wifi",    "window",  "windows", "word",
-        "work",    "workspace", "world", "zoom",
-    });
-    const auto lower = asciiLower(token);
-    for (const auto word : words) {
-        if (lower == word) {
+class SmartEnglishClassifier {
+public:
+    SmartEnglishClassifier() { load(); }
+
+    bool likelyWord(std::string_view token, bool final) const {
+        if (token.size() < 2 || token.size() > 32) {
+            return false;
+        }
+        const auto lower = asciiLower(token);
+        if (words_.contains(lower)) {
             return true;
         }
-    }
-    return false;
-}
+        if (!final && token.size() < 5) {
+            return false;
+        }
 
-int longestConsonantRun(std::string_view lower) {
-    int longest = 0;
-    int current = 0;
-    for (const auto c : lower) {
-        const bool vowel = c == 'a' || c == 'e' || c == 'i' || c == 'o' ||
-                           c == 'u';
-        if (vowel) {
-            current = 0;
-        } else {
-            longest = std::max(longest, ++current);
+        int score = 0;
+        if (prefixes_.contains(lower)) {
+            score += final ? 2 : 4;
+        }
+        if (containsEnglishVowel(lower)) {
+            score += 2;
+        } else if (lower.size() >= 3) {
+            score -= 4;
+        }
+
+        static constexpr auto strongNgrams = std::to_array<std::string_view>({
+            "ing", "ion", "tion", "ght", "sch", "str", "ent", "est",
+            "ous", "ive", "able", "ment", "ware", "load", "code",
+        });
+        static constexpr auto ngrams = std::to_array<std::string_view>({
+            "al", "an", "ar", "as", "at", "ch", "ck", "co", "de", "ed",
+            "el", "en", "er", "es", "et", "fi", "gh", "go", "gr", "he",
+            "ht", "ic", "in", "io", "is", "it", "le", "ll", "lo", "ng",
+            "oo", "op", "or", "ou", "ow", "re", "sh", "sp", "st", "te",
+            "th", "ti", "to", "tt", "us", "wi", "wo",
+        });
+        for (const auto ngram : strongNgrams) {
+            if (lower.find(ngram) != std::string::npos) {
+                score += 3;
+            }
+        }
+        for (const auto ngram : ngrams) {
+            if (lower.find(ngram) != std::string::npos) {
+                score += 1;
+            }
+        }
+
+        if (lower.ends_with("ed") || lower.ends_with("er") ||
+            lower.ends_with("es") || lower.ends_with("ly") ||
+            lower.ends_with("s")) {
+            score += 1;
+        }
+        if (lower.size() >= 4) {
+            score += 1;
+        }
+        if (lower.size() >= 6) {
+            score += 1;
+        }
+
+        const int consonantRun = longestConsonantRun(lower);
+        if (consonantRun >= 4) {
+            score -= 3;
+        } else if (consonantRun >= 3) {
+            score -= 1;
+        }
+
+        return score >= (final ? 5 : 8);
+    }
+
+private:
+    void addWord(std::string_view word) {
+        if (word.empty() || word.starts_with('#')) {
+            return;
+        }
+        const auto lower = asciiLower(word);
+        words_.insert(lower);
+        for (size_t len = 2; len < lower.size(); len++) {
+            prefixes_.insert(lower.substr(0, len));
         }
     }
-    return longest;
+
+    void loadFile(const std::filesystem::path &path) {
+        std::ifstream file(path);
+        if (!file) {
+            return;
+        }
+        std::string line;
+        while (std::getline(file, line)) {
+            auto comment = line.find('#');
+            if (comment != std::string::npos) {
+                line.resize(comment);
+            }
+            auto first = line.find_first_not_of(" \t\r\n");
+            if (first == std::string::npos) {
+                continue;
+            }
+            auto last = line.find_last_not_of(" \t\r\n");
+            line = line.substr(first, last - first + 1);
+            auto space = line.find_first_of(" \t");
+            if (space != std::string::npos) {
+                line.resize(space);
+            }
+            addWord(line);
+        }
+    }
+
+    void load() {
+        static constexpr auto builtinWords = std::to_array<std::string_view>({
+            "about", "access", "account", "ai", "api", "app", "arch",
+            "asus", "audio", "blog", "bot", "browser", "bug", "build",
+            "cache", "chat", "chatgpt", "chrome", "code", "config", "cpu",
+            "data", "debug", "desktop", "dev", "device", "display",
+            "docker", "download", "drive", "email", "error", "fcitx",
+            "file", "fix", "github", "git", "gnome", "good", "google",
+            "gpt", "gpu", "hello", "help", "hotkey", "http", "https",
+            "hyprland", "icon", "input", "install", "intel", "issue",
+            "json", "key", "keyboard", "linux", "local", "login", "menu",
+            "mode", "model", "monitor", "network", "nvidia", "openai",
+            "package", "password", "pkg", "plugin", "proxy", "python",
+            "reload", "restart", "script", "server", "shell", "space",
+            "status", "super", "system", "terminal", "test", "this",
+            "tool", "type", "update", "usb", "user", "version", "video",
+            "wayland", "wifi", "window", "windows", "word", "work",
+            "workspace", "world", "zoom",
+        });
+        for (const auto word : builtinWords) {
+            addWord(word);
+        }
+
+        const auto &sp = StandardPaths::global();
+        for (const auto &path : sp.directories(StandardPathsType::Data)) {
+            loadFile(path / "fcitx5/chewing/smart-english-words.txt");
+            loadFile(path / "fcitx5/chewing/smart-english-proper-nouns.txt");
+        }
+        const auto userDir = sp.userDirectory(StandardPathsType::Data);
+        if (!userDir.empty()) {
+            loadFile(userDir / "fcitx5/chewing/smart-english-user.txt");
+        }
+    }
+
+    static int longestConsonantRun(std::string_view lower) {
+        int longest = 0;
+        int current = 0;
+        for (const auto c : lower) {
+            const bool vowel = c == 'a' || c == 'e' || c == 'i' ||
+                               c == 'o' || c == 'u';
+            if (vowel) {
+                current = 0;
+            } else {
+                longest = std::max(longest, ++current);
+            }
+        }
+        return longest;
+    }
+
+    std::unordered_set<std::string> words_;
+    std::unordered_set<std::string> prefixes_;
+};
+
+const SmartEnglishClassifier &smartEnglishClassifier() {
+    static const SmartEnglishClassifier classifier;
+    return classifier;
 }
 
 bool smartEnglishLikelyWord(std::string_view token, bool final) {
-    if (token.size() < 2 || token.size() > 32) {
-        return false;
-    }
-    if (smartEnglishExactWord(token)) {
-        return true;
-    }
-    if (!final && token.size() < 5) {
-        return false;
-    }
-
-    const auto lower = asciiLower(token);
-    int score = 0;
-    if (containsEnglishVowel(lower)) {
-        score += 2;
-    } else if (lower.size() >= 3) {
-        score -= 4;
-    }
-
-    static constexpr auto strongNgrams = std::to_array<std::string_view>({
-        "ing", "ion", "tion", "ght", "sch", "str", "ent", "est",
-        "ous", "ive", "able", "ment", "ware", "load", "code",
-    });
-    static constexpr auto ngrams = std::to_array<std::string_view>({
-        "al", "an", "ar", "as", "at", "ch", "ck", "co", "de", "ed",
-        "el", "en", "er", "es", "et", "fi", "gh", "go", "gr", "he",
-        "ht", "ic", "in", "io", "is", "it", "le", "ll", "lo", "ng",
-        "oo", "op", "or", "ou", "ow", "re", "sh", "sp", "st", "te",
-        "th", "ti", "to", "tt", "us", "wi", "wo",
-    });
-    for (const auto ngram : strongNgrams) {
-        if (lower.find(ngram) != std::string::npos) {
-            score += 3;
-        }
-    }
-    for (const auto ngram : ngrams) {
-        if (lower.find(ngram) != std::string::npos) {
-            score += 1;
-        }
-    }
-
-    if (lower.ends_with("ed") || lower.ends_with("er") ||
-        lower.ends_with("es") || lower.ends_with("ly") ||
-        lower.ends_with("s")) {
-        score += 1;
-    }
-    if (lower.size() >= 4) {
-        score += 1;
-    }
-    if (lower.size() >= 6) {
-        score += 1;
-    }
-
-    const int consonantRun = longestConsonantRun(lower);
-    if (consonantRun >= 4) {
-        score -= 3;
-    } else if (consonantRun >= 3) {
-        score -= 1;
-    }
-
-    // Avoid treating short arbitrary bopomofo key sequences as English.  At a
-    // word boundary we can be slightly more permissive; mid-word needs higher
-    // confidence because we will commit immediately.
-    return score >= (final ? 5 : 8);
+    return smartEnglishClassifier().likelyWord(token, final);
 }
 
 bool isCtrlPrintableSymbol(const Key &key) {
