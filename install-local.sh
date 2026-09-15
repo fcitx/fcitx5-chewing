@@ -89,6 +89,8 @@ if [[ -d "$ROOT_DIR/data/smart-english" ]]; then
     /usr/share/fcitx5/chewing/smart-english-words.txt
   sudo install -Dm644 "$ROOT_DIR/data/smart-english/smart-english-proper-nouns.txt" \
     /usr/share/fcitx5/chewing/smart-english-proper-nouns.txt
+  sudo install -Dm644 "$ROOT_DIR/data/smart-english/smart-english-char-ngrams.txt" \
+    /usr/share/fcitx5/chewing/smart-english-char-ngrams.txt
 fi
 
 if [[ -d "$ROOT_DIR/data/scalable/apps" ]]; then

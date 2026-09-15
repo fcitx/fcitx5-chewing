@@ -37,6 +37,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <unordered_set>
 #include <utility>
 #include <vector>
@@ -407,7 +408,7 @@ public:
             return false;
         }
 
-        int score = 0;
+        int score = charNgramScore(lower);
         if (prefixes_.contains(lower)) {
             score += final ? 2 : 4;
         }
@@ -498,6 +499,67 @@ private:
         }
     }
 
+    void addNgram(std::string_view ngram, int weight) {
+        if (!ngram.empty()) {
+            ngramWeights_[std::string(ngram)] = weight;
+        }
+    }
+
+    void loadNgramFile(const std::filesystem::path &path) {
+        std::ifstream file(path);
+        if (!file) {
+            return;
+        }
+        std::string line;
+        while (std::getline(file, line)) {
+            auto comment = line.find('#');
+            if (comment != std::string::npos) {
+                line.resize(comment);
+            }
+            auto first = line.find_first_not_of(" \t\r\n");
+            if (first == std::string::npos) {
+                continue;
+            }
+            auto last = line.find_last_not_of(" \t\r\n");
+            line = line.substr(first, last - first + 1);
+            auto space = line.find_first_of(" \t");
+            if (space == std::string::npos) {
+                continue;
+            }
+            auto ngram = line.substr(0, space);
+            auto weightStart = line.find_first_not_of(" \t", space);
+            if (weightStart == std::string::npos) {
+                continue;
+            }
+            try {
+                addNgram(ngram, std::stoi(line.substr(weightStart)));
+            } catch (...) {
+            }
+        }
+    }
+
+    int charNgramScore(std::string_view lower) const {
+        std::string padded;
+        padded.reserve(lower.size() + 2);
+        padded.push_back('<');
+        padded.append(lower);
+        padded.push_back('>');
+
+        int score = 0;
+        for (size_t n = 2; n <= 4; n++) {
+            if (padded.size() < n) {
+                continue;
+            }
+            for (size_t i = 0; i + n <= padded.size(); i++) {
+                if (auto iter = ngramWeights_.find(padded.substr(i, n));
+                    iter != ngramWeights_.end()) {
+                    score += iter->second;
+                }
+            }
+        }
+        return score;
+    }
+
     void load() {
         static constexpr auto builtinWords = std::to_array<std::string_view>({
             "about", "access", "account", "ai", "api", "app", "arch",
@@ -521,10 +583,36 @@ private:
             addWord(word);
         }
 
+        static const std::vector<std::pair<std::string_view, int>> builtinNgrams{
+            {"<a", 1}, {"<b", 1}, {"<c", 1}, {"<d", 1}, {"<e", 1},
+             {"<f", 1}, {"<g", 1}, {"<h", 1}, {"<i", 1}, {"<j", 1},
+             {"<l", 1}, {"<m", 1}, {"<n", 1}, {"<o", 1}, {"<p", 1},
+             {"<r", 1}, {"<s", 1}, {"<t", 1}, {"<u", 1}, {"<w", 1},
+             {"th", 2}, {"he", 2}, {"in", 2}, {"er", 2}, {"an", 2},
+             {"re", 2}, {"on", 2}, {"at", 2}, {"en", 2}, {"nd", 2},
+             {"ti", 2}, {"es", 2}, {"or", 2}, {"te", 2}, {"of", 1},
+             {"ed", 2}, {"is", 2}, {"it", 2}, {"al", 2}, {"ar", 2},
+             {"st", 2}, {"to", 2}, {"nt", 2}, {"ng", 2}, {"se", 2},
+             {"ha", 2}, {"as", 2}, {"ou", 2}, {"io", 2}, {"le", 2},
+             {"ve", 2}, {"co", 2}, {"me", 2}, {"de", 2}, {"hi", 1},
+             {"ri", 1}, {"ro", 1}, {"ic", 2}, {"ne", 2}, {"ea", 2},
+             {"ra", 1}, {"ce", 2}, {"li", 2}, {"ch", 3}, {"ll", 2},
+             {"be", 1}, {"ma", 1}, {"si", 2}, {"om", 1}, {"ur", 1},
+             {"oo", 3}, {"ck", 3}, {"sh", 3}, {"gh", 2}, {"wi", 2},
+             {"wo", 2}, {"go", 2}, {"gle", 4}, {"ing", 4}, {"ion", 4},
+             {"tion", 6}, {"ment", 5}, {"able", 5}, {"ware", 5},
+             {"code", 5}, {"load", 5}, {"<zh", -4}, {"<x", -1},
+             {"qw", -3}, {"zx", -3}, {"xj", -3}, {"kk", -2},
+             {"jj", -2}, {"qq", -2}, {"vv", -2}};
+        for (const auto &[ngram, weight] : builtinNgrams) {
+            addNgram(ngram, weight);
+        }
+
         const auto &sp = StandardPaths::global();
         for (const auto &path : sp.directories(StandardPathsType::Data)) {
             loadFile(path / "fcitx5/chewing/smart-english-words.txt");
             loadFile(path / "fcitx5/chewing/smart-english-proper-nouns.txt");
+            loadNgramFile(path / "fcitx5/chewing/smart-english-char-ngrams.txt");
         }
         const auto userDir = sp.userDirectory(StandardPathsType::Data);
         if (!userDir.empty()) {
@@ -549,6 +637,7 @@ private:
 
     std::unordered_set<std::string> words_;
     std::unordered_set<std::string> prefixes_;
+    std::unordered_map<std::string, int> ngramWeights_;
 };
 
 const SmartEnglishClassifier &smartEnglishClassifier() {
