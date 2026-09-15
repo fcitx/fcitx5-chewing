@@ -213,6 +213,8 @@ public:
 
 private:
     bool handleCandidateKeyEvent(const KeyEvent &keyEvent) const;
+    bool commitPreedit(KeyEvent &keyEvent);
+    void commitLiteralAndReset(KeyEvent &keyEvent, char literal);
     void updatePreeditImpl(InputContext *ic);
 
     FCITX_ADDON_DEPENDENCY_LOADER(chttrans, instance_->addonManager());
